@@ -34,13 +34,13 @@ export default function Header({ data, text }: HeaderProps) {
               custom={3}
               delay={0.6}
             />
-            <Animated.Highlighter className="h-3 bottom-1.5" rad={6} custom={4} />
+            <Animated.Highlighter className="h-3 bottom-1.5" rad={6} custom={4} delay={0.8} />
           </div>
         </HeaderText>
         <Animated.FromDirection
           from="top"
           custom={5}
-          delay={0.8}
+          delay={0.7}
           className="mx-auto mt-4 md:-ml-0 md:mr-auto md:mt-auto md:col-start-2 md:row-start-3"
         >
           <TextIconButton
