@@ -12,7 +12,7 @@ export default function Blogs({ title, content, className }: BlogsSectionProps) 
     <section id="blogs" className={className}>
       <div className="flex items-center justify-between">
         <SectionTitle>{title}</SectionTitle>
-        <RoundedButton>
+        <RoundedButton as="a" href="https://medium.com/@itsfaqih">
           {language.value === 'en' ? 'More article' : 'Artikel lainnya'}
         </RoundedButton>
       </div>

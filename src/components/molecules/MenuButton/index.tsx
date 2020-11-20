@@ -8,7 +8,7 @@ interface Props {
 
 export default function MenuButton({ className }: Props) {
   return (
-    <FullRoundButton className={className}>
+    <FullRoundButton className={className} label="Menu">
       <Icons.Menu className="w-6 h-6" />
     </FullRoundButton>
   );

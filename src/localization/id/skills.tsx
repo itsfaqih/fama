@@ -10,7 +10,7 @@ const Text = () => (
     <span className="font-bold text-gray-800">pengembangan website</span> menggunakan{' '}
     <HighlightedTextIcon
       as="a"
-      href="https://tailwindcss.com"
+      href="https://php.net"
       className="mx-2"
       icon={<Icon icon={phpIcon} style={{ fontSize: '24px' }} />}
     >
