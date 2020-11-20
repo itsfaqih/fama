@@ -18,8 +18,6 @@ const Text = () => (
     </HighlightedTextIcon>{' '}
     dan{' '}
     <HighlightedTextIcon
-      as="a"
-      href="https://tailwindcss.com"
       className="mx-2"
       icon={<Icon icon={javascriptIcon} style={{ fontSize: '24px' }} />}
     >
