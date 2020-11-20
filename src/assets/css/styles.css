@@ -1,0 +1,14 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer utilities {
+  @variants hover {
+    .filter-none {
+      filter: none;
+    }
+    .filter-grayscale {
+      filter: grayscale(100%);
+    }
+  }
+}

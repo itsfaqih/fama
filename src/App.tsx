@@ -1,25 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import 'assets/css/app.css';
+import Home from 'pages/Home';
+import { LanguageContext, ThemeContext } from 'contexts';
+import { useState } from 'react';
 
 function App() {
+  const [languange, setLanguage] = useState<'en' | 'id'>('en');
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+
+  const changeLanguage = (lang: 'en' | 'id') => setLanguage(lang);
+  const changeTheme = (theme: 'light' | 'dark') => setTheme(theme);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeContext.Provider value={{ value: theme, change: changeTheme }}>
+      <LanguageContext.Provider value={{ value: languange, change: changeLanguage }}>
+        <Home />
+      </LanguageContext.Provider>
+    </ThemeContext.Provider>
   );
 }
 
