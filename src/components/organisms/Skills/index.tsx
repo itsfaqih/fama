@@ -10,7 +10,7 @@ export default function Skills({ title, content, className }: SkillsSectionProps
   const lowerSkills = items.slice(items.length / 2);
 
   const skillIconsClasses =
-    'mx-5 transition-all transform hover:scale-125 hover:filter-none filter-grayscale';
+    'mx-5 transition-all transform hover:scale-125 hover:filter-none filter-grayscale focus-within:filter-none focus-within:scale-125';
 
   return (
     <section id="skills" className={className}>

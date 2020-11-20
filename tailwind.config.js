@@ -10,7 +10,7 @@ module.exports = {
       gray: colors.coolGray,
       yellow: colors.yellow,
       white: colors.white,
-      transparent: 'transparent'
+      transparent: 'transparent',
     },
     fontFamily: {
       sans: ['Inter var', ...defaultTheme.fontFamily.sans],
@@ -30,7 +30,8 @@ module.exports = {
   variants: {
     extend: {
       scale: ['focus-within'],
-      width: ['group-hover'],
+      width: ['group-hover', 'group-focus'],
+      translate: ['group-hover'],
     },
   },
   plugins: [],

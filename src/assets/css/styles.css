@@ -3,7 +3,7 @@
 @import 'tailwindcss/utilities';
 
 @layer utilities {
-  @variants hover {
+  @variants hover, focus-within {
     .filter-none {
       filter: none;
     }

@@ -11,7 +11,7 @@ export default function TextSelect({ options, state, className }: TextSelectProp
     <Listbox as="div" className={className} value={selectedOption} onChange={setSelectedOption}>
       {({ open }) => (
         <>
-          <Listbox.Button className="flex items-center text-gray-700">
+          <Listbox.Button className="flex items-center px-4 py-2 text-gray-700 rounded-lg focus:outline-none focus:ring-2 ring-indigo-500">
             {selectedOption.label}
             <svg
               className={classNames('w-4 h-4 ml-2 transition-transform transform', {
@@ -40,7 +40,7 @@ export default function TextSelect({ options, state, className }: TextSelectProp
             leaveTo="transform scale-95 opacity-0"
             className="absolute mt-4"
           >
-            <Listbox.Options static className="overflow-hidden bg-white shadow-md rounded-xl">
+            <Listbox.Options static className="overflow-hidden bg-white shadow-md rounded-xl focus:outline-none focus:ring-2 ring-indigo-500">
               {options.map(option => (
                 <Listbox.Option as={Fragment} key={option.value} value={option}>
                   {({ active, selected }) => (

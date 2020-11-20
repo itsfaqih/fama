@@ -35,12 +35,7 @@ const Facebook = ({ className }: { className?: string }) => (
 );
 
 const Twitter = ({ className }: { className?: string }) => (
-  <svg
-    className={className}
-    viewBox="0 0 40 40"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg className={className} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       d="M38.3333 4.99991C36.7373 6.12571 34.9702 6.98676 33.1 7.54991C32.0962 6.39577 30.7622 5.57773 29.2784 5.20646C27.7945 4.83518 26.2325 4.92857 24.8035 5.474C23.3744 6.01943 22.1474 6.99058 21.2883 8.25611C20.4292 9.52163 19.9795 11.0205 20 12.5499V14.2166C17.071 14.2925 14.1688 13.6429 11.5517 12.3257C8.93456 11.0084 6.68385 9.06431 4.99999 6.66658C4.99999 6.66658 -1.66668 21.6666 13.3333 28.3332C9.90087 30.6632 5.81192 31.8315 1.66666 31.6666C16.6667 39.9999 35 31.6666 35 12.4999C34.9985 12.0357 34.9538 11.5726 34.8667 11.1166C36.5677 9.43907 37.768 7.3211 38.3333 4.99991V4.99991Z"
       stroke="currentColor"
@@ -52,12 +47,7 @@ const Twitter = ({ className }: { className?: string }) => (
 );
 
 const Instagram = ({ className }: { className?: string }) => (
-  <svg
-    className={className}
-    viewBox="0 0 40 40"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg className={className} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       d="M28.3333 3.33325H11.6666C7.06427 3.33325 3.33331 7.06421 3.33331 11.6666V28.3333C3.33331 32.9356 7.06427 36.6666 11.6666 36.6666H28.3333C32.9357 36.6666 36.6666 32.9356 36.6666 28.3333V11.6666C36.6666 7.06421 32.9357 3.33325 28.3333 3.33325Z"
       stroke="currentColor"
@@ -82,12 +72,41 @@ const Instagram = ({ className }: { className?: string }) => (
   </svg>
 );
 
+const CheckRounded = ({ className }: { className?: string }) => (
+  <svg
+    className={className}
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 20 20"
+    fill="currentColor"
+  >
+    <path
+      fillRule="evenodd"
+      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+      clipRule="evenodd"
+    />
+  </svg>
+);
+
+const Menu = ({ className }: { className?: string }) => (
+  <svg
+    className={className}
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
+  </svg>
+);
+
 const Icons = {
   Dribbble,
   Github,
   Facebook,
   Twitter,
   Instagram,
+  CheckRounded,
+  Menu,
 };
 
 export default Icons;

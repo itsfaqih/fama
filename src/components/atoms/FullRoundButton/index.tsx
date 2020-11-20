@@ -10,7 +10,7 @@ interface Props {
 
 export default function FullRoundButton({ children, as = 'button', href = '', className }: Props) {
   const classes = classNames(
-    'flex items-center justify-center w-12 h-12 text-white bg-indigo-500 hover:bg-indigo-600 rounded-full shadow-lg transition-all hover:shadow-none transform hover:translate-y-1',
+    'flex items-center justify-center w-12 h-12 text-white bg-indigo-500 hover:bg-indigo-600 rounded-full shadow-lg transition-all hover:shadow-none transform hover:translate-y-1 focus:outline-none focus:ring-2 ring-indigo-500 ring-offset-2',
     className
   );
 

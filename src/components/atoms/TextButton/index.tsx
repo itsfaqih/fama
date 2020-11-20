@@ -9,6 +9,6 @@ interface Props {
 
 export default function TextButton({ children, className }: Props) {
   return (
-    <button className={classNames('flex items-center text-gray-600', className)}>{children}</button>
+    <button className={classNames('inline-flex items-center text-gray-600 focus:outline-none focus:ring-2 ring-indigo-500 rounded-lg ring-offset-2', className)}>{children}</button>
   );
 }

@@ -1,4 +1,5 @@
 import { Avatar, HeaderText } from 'components/atoms';
+import Decorations from 'components/decorations';
 import { TextIconButton } from 'components/molecules';
 import HeaderProps from 'components/organisms/Header/types';
 import { LanguageContext } from 'contexts';
@@ -13,11 +14,10 @@ export default function Header({ data, text }: HeaderProps) {
   return (
     <header className="flex justify-center">
       <div className="grid grid-rows-3 md:grid-cols-2 md:h-60">
-        <Avatar
-          src={profilePicture}
-          alt="Profile Picture"
-          className="col-start-1 row-span-3 justify-self-center"
-        />
+        <div className="relative col-start-1 row-span-3 justify-self-center">
+          <Decorations.Stripes className="absolute w-40 h-40 text-indigo-300 -top-10 -left-10 -z-10" />
+          <Avatar src={profilePicture} alt="Profile Picture" />
+        </div>
         <HeaderText className="mt-6 text-center md:row-start-2 md:col-start-2 md:self-center md:text-left md:mt-0">
           <p>{greetings} 👋</p>
           <p>
@@ -34,10 +34,11 @@ export default function Header({ data, text }: HeaderProps) {
           </p>
         </HeaderText>
         <TextIconButton
-          className="justify-center mt-4 md:mt-auto md:col-start-2 md:row-start-3 md:justify-start"
+          className="mx-auto mt-4 md:-ml-0 md:mr-auto md:mt-auto md:col-start-2 md:row-start-3 group"
           text={languange.value === 'en' ? 'Scroll down' : 'Scroll ke bawah'}
           icon={
             <svg
+              className="transition-all transform group-hover:translate-y-1"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
