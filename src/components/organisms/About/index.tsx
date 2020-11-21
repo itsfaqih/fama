@@ -35,12 +35,22 @@ export default function About({ title, content, className }: AboutSectionProps) 
         <Animated.Letter text={title} animate={controls} custom={0} delay={1} />
       </SectionTitle>
       <div className="grid grid-rows-2 mt-6 lg:grid-cols-3 lg:grid-rows-1">
-        <ContentText className="lg:col-span-2 lg:text-left">
-          {content.text}
-        </ContentText>
-        <RoundedButton className="mx-auto mt-6 lg:mr-0 lg:ml-auto lg:mt-0">
-          {language.value === 'en' ? 'Download' : 'Unduh'} CV
-        </RoundedButton>
+        <Animated.FromDirection
+          className="lg:col-span-2"
+          from="left"
+          animate={controls}
+          custom={0}
+          delay={1}
+        >
+          <Animated.Reveal from="left" animate={controls} custom={1} delay={1}>
+            <ContentText className="lg:text-left">{content.text}</ContentText>
+          </Animated.Reveal>
+        </Animated.FromDirection>
+        <div className="mx-auto mt-6 lg:mr-0 lg:ml-auto lg:mt-0">
+          <Animated.FromDirection from="bottom" animate={controls} custom={1} delay={1}>
+            <RoundedButton>{language.value === 'en' ? 'Download' : 'Unduh'} CV</RoundedButton>
+          </Animated.FromDirection>
+        </div>
       </div>
     </section>
   );
