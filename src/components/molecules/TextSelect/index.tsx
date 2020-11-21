@@ -33,12 +33,12 @@ export default function TextSelect({ options, state, className }: TextSelectProp
           <Transition
             show={open}
             enter="transition duration-100 ease-out"
-            enterFrom="transform scale-95 opacity-0"
-            enterTo="transform scale-100 opacity-100"
+            enterFrom="transform scale-90 opacity-0"
+            enterTo="transform scale-110 opacity-100"
             leave="transition duration-75 ease-out"
-            leaveFrom="transform scale-100 opacity-100"
-            leaveTo="transform scale-95 opacity-0"
-            className="absolute mt-4"
+            leaveFrom="transform scale-110 opacity-100"
+            leaveTo="transform scale-90 opacity-0"
+            className="absolute mt-4 transition duration-150"
           >
             <Listbox.Options static className="overflow-hidden bg-white shadow-md rounded-xl focus:outline-none focus:ring-2 ring-indigo-500">
               {options.map(option => (

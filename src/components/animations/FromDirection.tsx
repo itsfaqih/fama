@@ -14,6 +14,7 @@ interface Props extends HTMLMotionProps<'div'> {
     | 'bottom-right';
   delay?: number;
   duration?: number;
+  innerClassName?: string;
 }
 
 export default function FromDirection({
@@ -22,6 +23,8 @@ export default function FromDirection({
   delay = 0,
   duration = 0.6,
   className,
+  innerClassName,
+  onAnimationComplete,
   ...props
 }: Props) {
   const [overflow, setOverflow] = useState<string | null>('overflow-hidden');
@@ -48,7 +51,13 @@ export default function FromDirection({
         variants={variants}
         initial="hidden"
         animate="show"
-        onAnimationComplete={() => setOverflow(null)}
+        onAnimationComplete={() => {
+          if (onAnimationComplete) {
+            onAnimationComplete();
+          }
+          setOverflow(null);
+        }}
+        className={innerClassName}
         {...props}
       >
         {children}

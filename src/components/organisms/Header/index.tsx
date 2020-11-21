@@ -20,7 +20,7 @@ export default function Header({ data, text }: HeaderProps) {
             <Decorations.Stripes className="w-40 h-40 text-indigo-300" />
           </Animated.FromDirection>
           <Animated.FromDirection from="right" custom={1} delay={0.3} duration={0.8}>
-            <Animated.Reveal from="right" className="rounded-3xl" delay={1.1} duration={1.2}>
+            <Animated.Reveal from="right" className="rounded-3xl" delay={0.8} duration={1.2}>
               <Avatar src={profilePicture} alt="Profile Picture" />
             </Animated.Reveal>
           </Animated.FromDirection>

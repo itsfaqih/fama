@@ -1,14 +1,13 @@
 import { FullRoundButton } from 'components/atoms';
+import FullRoundButtonProps from 'components/atoms/FullRoundButton/types';
 import Icons from 'components/icons';
 import React from 'react';
 
-interface Props {
-  className?: string;
-}
+interface Props extends FullRoundButtonProps {}
 
-export default function MenuButton({ className }: Props) {
+export default function MenuButton({ ...props }: Props) {
   return (
-    <FullRoundButton className={className} label="Menu">
+    <FullRoundButton {...props} label="Menu">
       <Icons.Menu className="w-6 h-6" />
     </FullRoundButton>
   );

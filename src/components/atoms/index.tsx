@@ -8,6 +8,7 @@ import HighlightedText from 'components/atoms/HighlightedText';
 import ContentTitle from 'components/atoms/ContentTitle';
 import TextBox from 'components/atoms/TextBox';
 import ContentText from 'components/atoms/ContentText';
+import Container from 'components/atoms/Container';
 
 export {
   Avatar,
@@ -20,4 +21,5 @@ export {
   ContentTitle,
   TextBox,
   ContentText,
+  Container,
 };

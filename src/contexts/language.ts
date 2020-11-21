@@ -1,9 +1,11 @@
 import { createContext } from 'react';
 
-const LanguageContext = createContext<{
+export interface LocaleProps {
   value: 'en' | 'id';
   change: (lang: 'en' | 'id') => void;
-}>({
+}
+
+const LanguageContext = createContext<LocaleProps>({
   value: 'en',
   change: lang => {},
 });
