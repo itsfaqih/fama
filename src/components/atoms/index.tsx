@@ -9,6 +9,7 @@ import ContentTitle from 'components/atoms/ContentTitle';
 import TextBox from 'components/atoms/TextBox';
 import ContentText from 'components/atoms/ContentText';
 import Container from 'components/atoms/Container';
+import TitleLine from 'components/atoms/TitleLine';
 
 export {
   Avatar,
@@ -22,4 +23,5 @@ export {
   TextBox,
   ContentText,
   Container,
+  TitleLine,
 };

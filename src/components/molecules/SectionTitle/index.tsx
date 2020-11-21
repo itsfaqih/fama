@@ -1,10 +1,12 @@
-import { HeaderText } from 'components/atoms';
+import { HeaderText, TitleLine } from 'components/atoms';
 import React, { ReactNode } from 'react';
 import classNames from 'classnames';
+import { SVGMotionProps } from 'framer-motion';
 
 interface Props {
   children: ReactNode;
   variant?: SectionVariants;
+  lineProps?: SVGMotionProps<SVGElement>;
 }
 
 export enum SectionVariants {
@@ -12,7 +14,11 @@ export enum SectionVariants {
   CENTER = 'center',
 }
 
-export default function SectionTitle({ children, variant = SectionVariants.LEFT }: Props) {
+export default function SectionTitle({
+  children,
+  variant = SectionVariants.LEFT,
+  lineProps,
+}: Props) {
   return (
     <HeaderText
       className={classNames('flex flex-col items-center', {
@@ -20,14 +26,12 @@ export default function SectionTitle({ children, variant = SectionVariants.LEFT 
       })}
     >
       {children}
-      <svg
-        className={classNames('w-20 h-1 text-indigo-600 mt-3', {
+      <TitleLine
+        className={classNames({
           'lg:ml-6 lg:mt-0': variant === SectionVariants.LEFT,
         })}
-        fill="currentColor"
-      >
-        <rect width="100%" height="100%" />
-      </svg>
+        {...lineProps}
+      />
     </HeaderText>
   );
 }
