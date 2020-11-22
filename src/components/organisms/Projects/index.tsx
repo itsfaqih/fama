@@ -6,7 +6,6 @@ import { LanguageContext } from 'contexts';
 import ProjectCard from 'components/molecules/ProjectCard';
 import Decorations from 'components/decorations';
 import ProjectsSectionProps from 'components/organisms/Projects/types';
-import classNames from 'classnames';
 import { useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import Animated from 'components/animations';
