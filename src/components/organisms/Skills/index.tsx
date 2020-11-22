@@ -1,7 +1,10 @@
+import Animated from 'components/animations';
 import { ContentText } from 'components/atoms';
 import { SectionTitle } from 'components/molecules';
 import { SectionVariants } from 'components/molecules/SectionTitle';
-import React from 'react';
+import { useAnimation } from 'framer-motion';
+import React, { useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
 import SkillsSectionProps from './types';
 
 export default function Skills({ title, content, className }: SkillsSectionProps) {
@@ -12,22 +15,56 @@ export default function Skills({ title, content, className }: SkillsSectionProps
   const skillIconsClasses =
     'mx-5 transition-all transform hover:scale-125 hover:filter-none filter-grayscale focus-within:filter-none focus-within:scale-125';
 
+  const controls = useAnimation();
+  const { ref, inView } = useInView({
+    threshold: 1,
+  });
+
+  useEffect(() => {
+    if (inView) {
+      controls.start('show');
+    }
+  }, [controls, inView]);
+
   return (
-    <section id="skills" className={className}>
-      <SectionTitle variant={SectionVariants.CENTER}>{title}</SectionTitle>
-      <ContentText className="mx-auto mt-6 text-center lg:w-2/3">{text}</ContentText>
+    <section id="skills" className={className} ref={ref}>
+      <SectionTitle
+        variant={SectionVariants.CENTER}
+        lineProps={{
+          animate: controls,
+          custom: 1,
+          transition: {
+            delay: 1,
+          },
+        }}
+      >
+        <Animated.Letter text={title} animate={controls} custom={0} delay={1} />
+      </SectionTitle>
+      <Animated.FromDirection
+        className="mx-auto mt-6 lg:w-2/3"
+        from="left"
+        animate={controls}
+        custom={0}
+        delay={1}
+      >
+        <Animated.Reveal from="left" animate={controls} custom={1} delay={1}>
+          <ContentText className="text-center">{text}</ContentText>
+        </Animated.Reveal>
+      </Animated.FromDirection>
       <div className="flex items-center justify-center mt-8">
         {upperSkills.map((SkillItem, index) => (
-          <div key={index} className={skillIconsClasses}>
-            {SkillItem}
-          </div>
+          <Animated.FromDirection key={index} from="bottom" animate={controls} custom={index + 2} delay={0.3}>
+            <div className={skillIconsClasses}>{SkillItem}</div>
+          </Animated.FromDirection>
         ))}
       </div>
       <div className="flex items-center justify-center mt-6">
         {lowerSkills.map((SkillItem, index) => (
-          <div key={index} className={skillIconsClasses}>
-            {SkillItem}
-          </div>
+          <Animated.FromDirection key={index} from="bottom" animate={controls} custom={index + 5} delay={0.3}>
+            <div className={skillIconsClasses}>
+              {SkillItem}
+            </div>
+          </Animated.FromDirection>
         ))}
       </div>
     </section>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion, HTMLMotionProps, Variants } from 'framer-motion';
 import classNames from 'classnames';
 
@@ -16,6 +16,7 @@ export default function Reveal({
   className,
   ...props
 }: Props) {
+  const [animatedFinish, setAnimatedFinish] = useState(false);
   const variants: Variants = {
     show: (i: number = 1) => ({
       ...(from === 'right' && { x: '-100%' }),
@@ -37,11 +38,14 @@ export default function Reveal({
     <div className={classNames('overflow-hidden relative', className)}>
       {children}
       <motion.div
-        className="absolute top-0 left-0 w-full h-full bg-indigo-500"
+        className={classNames('absolute top-0 left-0 w-full h-full', {
+          'bg-indigo-500': !animatedFinish,
+        })}
         variants={variants}
         initial="hidden"
         animate="show"
         {...props}
+        onAnimationComplete={() => setAnimatedFinish(true)}
       />
     </div>
   );
