@@ -16,8 +16,6 @@ export default function Projects({ title, content, className }: ProjectsSectionP
   return (
     <section id="projects" className={className}>
       <SectionTitle variant={SectionVariants.CENTER}>{title}</SectionTitle>
-      <SearchBox className="mx-auto mt-6 transition-all transform sm:w-2/3 md:w-1/2 lg:w-1/3" />
-
       <div className="relative grid grid-cols-1 gap-8 mt-6 sm:grid-cols-2 lg:grid-cols-3">
         <Decorations.Bullets
           className={classNames('-top-8 -left-12 md:-top-9 md:-left-16 -z-10', bulletsClasses)}
