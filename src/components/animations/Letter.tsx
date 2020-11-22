@@ -1,14 +1,14 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { motion, Variants, HTMLMotionProps } from 'framer-motion';
 
 interface Props extends HTMLMotionProps<'div'> {
-  text: ReactNode;
+  text: string;
   delay?: number;
   duration?: number;
 }
 
 export default function Letter({ text, delay = 0, duration = 0.05, ...props }: Props) {
-  const letters = Array.from(text as string);
+  const letters = Array.from(text);
 
   const container: Variants = {
     hidden: {

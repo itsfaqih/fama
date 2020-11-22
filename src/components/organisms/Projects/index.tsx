@@ -54,16 +54,21 @@ export default function Projects({ title, content, className }: ProjectsSectionP
           )}
         />
         {items.map((item, index) => (
-          <ProjectCard
-            key={index}
-            data={item}
-            className="h-full transition-all transform hover:shadow-lg hover:scale-110 focus-within:scale-110 focus-within:shadow-lg"
-          />
+          <Animated.FadeIn key={index} animate={controls} custom={index} delay={0.2}>
+            <ProjectCard
+              data={item}
+              className="h-full transition-all transform hover:shadow-lg hover:scale-110 focus-within:scale-110 focus-within:shadow-lg"
+            />
+          </Animated.FadeIn>
         ))}
       </div>
-      <RoundedButton className="mx-auto mt-8">
-        {language.value === 'en' ? 'See more' : 'Lihat Selengkapnya'}
-      </RoundedButton>
+      
+        <Animated.FromDirection from="bottom" animate={controls} custom={2} delay={1}>
+          <RoundedButton className="mx-auto mt-8">
+            {language.value === 'en' ? 'See more' : 'Lihat Selengkapnya'}
+          </RoundedButton>
+        </Animated.FromDirection>
+      
     </section>
   );
 }

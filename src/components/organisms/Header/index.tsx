@@ -26,21 +26,21 @@ export default function Header({ data, text }: HeaderProps) {
           </Animated.FromDirection>
         </div>
         <HeaderText className="mt-6 text-center md:row-start-2 md:col-start-2 md:self-center md:text-left md:mt-0">
-          <Animated.Letter text={`${greetings} 👋`} custom={1} delay={0.3} />
-          <Animated.Letter text={`${intro} ${name}`} custom={2} delay={0.5} />
+          <Animated.Letter text={`${greetings} 👋`} custom={0} delay={0.3} />
+          <Animated.Letter text={`${intro} ${name}`} custom={2} delay={0.3} />
           <div className="relative inline-flex">
             <Animated.Letter
               text={`${preTitle ? `${preTitle} ` : ''}${job}`}
-              custom={3}
-              delay={0.6}
+              custom={4}
+              delay={0.3}
             />
-            <Animated.Highlighter className="h-3 bottom-1.5" rad={6} custom={4} delay={0.8} />
+            <Animated.Highlighter className="h-3 bottom-1.5" rad={6} custom={8} delay={0.3} />
           </div>
         </HeaderText>
         <Animated.FromDirection
           from="top"
-          custom={5}
-          delay={0.7}
+          custom={8}
+          delay={0.3}
           className="mx-auto mt-4 md:-ml-0 md:mr-auto md:mt-auto md:col-start-2 md:row-start-3"
         >
           <TextIconButton
