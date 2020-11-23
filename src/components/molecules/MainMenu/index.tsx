@@ -52,7 +52,7 @@ export default function MainMenu({ animationFinish, sections }: Props) {
                           custom={1}
                           delay={0.2}
                         >
-                          <MenuItem active={active} href="#about">
+                          <MenuItem active={active}>
                             {sections.about}
                           </MenuItem>
                         </Animated.FromDirection>

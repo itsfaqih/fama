@@ -5,6 +5,7 @@ import { LocaleProps } from 'contexts/language';
 import React from 'react';
 import { useState } from 'react';
 import classNames from 'classnames';
+import { Container } from 'components/atoms';
 
 interface Props {
   locale: LocaleProps;
@@ -31,16 +32,17 @@ export default function Navigation({ locale, sections, className }: Props) {
     <Animated.FromDirection
       from="top"
       className={classNames('w-full', className)}
-      innerClassName="flex"
       duration={1}
       onAnimationComplete={() => setAnimationFinish(true)}
     >
-      <nav className="self-center flex-1 hidden pr-8 sm:flex">
-        <div className="ml-auto">
-          <TextSelect state={[selectedLanguage, setSelectedLanguage]} options={languageOptions} />
-        </div>
-      </nav>
-      <MainMenu sections={sections} animationFinish={animationFinish} />
+      <Container className="flex">
+        <nav className="self-center flex-1 hidden pr-8 sm:flex">
+          <div className="ml-auto">
+            <TextSelect state={[selectedLanguage, setSelectedLanguage]} options={languageOptions} />
+          </div>
+        </nav>
+        <MainMenu sections={sections} animationFinish={animationFinish} />
+      </Container>
     </Animated.FromDirection>
   );
 }
