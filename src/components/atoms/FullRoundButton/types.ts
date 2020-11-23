@@ -8,4 +8,5 @@ export default interface FullRoundButtonProps {
   className?: string;
   animationComplete?: boolean;
   active?: boolean;
+  onClick?: (params: any) => any;
 }

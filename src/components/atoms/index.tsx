@@ -11,6 +11,7 @@ import ContentText from 'components/atoms/ContentText';
 import Container from 'components/atoms/Container';
 import TitleLine from 'components/atoms/TitleLine';
 import MenuItem from 'components/atoms/MenuItem';
+import Overlay from 'components/atoms/Overlay';
 
 export {
   Avatar,
@@ -26,4 +27,5 @@ export {
   Container,
   TitleLine,
   MenuItem,
+  Overlay
 };
