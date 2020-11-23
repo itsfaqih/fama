@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
+import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 import { RefObject } from 'react';
 
 interface Props {
@@ -11,16 +11,17 @@ interface Props {
 
 export default function Overlay({ contentRef, open = false, animationFinish = false }: Props) {
   if (open) disableBodyScroll(contentRef.current as HTMLElement);
-  else enableBodyScroll(contentRef.current as HTMLElement);
+  else clearAllBodyScrollLocks();
 
   return (
     <svg
       className={classNames(
-        'fixed top-8 transform transition-all text-indigo-600 duration-1000 z-10',
+        'w-12 h-12 top-8 transform transition-all text-indigo-600 duration-1000 z-10',
         {
           'rounded-full scale-75': !open,
           'scale-999': open,
-          'w-12 h-12': animationFinish,
+          'fixed': animationFinish,
+          'hidden': !animationFinish
         }
       )}
       fill="currentColor"
