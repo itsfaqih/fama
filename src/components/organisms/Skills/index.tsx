@@ -19,7 +19,7 @@ const Skills = forwardRef<HTMLElement | undefined, SkillsSectionProps>(
 
     const controls = useAnimation();
     const [refView, inView] = useInView({
-      threshold: 1,
+      threshold: 0.5,
     });
 
     useEffect(() => {

@@ -5,13 +5,15 @@ import { LocaleProps } from 'contexts/language';
 import React from 'react';
 import { useState } from 'react';
 import MainMenu from '../MainMenu';
+import classNames from 'classnames';
 
 interface Props {
   locale: LocaleProps;
   sections: { about: string; projects: string; blogs: string; skills: string; contact: string };
+  className?: string;
 }
 
-export default function Navigation({ locale, sections }: Props) {
+export default function Navigation({ locale, sections, className }: Props) {
   const [animationFinish, setAnimationFinish] = useState(false);
   const languageOptions: TextSelectOptionProps[] = [
     { label: 'English', value: 'en' },
@@ -29,7 +31,7 @@ export default function Navigation({ locale, sections }: Props) {
   return (
     <Animated.FromDirection
       from="top"
-      className="sticky z-10 w-full top-8"
+      className={classNames('w-full', className)}
       innerClassName="flex"
       duration={1}
       onAnimationComplete={() => setAnimationFinish(true)}
@@ -39,7 +41,7 @@ export default function Navigation({ locale, sections }: Props) {
           <TextSelect state={[selectedLanguage, setSelectedLanguage]} options={languageOptions} />
         </div>
       </nav>
-      <MainMenu sections={sections} animationFinish={animationFinish}/>
+      <MainMenu sections={sections} animationFinish={animationFinish} />
     </Animated.FromDirection>
   );
 }

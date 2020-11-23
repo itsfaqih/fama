@@ -13,7 +13,7 @@ const About = forwardRef<HTMLElement | undefined, AboutSectionProps>(
   ({ title, content, className }: AboutSectionProps, ref) => {
     const controls = useAnimation();
     const [refView, inView] = useInView({
-      threshold: 1,
+      threshold: 0.5,
     });
     const language = useContext(LanguageContext);
 

@@ -11,7 +11,7 @@ const Blogs = forwardRef<HTMLElement | undefined, BlogsSectionProps>(
   ({ title, content, className }: BlogsSectionProps, ref) => {
     const controls = useAnimation();
     const [refView, inView] = useInView({
-      threshold: 1,
+      threshold: 0.45,
     });
     const language = useContext(LanguageContext);
     const { items } = content;
@@ -55,7 +55,7 @@ const Blogs = forwardRef<HTMLElement | undefined, BlogsSectionProps>(
             </RoundedButton>
           </Animated.FromDirection>
         </div>
-        <div className="grid grid-cols-1 mt-8 md:grid-cols-2 md:gap-x-20 gap-y-10 md:gap-y-16">
+        <div className="grid grid-cols-1 mt-10 md:mt-8 md:grid-cols-2 md:gap-x-20 gap-y-10 md:gap-y-16">
           {items.map((item, index) => (
             <Animated.FromDirection
               key={index}

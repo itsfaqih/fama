@@ -30,7 +30,7 @@ export default function Landing({ data, locale, sections }: Props) {
   return (
     <Container className="pt-8">
       <div className="flex flex-wrap">
-        <Navigation locale={locale} sections={sections} />
+        <Navigation className="sticky z-10 top-8" locale={locale} sections={sections} />
         <main className="w-full mt-12">
           <Header data={header.data} text={header.text} lowerSectionRef={lowerSectionRef} />
           <About

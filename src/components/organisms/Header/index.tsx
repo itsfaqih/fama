@@ -30,7 +30,7 @@ export default function Header({ data, text, lowerSectionRef }: HeaderProps) {
             </Animated.Reveal>
           </Animated.FromDirection>
         </div>
-        <HeaderText className="mt-6 text-center md:row-start-2 md:col-start-2 md:self-center md:text-left md:mt-0">
+        <HeaderText className="flex flex-col items-center mt-6 md:items-start md:row-start-2 md:col-start-2 md:self-center md:mt-0">
           <Animated.Letter text={`${greetings} 👋`} custom={0} delay={0.3} />
           <Animated.Letter text={`${intro} ${name}`} custom={2} delay={0.3} />
           <div className="relative inline-flex">
@@ -46,7 +46,7 @@ export default function Header({ data, text, lowerSectionRef }: HeaderProps) {
           from="top"
           custom={8}
           delay={0.3}
-          className="mx-auto mt-4 md:-ml-0 md:mr-auto md:mt-auto md:col-start-2 md:row-start-3"
+          className="mx-auto mt-6 md:-ml-0 md:mr-auto md:mt-auto md:col-start-2 md:row-start-3"
         >
           <TextIconButton
             className="group"

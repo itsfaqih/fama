@@ -12,7 +12,7 @@ const Contact = forwardRef<HTMLElement | undefined, ContactSectionProps>(
     const { email, socials } = content;
     const controls = useAnimation();
     const [refView, inView] = useInView({
-      threshold: 1,
+      threshold: 0.4,
     });
 
     useEffect(() => {
@@ -35,7 +35,7 @@ const Contact = forwardRef<HTMLElement | undefined, ContactSectionProps>(
           }
         }}
       >
-        <h2 className="text-3xl font-bold text-center text-gray-600 md:text-left">
+        <h2 className="flex justify-center text-3xl font-bold text-gray-600 md:justify-start">
           <Animated.Letter text={title} animate={controls} custom={0} delay={1} />
         </h2>
         <div className="flex flex-col items-center md:flex-row md:justify-between">
