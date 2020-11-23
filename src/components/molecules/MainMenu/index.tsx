@@ -27,7 +27,7 @@ export default function MainMenu({ animationFinish, sections }: Props) {
               </Menu.Button>
               <div
                 className={classNames(
-                  'absolute top-0 transform-gpu transition-all bg-indigo-600 duration-1000 z-10',
+                  'absolute top-0 transform transition-all bg-indigo-600 duration-1000 z-10',
                   {
                     'rounded-full scale-75': !open,
                     'scale-999': open,

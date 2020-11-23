@@ -28,6 +28,7 @@ export default function Navigation({ locale, sections, className }: Props) {
       locale.change(option.value);
     }
   };
+  
   return (
     <nav>
       <Animated.FromDirection
@@ -37,14 +38,14 @@ export default function Navigation({ locale, sections, className }: Props) {
         onAnimationComplete={() => setAnimationFinish(true)}
       >
         <Container className="flex">
-          <nav className="self-center flex-1 hidden pr-8 sm:flex">
+          <div className="self-center flex-1 hidden pr-8 sm:flex">
             <div className="ml-auto">
               <TextSelect
                 state={[selectedLanguage, setSelectedLanguage]}
                 options={languageOptions}
               />
             </div>
-          </nav>
+          </div>
           <MainMenu sections={sections} animationFinish={animationFinish} />
         </Container>
       </Animated.FromDirection>

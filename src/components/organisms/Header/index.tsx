@@ -20,9 +20,9 @@ export default function Header({ data, text, lowerSectionRef }: HeaderProps) {
             from="top"
             delay={2.2}
             duration={1}
-            className="absolute -top-10 -left-10 -z-10"
+            className="absolute -top-6 md:-top-10 -left-6 md:-left-10 -z-10"
           >
-            <Decorations.Stripes className="w-40 h-40 text-indigo-300" />
+            <Decorations.Stripes className="w-24 h-24 text-indigo-300 md:w-40 md:h-40" />
           </Animated.FromDirection>
           <Animated.FromDirection from="right" custom={1} delay={0.3} duration={0.8}>
             <Animated.Reveal from="right" className="rounded-3xl" delay={0.8} duration={1.2}>
