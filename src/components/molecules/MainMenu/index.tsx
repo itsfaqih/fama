@@ -22,13 +22,11 @@ export default function MainMenu({ animationFinish, sections }: Props) {
       <Menu>
         {({ open }) => (
           <>
-            <div className="relative">
-              <Menu.Button as="div" className="relative z-20">
-                <MenuButton isOpen={open} animationComplete={animationFinish} />
-              </Menu.Button>
-              <Overlay contentRef={menu} open={open} animationFinish={animationFinish}/>
-            </div>
-            <AnimatePresence>
+            <Menu.Button as="div" className="relative z-20">
+              <MenuButton isOpen={open} animationComplete={animationFinish} />
+            </Menu.Button>
+            <Overlay contentRef={menu} open={open} animationFinish={animationFinish} />
+            <AnimatePresence initial={false}>
               {open && (
                 <Menu.Items
                   className="fixed top-0 left-0 z-10 flex items-center justify-center w-full h-full text-4xl font-bold text-white focus:outline-none"
@@ -39,7 +37,7 @@ export default function MainMenu({ animationFinish, sections }: Props) {
                       {({ active }: { active: boolean }) => (
                         <Animated.FromDirection
                           from="bottom"
-                          animate={open && 'show'}
+                          animate="show"
                           exit={{ opacity: 0 }}
                           custom={1}
                           delay={0.2}
@@ -52,7 +50,7 @@ export default function MainMenu({ animationFinish, sections }: Props) {
                       {({ active }: { active: boolean }) => (
                         <Animated.FromDirection
                           from="bottom"
-                          animate={open && 'show'}
+                          animate="show"
                           exit={{ opacity: 0 }}
                           custom={2}
                           delay={0.2}
@@ -65,7 +63,7 @@ export default function MainMenu({ animationFinish, sections }: Props) {
                       {({ active }: { active: boolean }) => (
                         <Animated.FromDirection
                           from="bottom"
-                          animate={open && 'show'}
+                          animate="show"
                           exit={{ opacity: 0 }}
                           custom={3}
                           delay={0.2}
@@ -78,7 +76,7 @@ export default function MainMenu({ animationFinish, sections }: Props) {
                       {({ active }: { active: boolean }) => (
                         <Animated.FromDirection
                           from="bottom"
-                          animate={open && 'show'}
+                          animate="show"
                           exit={{ opacity: 0 }}
                           custom={4}
                           delay={0.2}
@@ -91,7 +89,7 @@ export default function MainMenu({ animationFinish, sections }: Props) {
                       {({ active }: { active: boolean }) => (
                         <Animated.FromDirection
                           from="bottom"
-                          animate={open && 'show'}
+                          animate="show"
                           exit={{ opacity: 0 }}
                           custom={5}
                           delay={0.2}

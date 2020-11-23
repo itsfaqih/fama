@@ -10,23 +10,25 @@ interface Props {
 }
 
 export default function Overlay({ contentRef, open = false, animationFinish = false }: Props) {
-  if (open) disableBodyScroll(contentRef.current as HTMLElement);
-  else clearAllBodyScrollLocks();
+  if (open) {
+    if (contentRef.current) disableBodyScroll(contentRef.current as HTMLElement);
+  } else clearAllBodyScrollLocks();
 
   return (
     <svg
       className={classNames(
-        'w-12 h-12 top-8 transform transition-all text-indigo-600 duration-1000 z-10',
+        'h-full top-0 right-0 transition-all text-indigo-600 duration-1000 z-10',
         {
-          'rounded-full scale-75': !open,
-          'scale-999': open,
-          'fixed': animationFinish,
-          'hidden': !animationFinish
+          'w-0': !open,
+          'w-full': open,
+          fixed: animationFinish,
+          hidden: !animationFinish,
         }
       )}
+
       fill="currentColor"
     >
-      <circle cx="50%" cy="50%" r="100%" />
+      <rect width="100%" height="100%" />
     </svg>
   );
 }
