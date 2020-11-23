@@ -29,20 +29,25 @@ export default function Navigation({ locale, sections, className }: Props) {
     }
   };
   return (
-    <Animated.FromDirection
-      from="top"
-      className={classNames('w-full', className)}
-      duration={1}
-      onAnimationComplete={() => setAnimationFinish(true)}
-    >
-      <Container className="flex">
-        <nav className="self-center flex-1 hidden pr-8 sm:flex">
-          <div className="ml-auto">
-            <TextSelect state={[selectedLanguage, setSelectedLanguage]} options={languageOptions} />
-          </div>
-        </nav>
-        <MainMenu sections={sections} animationFinish={animationFinish} />
-      </Container>
-    </Animated.FromDirection>
+    <nav>
+      <Animated.FromDirection
+        from="top"
+        className={classNames('w-full', className)}
+        duration={1}
+        onAnimationComplete={() => setAnimationFinish(true)}
+      >
+        <Container className="flex">
+          <nav className="self-center flex-1 hidden pr-8 sm:flex">
+            <div className="ml-auto">
+              <TextSelect
+                state={[selectedLanguage, setSelectedLanguage]}
+                options={languageOptions}
+              />
+            </div>
+          </nav>
+          <MainMenu sections={sections} animationFinish={animationFinish} />
+        </Container>
+      </Animated.FromDirection>
+    </nav>
   );
 }
