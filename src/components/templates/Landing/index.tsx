@@ -28,7 +28,7 @@ export default function Landing({ data, locale, sections }: Props) {
   return (
     <Container>
       <div className="flex flex-wrap">
-        <Navigation locale={locale} />
+        <Navigation locale={locale} sections={sections}/>
         <main className="w-full mt-12">
           <Header data={header.data} text={header.text} />
           <About

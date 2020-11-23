@@ -4,12 +4,14 @@ import { TextSelectOptionProps } from 'components/molecules/TextSelect/types';
 import { LocaleProps } from 'contexts/language';
 import React from 'react';
 import { useState } from 'react';
+import MainMenu from '../MainMenu';
 
 interface Props {
   locale: LocaleProps;
+  sections: { about: string; projects: string; blogs: string; skills: string; contact: string };
 }
 
-export default function Navigation({ locale }: Props) {
+export default function Navigation({ locale, sections }: Props) {
   const [animationFinish, setAnimationFinish] = useState(false);
   const languageOptions: TextSelectOptionProps[] = [
     { label: 'English', value: 'en' },
@@ -37,10 +39,7 @@ export default function Navigation({ locale }: Props) {
           <TextSelect state={[selectedLanguage, setSelectedLanguage]} options={languageOptions} />
         </div>
       </nav>
-      <MenuButton
-        className="self-center ml-auto sm:ml-0"
-        animationComplete={animationFinish}
-      />
+      <MainMenu sections={sections} animationFinish={animationFinish}/>
     </Animated.FromDirection>
   );
 }

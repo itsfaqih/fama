@@ -3,12 +3,14 @@ import FullRoundButtonProps from 'components/atoms/FullRoundButton/types';
 import Icons from 'components/icons';
 import React from 'react';
 
-interface Props extends FullRoundButtonProps {}
+interface Props extends FullRoundButtonProps {
+  isOpen?: boolean;
+}
 
-export default function MenuButton({ ...props }: Props) {
+export default function MenuButton({ isOpen = false, ...props }: Props) {
   return (
-    <FullRoundButton {...props} label="Menu">
-      <Icons.Menu className="w-6 h-6" />
+    <FullRoundButton active={isOpen} {...props} label="Menu">
+      {isOpen ? <Icons.Close className="w-6 h-6" /> : <Icons.Menu className="w-6 h-6" />}
     </FullRoundButton>
   );
 }

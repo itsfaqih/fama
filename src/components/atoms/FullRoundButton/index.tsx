@@ -12,15 +12,18 @@ export default function FullRoundButton({
   href = '',
   className,
   animationComplete,
+  active = false
 }: FullRoundButtonProps) {
   const [animationFinish, setAnimationFinish] = useState(false);
   const classes = classNames(
-    'flex items-center justify-center w-12 h-12 text-white bg-indigo-500 hover:bg-indigo-600 rounded-full focus:outline-none focus:ring-2 ring-indigo-500 ring-offset-2',
+    'flex items-center justify-center w-12 h-12 rounded-full focus:outline-none focus:ring-2 ring-indigo-500 ring-offset-2',
     className,
     {
       'shadow-lg': animationComplete,
       'scale-75': animationComplete === false,
       'transition-all transform duration-500': animationComplete != null && !animationFinish,
+      'bg-indigo-500 hover:bg-indigo-600 text-white': !active,
+      'bg-white text-indigo-600': active
     }
   );
 

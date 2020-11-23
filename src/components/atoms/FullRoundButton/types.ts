@@ -7,4 +7,5 @@ export default interface FullRoundButtonProps {
   href?: string;
   className?: string;
   animationComplete?: boolean;
+  active?: boolean;
 }

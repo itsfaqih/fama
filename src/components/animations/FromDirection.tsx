@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, HTMLMotionProps, Variants } from 'framer-motion';
 import classNames from 'classnames';
+import { useRef } from 'react';
 
 interface Props extends HTMLMotionProps<'div'> {
   from:
@@ -45,6 +46,8 @@ export default function FromDirection({
     },
   };
 
+  const ref = useRef<HTMLDivElement>(null);
+
   return (
     <div className={classNames(overflow, className)}>
       <motion.div
@@ -56,8 +59,12 @@ export default function FromDirection({
             onAnimationComplete();
           }
           setOverflow(null);
+          if (ref.current !== null) {
+            ref.current.style.transform = '';
+          }
         }}
         className={innerClassName}
+        ref={ref}
         {...props}
       >
         {children}

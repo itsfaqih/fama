@@ -25,6 +25,9 @@ module.exports = {
       zIndex: {
         '-10': '-10',
       },
+      scale: {
+        '999': '99'
+      }
     },
   },
   variants: {
