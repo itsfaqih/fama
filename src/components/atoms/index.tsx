@@ -10,6 +10,7 @@ import TextBox from 'components/atoms/TextBox';
 import ContentText from 'components/atoms/ContentText';
 import Container from 'components/atoms/Container';
 import TitleLine from 'components/atoms/TitleLine';
+import MenuItem from 'components/atoms/MenuItem';
 
 export {
   Avatar,
@@ -24,4 +25,5 @@ export {
   ContentText,
   Container,
   TitleLine,
+  MenuItem,
 };

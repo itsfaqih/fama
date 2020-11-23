@@ -1,10 +1,9 @@
 import Animated from 'components/animations';
-import { TextSelect } from 'components/molecules';
+import { MainMenu, TextSelect } from 'components/molecules';
 import { TextSelectOptionProps } from 'components/molecules/TextSelect/types';
 import { LocaleProps } from 'contexts/language';
 import React from 'react';
 import { useState } from 'react';
-import MainMenu from '../MainMenu';
 import classNames from 'classnames';
 
 interface Props {
