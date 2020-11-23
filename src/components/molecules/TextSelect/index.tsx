@@ -11,7 +11,7 @@ export default function TextSelect({ options, state, className }: TextSelectProp
     <Listbox as="div" className={className} value={selectedOption} onChange={setSelectedOption}>
       {({ open }) => (
         <>
-          <Listbox.Button className="flex items-center px-4 py-2 text-gray-700 rounded-lg focus:outline-none focus:ring-2 ring-indigo-500">
+          <Listbox.Button className="flex items-center px-4 py-2 text-gray-700 bg-white rounded-lg focus:outline-none focus:ring-2 ring-indigo-500">
             {selectedOption.label}
             <svg
               className={classNames('w-4 h-4 ml-2 transition-transform transform', {

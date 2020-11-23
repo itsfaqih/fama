@@ -27,7 +27,7 @@ export default function Navigation({ locale }: Props) {
   return (
     <Animated.FromDirection
       from="top"
-      className="w-full"
+      className="sticky z-10 w-full top-8"
       innerClassName="flex"
       duration={1}
       onAnimationComplete={() => setAnimationFinish(true)}
@@ -38,7 +38,7 @@ export default function Navigation({ locale }: Props) {
         </div>
       </nav>
       <MenuButton
-        className="sticky z-10 self-center ml-auto top-8 sm:ml-0"
+        className="self-center ml-auto sm:ml-0"
         animationComplete={animationFinish}
       />
     </Animated.FromDirection>
