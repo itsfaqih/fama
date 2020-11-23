@@ -6,7 +6,7 @@ import HeaderProps from 'components/organisms/Header/types';
 import { LanguageContext } from 'contexts';
 import React, { useContext } from 'react';
 
-export default function Header({ data, text }: HeaderProps) {
+export default function Header({ data, text, lowerSectionRef }: HeaderProps) {
   const languange = useContext(LanguageContext);
   const { profilePicture, name, job } = data;
   const { headerText } = text;
@@ -16,7 +16,12 @@ export default function Header({ data, text }: HeaderProps) {
     <header className="flex justify-center">
       <div className="grid grid-rows-3 md:grid-cols-2 md:h-60">
         <div className="relative col-start-1 row-span-3 justify-self-center">
-          <Animated.FromDirection from="top" delay={2.2} duration={1} className="absolute -top-10 -left-10 -z-10">
+          <Animated.FromDirection
+            from="top"
+            delay={2.2}
+            duration={1}
+            className="absolute -top-10 -left-10 -z-10"
+          >
             <Decorations.Stripes className="w-40 h-40 text-indigo-300" />
           </Animated.FromDirection>
           <Animated.FromDirection from="right" custom={1} delay={0.3} duration={0.8}>
@@ -45,6 +50,7 @@ export default function Header({ data, text }: HeaderProps) {
         >
           <TextIconButton
             className="group"
+            onClick={() => lowerSectionRef?.current?.scrollIntoView({ behavior: 'smooth' })}
             text={languange.value === 'en' ? 'Scroll down' : 'Scroll ke bawah'}
             icon={
               <svg

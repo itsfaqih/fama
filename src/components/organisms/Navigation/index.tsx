@@ -1,5 +1,5 @@
 import Animated from 'components/animations';
-import { MenuButton, TextSelect } from 'components/molecules';
+import { TextSelect } from 'components/molecules';
 import { TextSelectOptionProps } from 'components/molecules/TextSelect/types';
 import { LocaleProps } from 'contexts/language';
 import React from 'react';

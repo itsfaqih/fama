@@ -1,6 +1,9 @@
+import { MutableRefObject } from "react";
+
 export default interface HeaderProps {
   data: HeaderDataProps;
   text: HeaderTextProps;
+  lowerSectionRef?: MutableRefObject<HTMLElement | undefined>;
 }
 
 export interface HeaderDataProps {
