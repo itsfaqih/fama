@@ -5,27 +5,38 @@ import { RefObject } from 'react';
 
 interface Props {
   contentRef: RefObject<HTMLElement | Element>;
+  classOnOpen: string;
+  classOnClose: string;
   open?: boolean;
   animationFinish?: boolean;
+  useAnimationFinish?: boolean;
+  className?: string;
 }
 
-export default function Overlay({ contentRef, open = false, animationFinish = false }: Props) {
+export default function Overlay({
+  contentRef,
+  classOnOpen,
+  classOnClose,
+  open = false,
+  animationFinish = false,
+  className,
+}: Props) {
   if (open) {
     if (contentRef.current) disableBodyScroll(contentRef.current as HTMLElement);
   } else clearAllBodyScrollLocks();
-
+  
   return (
     <svg
       className={classNames(
-        'h-full top-0 right-0 transition-all text-indigo-600 duration-1000 z-10',
+        'h-full top-0 right-0 transition-all duration-1000 z-10',
         {
-          'w-0': !open,
-          'w-full': open,
+          [classOnClose]: !open,
+          [classOnOpen]: open,
           fixed: animationFinish,
           hidden: !animationFinish,
-        }
+        },
+        className
       )}
-
       fill="currentColor"
     >
       <rect width="100%" height="100%" />

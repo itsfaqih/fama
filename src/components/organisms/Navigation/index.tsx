@@ -38,8 +38,8 @@ export default function Navigation({ locale, sections, className }: Props) {
         onAnimationComplete={() => setAnimationFinish(true)}
       >
         <Container className="flex">
-          <div className="self-center flex-1 hidden pr-8 sm:flex">
-            <div className="ml-auto">
+          <div className="flex self-center flex-1 pr-8">
+            <div className="sm:ml-auto">
               <TextSelect
                 state={[selectedLanguage, setSelectedLanguage]}
                 options={languageOptions}

@@ -25,7 +25,7 @@ export default function MainMenu({ animationFinish, sections }: Props) {
             <Menu.Button as="div" className="relative z-20">
               <MenuButton isOpen={open} animationComplete={animationFinish} />
             </Menu.Button>
-            <Overlay contentRef={menu} open={open} animationFinish={animationFinish} />
+            <Overlay contentRef={menu} open={open} animationFinish={animationFinish} classOnOpen="w-full" classOnClose="w-0" className="text-indigo-600"/>
             <AnimatePresence initial={false}>
               {open && (
                 <Menu.Items

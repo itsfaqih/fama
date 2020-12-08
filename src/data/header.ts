@@ -1,9 +1,8 @@
 import { HeaderDataProps } from 'components/organisms/Header/types';
-import profilePicture from 'assets/img/person.jpg';
 
 const header: HeaderDataProps = {
   name: 'Faqih Muntashir',
-  profilePicture,
+  profilePicture: './img/person.jpg',
   job: 'Fullstack Developer',
 };
 

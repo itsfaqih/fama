@@ -63,7 +63,9 @@ const About = forwardRef<HTMLElement | undefined, AboutSectionProps>(
           </Animated.FromDirection>
           <div className="mx-auto mt-6 lg:mr-0 lg:ml-auto lg:mt-0">
             <Animated.FromDirection from="bottom" animate={controls} custom={1} delay={1}>
-              <RoundedButton>{language.value === 'en' ? 'Download' : 'Unduh'} CV</RoundedButton>
+              <RoundedButton as="a" href="./resume.pdf">
+                {language.value === 'en' ? 'Download' : 'Unduh'} Resume
+              </RoundedButton>
             </Animated.FromDirection>
           </div>
         </div>
