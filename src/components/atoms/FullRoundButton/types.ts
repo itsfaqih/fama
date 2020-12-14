@@ -6,7 +6,6 @@ export default interface FullRoundButtonProps {
   as?: 'button' | 'a';
   href?: string;
   className?: string;
-  animationComplete?: boolean;
   active?: boolean;
   onClick?: (params: any) => any;
 }

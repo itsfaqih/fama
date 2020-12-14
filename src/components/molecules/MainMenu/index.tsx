@@ -9,11 +9,10 @@ import { MenuItem, Overlay } from 'components/atoms';
 import { useRef } from 'react';
 
 interface Props {
-  animationFinish?: boolean;
   sections: { about: string; projects: string; blogs: string; skills: string; contact: string };
 }
 
-export default function MainMenu({ animationFinish, sections }: Props) {
+export default function MainMenu({ sections }: Props) {
   const language = useContext(LanguageContext);
   const menu = useRef<HTMLDivElement>(null);
 
@@ -23,9 +22,9 @@ export default function MainMenu({ animationFinish, sections }: Props) {
         {({ open }) => (
           <>
             <Menu.Button as="div" className="relative z-20">
-              <MenuButton isOpen={open} animationComplete={animationFinish} />
+              <MenuButton isOpen={open} />
             </Menu.Button>
-            <Overlay contentRef={menu} open={open} animationFinish={animationFinish} classOnOpen="w-full" classOnClose="w-0" className="text-indigo-600"/>
+            <Overlay contentRef={menu} open={open} classOnOpen="w-full" classOnClose="w-0" className="text-indigo-600"/>
             <AnimatePresence initial={false}>
               {open && (
                 <Menu.Items

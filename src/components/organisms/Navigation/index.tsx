@@ -1,9 +1,7 @@
-import Animated from 'components/animations';
 import { MainMenu, TextSelect } from 'components/molecules';
 import { TextSelectOptionProps } from 'components/molecules/TextSelect/types';
 import { LocaleProps } from 'contexts/language';
 import React from 'react';
-import { useState } from 'react';
 import classNames from 'classnames';
 import { Container } from 'components/atoms';
 
@@ -14,7 +12,6 @@ interface Props {
 }
 
 export default function Navigation({ locale, sections, className }: Props) {
-  const [animationFinish, setAnimationFinish] = useState(false);
   const languageOptions: TextSelectOptionProps[] = [
     { label: 'English', value: 'en' },
     { label: 'Indonesia', value: 'id' },
@@ -28,27 +25,17 @@ export default function Navigation({ locale, sections, className }: Props) {
       locale.change(option.value);
     }
   };
-  
+
   return (
-    <nav>
-      <Animated.FromDirection
-        from="top"
-        className={classNames('w-full', className)}
-        duration={1}
-        onAnimationComplete={() => setAnimationFinish(true)}
-      >
-        <Container className="flex">
-          <div className="flex self-center flex-1 pr-8">
-            <div className="sm:ml-auto">
-              <TextSelect
-                state={[selectedLanguage, setSelectedLanguage]}
-                options={languageOptions}
-              />
-            </div>
+    <nav className={classNames('w-full', className)}>
+      <Container className="flex">
+        <div className="flex self-center flex-1 pr-8">
+          <div className="sm:ml-auto">
+            <TextSelect state={[selectedLanguage, setSelectedLanguage]} options={languageOptions} />
           </div>
-          <MainMenu sections={sections} animationFinish={animationFinish} />
-        </Container>
-      </Animated.FromDirection>
+        </div>
+        <MainMenu sections={sections} />
+      </Container>
     </nav>
   );
 }
