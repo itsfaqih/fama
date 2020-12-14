@@ -16,38 +16,18 @@ export default function Header({ data, text, lowerSectionRef }: HeaderProps) {
     <header className="flex justify-center">
       <div className="grid grid-rows-3 md:grid-cols-2 md:h-60">
         <div className="relative col-start-1 row-span-3 justify-self-center">
-          <Animated.FromDirection
-            from="top"
-            delay={2.2}
-            duration={1}
-            className="absolute -top-6 md:-top-10 -left-6 md:-left-10 -z-10"
-          >
-            <Decorations.Stripes className="w-24 h-24 text-indigo-300 md:w-40 md:h-40" />
-          </Animated.FromDirection>
-          <Animated.FromDirection from="right" custom={1} delay={0.3} duration={0.8}>
-            <Animated.Reveal from="right" className="rounded-3xl" delay={0.8} duration={1.2}>
-              <Avatar src={profilePicture} alt="Profile Picture" />
-            </Animated.Reveal>
-          </Animated.FromDirection>
+          <Decorations.Stripes className="absolute w-24 h-24 text-indigo-300 md:w-40 md:h-40 -top-6 md:-top-10 -left-6 md:-left-10 -z-10" />
+          <Avatar src={profilePicture} alt="Profile Picture" />
         </div>
         <HeaderText className="flex flex-col items-center mt-6 md:items-start md:row-start-2 md:col-start-2 md:self-center md:mt-0">
-          <Animated.Letter text={`${greetings} 👋`} custom={0} delay={0.3} />
-          <Animated.Letter text={`${intro} ${name}`} custom={2} delay={0.3} />
+          <p>{`${greetings} 👋`}</p>
+          <p>{`${intro} ${name}`}</p>
           <div className="relative inline-flex">
-            <Animated.Letter
-              text={`${preTitle ? `${preTitle} ` : ''}${job}`}
-              custom={4}
-              delay={0.3}
-            />
-            <Animated.Highlighter className="h-3 bottom-1.5" rad={6} custom={8} delay={0.3} />
+            <p>{`${preTitle ? `${preTitle} ` : ''}${job}`}</p>
+            <Animated.Highlighter className="h-3 bottom-1.5" rad={6} custom={0} delay={0.3} />
           </div>
         </HeaderText>
-        <Animated.FromDirection
-          from="top"
-          custom={8}
-          delay={0.3}
-          className="mx-auto mt-6 md:-ml-0 md:mr-auto md:mt-auto md:col-start-2 md:row-start-3"
-        >
+        <div className="mx-auto mt-6 md:-ml-0 md:mr-auto md:mt-auto md:col-start-2 md:row-start-3">
           <TextIconButton
             className="group"
             onClick={() => lowerSectionRef?.current?.scrollIntoView({ behavior: 'smooth' })}
@@ -69,7 +49,7 @@ export default function Header({ data, text, lowerSectionRef }: HeaderProps) {
               </svg>
             }
           />
-        </Animated.FromDirection>
+        </div>
       </div>
     </header>
   );
