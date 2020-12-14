@@ -12,6 +12,7 @@ import Container from 'components/atoms/Container';
 import TitleLine from 'components/atoms/TitleLine';
 import MenuItem from 'components/atoms/MenuItem';
 import Overlay from 'components/atoms/Overlay';
+import Highlighter from 'components/atoms/Highlighter';
 
 export {
   Avatar,
@@ -27,5 +28,6 @@ export {
   Container,
   TitleLine,
   MenuItem,
-  Overlay
+  Overlay,
+  Highlighter,
 };
