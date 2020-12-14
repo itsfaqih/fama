@@ -1,5 +1,4 @@
-import Animated from 'components/animations';
-import { Avatar, HeaderText } from 'components/atoms';
+import { Avatar, HeaderText, Highlighter } from 'components/atoms';
 import Decorations from 'components/decorations';
 import { TextIconButton } from 'components/molecules';
 import HeaderProps from 'components/organisms/Header/types';
@@ -24,7 +23,7 @@ export default function Header({ data, text, lowerSectionRef }: HeaderProps) {
           <p>{`${intro} ${name}`}</p>
           <div className="relative inline-flex">
             <p>{`${preTitle ? `${preTitle} ` : ''}${job}`}</p>
-            <Animated.Highlighter className="h-3 bottom-1.5" rad={6} custom={0} delay={0.3} />
+            <Highlighter className="h-3 bottom-1.5" rad={6} />
           </div>
         </HeaderText>
         <div className="mx-auto mt-6 md:-ml-0 md:mr-auto md:mt-auto md:col-start-2 md:row-start-3">
