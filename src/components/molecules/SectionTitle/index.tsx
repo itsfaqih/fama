@@ -1,12 +1,12 @@
 import { HeaderText, TitleLine } from 'components/atoms';
 import React, { ReactNode } from 'react';
 import classNames from 'classnames';
-import { SVGMotionProps } from 'framer-motion';
+import { HTMLAttributes } from 'react';
 
 interface Props {
   children: ReactNode;
   variant?: SectionVariants;
-  lineProps?: SVGMotionProps<SVGElement>;
+  lineProps?: HTMLAttributes<SVGElement>;
 }
 
 export enum SectionVariants {
