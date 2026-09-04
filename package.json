@@ -2,6 +2,10 @@
   "name": "personal-branding-template",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "bun@1.4.1",
+  "engines": {
+    "node": ">=24"
+  },
   "dependencies": {
     "@headlessui/react": "^0.2.0",
     "@testing-library/jest-dom": "^5.11.4",
@@ -26,8 +30,8 @@
     "watch:style": "postcss ./src/assets/css/styles.css -o ./src/assets/css/app.css -w",
     "build:style": "postcss ./src/assets/css/styles.css -o ./src/assets/css/app.css --env production",
     "start": "react-scripts start",
-    "dev": "concurrently \"yarn watch:style\" \"yarn start\"",
-    "build": "yarn build:style && react-scripts build",
+    "dev": "concurrently \"bun run watch:style\" \"bun run start\"",
+    "build": "bun run build:style && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
