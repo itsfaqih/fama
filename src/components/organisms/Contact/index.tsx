@@ -24,7 +24,7 @@ const Contact = forwardRef<HTMLElement, ContactSectionProps>(
     return (
       <section
         id="contact"
-        ref={section => {
+        ref={(section) => {
           refView(section);
           if (ref) {
             if (typeof ref === 'function') {
@@ -72,7 +72,7 @@ const Contact = forwardRef<HTMLElement, ContactSectionProps>(
         </div>
       </section>
     );
-  }
+  },
 );
 
 export default Contact;

@@ -55,7 +55,7 @@ export default function FromDirection({
         variants={variants}
         initial="hidden"
         animate="show"
-        onAnimationComplete={definition => {
+        onAnimationComplete={(definition) => {
           if (onAnimationComplete) {
             onAnimationComplete(definition);
           }

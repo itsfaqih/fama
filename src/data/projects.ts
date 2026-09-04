@@ -1,4 +1,4 @@
-import { ProjectCardDataProps } from "components/molecules/ProjectCard/types";
+import { ProjectCardDataProps } from 'components/molecules/ProjectCard/types';
 
 const projects: ProjectCardDataProps[] = [
   {

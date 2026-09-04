@@ -16,7 +16,7 @@ export default function Avatar({ src, alt, className }: Props) {
       height="auto"
       className={cn(
         'object-cover border-4 border-indigo-400 rounded-3xl w-28 h-28 md:w-60 md:h-60 shadow-xl',
-        className
+        className,
       )}
     />
   );

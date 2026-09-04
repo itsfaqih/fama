@@ -7,7 +7,7 @@ export interface LocaleProps {
 
 const LanguageContext = createContext<LocaleProps>({
   value: 'en',
-  change: lang => {},
+  change: () => {},
 });
 
 export default LanguageContext;

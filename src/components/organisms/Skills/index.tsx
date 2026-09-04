@@ -32,7 +32,7 @@ const Skills = forwardRef<HTMLElement, SkillsSectionProps>(
       <section
         id="skills"
         className={className}
-        ref={section => {
+        ref={(section) => {
           refView(section);
           if (ref) {
             if (typeof ref === 'function') {
@@ -94,7 +94,7 @@ const Skills = forwardRef<HTMLElement, SkillsSectionProps>(
         </div>
       </section>
     );
-  }
+  },
 );
 
 export default Skills;

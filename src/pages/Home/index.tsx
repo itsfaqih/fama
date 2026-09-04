@@ -5,7 +5,7 @@ import {
   projects as projectsData,
   blogs as blogsData,
   skills as skillsData,
-  contact as contactData
+  contact as contactData,
 } from 'data';
 import {
   sections as sectionsEn,
@@ -63,7 +63,7 @@ export default function Home() {
           text: locale.skills.text,
           items: skillsData,
         },
-        contact: contactData
+        contact: contactData,
       }}
       locale={{ value: languange.value, change: languange.change }}
     />

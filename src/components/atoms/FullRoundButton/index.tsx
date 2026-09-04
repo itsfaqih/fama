@@ -13,7 +13,7 @@ export default function FullRoundButton({
   className,
   animationComplete,
   active = false,
-  onClick
+  onClick,
 }: FullRoundButtonProps) {
   const [animationFinish, setAnimationFinish] = useState(false);
   const classes = cn(
@@ -24,8 +24,8 @@ export default function FullRoundButton({
       'scale-75': animationComplete === false,
       'transition-all transform duration-500': animationComplete != null && !animationFinish,
       'bg-indigo-500 hover:bg-indigo-600 text-white': !active,
-      'bg-white text-indigo-600': active
-    }
+      'bg-white text-indigo-600': active,
+    },
   );
 
   useEffect(() => {
@@ -38,14 +38,25 @@ export default function FullRoundButton({
 
   if (as === 'button') {
     return (
-      <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.8 }} className={classes} onClick={onClick}>
+      <motion.button
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.8 }}
+        className={classes}
+        onClick={onClick}
+      >
         {children}
         <span className="sr-only">{label}</span>
       </motion.button>
     );
   }
   return (
-    <motion.a href={href} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className={classes} onClick={onClick}>
+    <motion.a
+      href={href}
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
+      className={classes}
+      onClick={onClick}
+    >
       {children}
       <span className="sr-only">{label}</span>
     </motion.a>

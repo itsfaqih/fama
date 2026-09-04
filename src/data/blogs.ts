@@ -14,8 +14,7 @@ const blogs: BlogsPostProps[] = [
   {
     title: 'Penerapan Sistem Grid Responsive dengan Flexbox',
     date: new Date('2020-06-13'),
-    url:
-      'https://medium.com/@itsfaqih/penerapan-sistem-grid-responsive-dengan-flexbox-c479c84be129',
+    url: 'https://medium.com/@itsfaqih/penerapan-sistem-grid-responsive-dengan-flexbox-c479c84be129',
   },
   {
     title: 'Memahami Satuan Persen (%) dalam CSS',
