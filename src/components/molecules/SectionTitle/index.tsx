@@ -1,6 +1,6 @@
 import { HeaderText, TitleLine } from 'components/atoms';
 import React, { ReactNode } from 'react';
-import classNames from 'classnames';
+import { cn } from 'cn';
 import { SVGMotionProps } from 'motion/react';
 
 interface Props {
@@ -21,13 +21,13 @@ export default function SectionTitle({
 }: Props) {
   return (
     <HeaderText
-      className={classNames('flex flex-col items-center', {
+      className={cn('flex flex-col items-center', {
         'lg:flex-row': variant === SectionVariants.LEFT,
       })}
     >
       {children}
       <TitleLine
-        className={classNames({
+        className={cn({
           'lg:ml-6 lg:mt-0': variant === SectionVariants.LEFT,
         })}
         {...lineProps}

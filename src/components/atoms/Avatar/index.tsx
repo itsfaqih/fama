@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import { cn } from 'cn';
 
 interface Props {
   src: string;
@@ -14,7 +14,7 @@ export default function Avatar({ src, alt, className }: Props) {
       alt={alt}
       width="auto"
       height="auto"
-      className={classNames(
+      className={cn(
         'object-cover border-4 border-indigo-400 rounded-3xl w-28 h-28 md:w-60 md:h-60 shadow-xl',
         className
       )}

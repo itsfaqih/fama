@@ -1,7 +1,7 @@
 import { TextBox } from 'components/atoms';
 import TextBoxProps from 'components/atoms/TextBox/types';
 import React, { useContext } from 'react';
-import classNames from 'classnames';
+import { cn } from 'cn';
 import { LanguageContext } from 'contexts';
 
 export default function SearchBox({ className }: TextBoxProps) {
@@ -9,7 +9,7 @@ export default function SearchBox({ className }: TextBoxProps) {
 
   return (
     <div
-      className={classNames('focus-within:ring-2 ring-indigo-500 focus-within:shadow-xl focus-within:bg-white transition-all transform focus-within:scale-110 flex items-center overflow-hidden bg-gray-200 rounded-xl', className)}
+      className={cn('focus-within:ring-2 ring-indigo-500 focus-within:shadow-xl focus-within:bg-white transition-all transform focus-within:scale-110 flex items-center overflow-hidden bg-gray-200 rounded-xl', className)}
     >
       <svg
         className="w-4 h-4 mx-4 text-gray-500"

@@ -4,7 +4,7 @@ import { TextSelectOptionProps } from 'components/molecules/TextSelect/types';
 import { LocaleProps } from 'contexts/language';
 import React from 'react';
 import { useState } from 'react';
-import classNames from 'classnames';
+import { cn } from 'cn';
 import { Container } from 'components/atoms';
 
 interface Props {
@@ -33,7 +33,7 @@ export default function Navigation({ locale, sections, className }: Props) {
     <nav>
       <Animated.FromDirection
         from="top"
-        className={classNames('w-full', className)}
+        className={cn('w-full', className)}
         duration={1}
         onAnimationComplete={() => setAnimationFinish(true)}
       >

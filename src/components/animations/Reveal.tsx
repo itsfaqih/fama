@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, HTMLMotionProps, Variants } from 'motion/react';
-import classNames from 'classnames';
+import { cn } from 'cn';
 
 interface Props extends Omit<HTMLMotionProps<'div'>, 'children'> {
   children: React.ReactNode;
@@ -36,10 +36,10 @@ export default function Reveal({
   };
 
   return (
-    <div className={classNames('overflow-hidden relative', className)}>
+    <div className={cn('overflow-hidden relative', className)}>
       {children}
       <motion.div
-        className={classNames('absolute top-0 left-0 w-full h-full', {
+        className={cn('absolute top-0 left-0 w-full h-full', {
           'bg-indigo-500': !animatedFinish,
         })}
         variants={variants}

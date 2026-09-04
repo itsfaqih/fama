@@ -1,6 +1,6 @@
 import React from 'react';
 import { ReactNode } from 'react';
-import classNames from 'classnames';
+import { cn } from 'cn';
 
 interface Props {
   children: ReactNode;
@@ -12,7 +12,7 @@ export default function MenuItem({ children, active }: Props) {
     <span className="relative">
       {children}
       <svg
-        className={classNames(
+        className={cn(
           '-left-1 bottom-0.5 -z-10 absolute w-0 h-3.5 text-indigo-800 transition-all',
           { 'w-full-2': active }
         )}

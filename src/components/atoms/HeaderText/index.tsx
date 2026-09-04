@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import classNames from 'classnames';
+import { cn } from 'cn';
 
 interface Props {
   children: ReactNode;
@@ -10,13 +10,13 @@ interface Props {
 export default function HeaderText({ children, className, tag = 'div' }: Props) {
   if (tag === 'div') {
     return (
-      <div className={classNames('text-3xl font-bold leading-normal text-gray-800', className)}>
+      <div className={cn('text-3xl font-bold leading-normal text-gray-800', className)}>
         {children}
       </div>
     );
   }
   return (
-    <h2 className={classNames('text-3xl font-bold leading-normal text-gray-800', className)}>
+    <h2 className={cn('text-3xl font-bold leading-normal text-gray-800', className)}>
       {children}
     </h2>
   );

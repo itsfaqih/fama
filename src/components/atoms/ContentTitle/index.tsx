@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import classNames from 'classnames';
+import { cn } from 'cn';
 
 interface Props {
   children: ReactNode;
@@ -7,5 +7,5 @@ interface Props {
 }
 
 export default function ContentTitle({ children, className }: Props) {
-  return <h3 className={classNames('text-lg font-bold text-gray-800', className)}>{children}</h3>;
+  return <h3 className={cn('text-lg font-bold text-gray-800', className)}>{children}</h3>;
 }

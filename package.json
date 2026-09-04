@@ -12,7 +12,7 @@
     "@iconify/icons-logos": "^1.2.36",
     "@iconify/react": "^6.0.2",
     "body-scroll-lock": "^3.1.5",
-    "classnames": "^2.2.6",
+    "cn": "^0.2.5",
     "motion": "^13.2.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",

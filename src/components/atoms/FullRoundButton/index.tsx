@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import { cn } from 'cn';
 import { motion } from 'motion/react';
 import FullRoundButtonProps from 'components/atoms/FullRoundButton/types';
 import { useState } from 'react';
@@ -16,7 +16,7 @@ export default function FullRoundButton({
   onClick
 }: FullRoundButtonProps) {
   const [animationFinish, setAnimationFinish] = useState(false);
-  const classes = classNames(
+  const classes = cn(
     'flex items-center justify-center w-12 h-12 rounded-full focus:outline-none focus:ring-2 ring-indigo-500 ring-offset-2',
     className,
     {
