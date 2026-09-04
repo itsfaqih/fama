@@ -14,10 +14,6 @@
   filter: grayscale(100%);
 }
 
-#root {
-  isolation: isolate;
-}
-
 .menu-item-highlight {
   width: 0;
 }

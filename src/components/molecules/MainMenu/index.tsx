@@ -10,9 +10,10 @@ import React, { useContext, useState } from 'react';
 interface Props {
   animationFinish?: boolean;
   sections: { about: string; projects: string; blogs: string; skills: string; contact: string };
+  onOpenChange?: (open: boolean) => void;
 }
 
-export default function MainMenu({ animationFinish, sections }: Props) {
+export default function MainMenu({ animationFinish, sections, onOpenChange }: Props) {
   const language = useContext(LanguageContext);
   const [open, setOpen] = useState(false);
 
@@ -29,8 +30,14 @@ export default function MainMenu({ animationFinish, sections }: Props) {
   ];
 
   return (
-    <div className="self-center ml-auto sm:ml-0">
-      <Menu.Root open={open} onOpenChange={setOpen}>
+    <div className="relative z-20 self-center ml-auto sm:ml-0">
+      <Menu.Root
+        open={open}
+        onOpenChange={(nextOpen) => {
+          setOpen(nextOpen);
+          onOpenChange?.(nextOpen);
+        }}
+      >
         <Menu.Trigger
           render={<motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.8 }} />}
           type="button"
