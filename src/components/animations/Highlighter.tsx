@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, Variants, SVGMotionProps } from 'motion/react';
-import classNames from 'classnames';
+import { cn } from 'cn';
 
 interface Props extends SVGMotionProps<SVGElement> {
   rad: number;
@@ -24,7 +24,7 @@ export default function Highlighter({ className, rad, delay = 0, ...props }: Pro
 
   return (
     <svg
-      className={classNames('absolute w-full-2 text-indigo-200 -z-10 -left-1', className)}
+      className={cn('absolute w-full-2 text-indigo-200 -z-10 -left-1', className)}
       fill="currentColor"
     >
       <motion.rect

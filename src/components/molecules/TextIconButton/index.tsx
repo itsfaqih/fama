@@ -1,6 +1,6 @@
 import { TextButton } from 'components/atoms';
 import React, { ReactElement } from 'react';
-import classNames from 'classnames';
+import { cn } from 'cn';
 
 interface Props {
   text: string;
@@ -10,7 +10,7 @@ interface Props {
 }
 
 export default function TextIconButton({ text, icon, className, onClick }: Props) {
-  const Icon = React.cloneElement(icon, { className: classNames('w-4 h-4', icon.props.className) });
+  const Icon = React.cloneElement(icon, { className: cn('w-4 h-4', icon.props.className) });
   return (
     <TextButton className={className} onClick={onClick}>
       <span className="pr-2">{text}</span>

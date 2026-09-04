@@ -2,7 +2,7 @@ import { ContentTitle } from 'components/atoms';
 import Icons from 'components/icons';
 import { LanguageContext } from 'contexts';
 import React, { useContext } from 'react';
-import classNames from 'classnames';
+import { cn } from 'cn';
 import ProjectCardProps from 'components/molecules/ProjectCard/types';
 
 export default function ProjectCard({ data, className }: ProjectCardProps) {
@@ -11,7 +11,7 @@ export default function ProjectCard({ data, className }: ProjectCardProps) {
 
   return (
     <article
-      className={classNames('flex flex-col bg-white rounded-xl shadow py-4 px-6', className)}
+      className={cn('flex flex-col bg-white rounded-xl shadow py-4 px-6', className)}
     >
       <ContentTitle>{title}</ContentTitle>
       <p className="mt-2 mb-8 text-sm text-gray-700">{description}</p>

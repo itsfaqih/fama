@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import { cn } from 'cn';
 import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 import { RefObject } from 'react';
 
@@ -27,7 +27,7 @@ export default function Overlay({
   
   return (
     <svg
-      className={classNames(
+      className={cn(
         'h-full top-0 right-0 transition-all duration-1000 z-10',
         {
           [classOnClose]: !open,

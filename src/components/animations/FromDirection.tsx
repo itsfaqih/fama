@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, HTMLMotionProps, Variants } from 'motion/react';
-import classNames from 'classnames';
+import { cn } from 'cn';
 import { useRef } from 'react';
 
 interface Props extends Omit<HTMLMotionProps<'div'>, 'children'> {
@@ -50,7 +50,7 @@ export default function FromDirection({
   const ref = useRef<HTMLDivElement>(null);
 
   return (
-    <div className={classNames(overflow, className)}>
+    <div className={cn(overflow, className)}>
       <motion.div
         variants={variants}
         initial="hidden"

@@ -1,7 +1,7 @@
 import { HighlightedText } from 'components/atoms';
 import HighlightedTextProps from 'components/atoms/HighlightedText/types';
 import React, { ReactElement } from 'react';
-import classNames from 'classnames';
+import { cn } from 'cn';
 
 interface Props extends HighlightedTextProps {
   icon: ReactElement<{ className?: string }>;
@@ -13,7 +13,7 @@ export default function HighlightedTextIcon({ icon, children, className, ...prop
   return (
     <HighlightedText
       {...props}
-      className={classNames(
+      className={cn(
         'inline-flex items-baseline text-gray-800 font-medium transition-all transform hover:-translate-y-1 hover:shadow-xl',
         className
       )}

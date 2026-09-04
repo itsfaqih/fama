@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import { cn } from 'cn';
 import HighlightedTextProps from 'components/atoms/HighlightedText/types';
 
 export default function HighlightedText({
@@ -8,7 +8,7 @@ export default function HighlightedText({
   href,
   className,
 }: HighlightedTextProps) {
-  const classes = classNames('px-3 bg-white rounded-full shadow-md focus:outline-none focus:ring-2 ring-indigo-500', className);
+  const classes = cn('px-3 bg-white rounded-full shadow-md focus:outline-none focus:ring-2 ring-indigo-500', className);
   if (as === 'span') {
     return (
       <span className={classes}>

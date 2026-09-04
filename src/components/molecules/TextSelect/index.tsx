@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { TextSelectOption } from 'components/atoms';
 import TextSelectProps from 'components/molecules/TextSelect/types';
-import classNames from 'classnames';
+import { cn } from 'cn';
 
 export default function TextSelect({ options, state, className }: TextSelectProps) {
   const [selectedOption, setSelectedOption] = state;
@@ -14,7 +14,7 @@ export default function TextSelect({ options, state, className }: TextSelectProp
           <Listbox.Button className="flex items-center px-4 py-2 text-gray-700 bg-white rounded-lg focus:outline-none focus:ring-2 ring-indigo-500">
             {selectedOption.label}
             <svg
-              className={classNames('w-4 h-4 ml-2 transition-transform transform', {
+              className={cn('w-4 h-4 ml-2 transition-transform transform', {
                 'rotate-180': open,
               })}
               xmlns="http://www.w3.org/2000/svg"

@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import classNames from 'classnames';
+import { cn } from 'cn';
 import Icons from 'components/icons';
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 export default function TextSelectOption({ children, active, selected, onClick }: Props) {
   return (
     <li
-      className={classNames('py-4 px-8 sm:py-2 sm:px-4 w-60 sm:w-32 flex items-center cursor-pointer hover:bg-indigo-50', {
+      className={cn('py-4 px-8 sm:py-2 sm:px-4 w-60 sm:w-32 flex items-center cursor-pointer hover:bg-indigo-50', {
         'bg-indigo-50': active,
       })}
       onClick={onClick}

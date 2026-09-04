@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, SVGMotionProps, Variants } from 'motion/react';
-import classNames from 'classnames';
+import { cn } from 'cn';
 
 export default function TitleLine({ className, ...props }: SVGMotionProps<SVGElement>) {
   const variants: Variants = {
@@ -13,7 +13,7 @@ export default function TitleLine({ className, ...props }: SVGMotionProps<SVGEle
   };
 
   return (
-    <svg className={classNames('w-20 h-1 text-indigo-600 mt-3', className)} fill="currentColor">
+    <svg className={cn('w-20 h-1 text-indigo-600 mt-3', className)} fill="currentColor">
       <motion.rect variants={variants} initial="hidden" animate="show" height="100%" {...props} />
     </svg>
   );
