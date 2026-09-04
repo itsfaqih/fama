@@ -15,6 +15,7 @@ interface Props {
 
 export default function Navigation({ locale, sections, className }: Props) {
   const [animationFinish, setAnimationFinish] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const languageOptions: TextSelectOptionProps[] = [
     { label: 'English', value: 'en' },
     { label: 'Indonesia', value: 'id' },
@@ -33,7 +34,7 @@ export default function Navigation({ locale, sections, className }: Props) {
     <nav>
       <Animated.FromDirection
         from="top"
-        className={cn('w-full', className)}
+        className={cn('w-full', className, menuOpen && 'z-30')}
         duration={1}
         onAnimationComplete={() => setAnimationFinish(true)}
       >
@@ -43,10 +44,15 @@ export default function Navigation({ locale, sections, className }: Props) {
               <TextSelect
                 state={[selectedLanguage, setSelectedLanguage]}
                 options={languageOptions}
+                className={menuOpen ? 'invisible' : undefined}
               />
             </div>
           </div>
-          <MainMenu sections={sections} animationFinish={animationFinish} />
+          <MainMenu
+            sections={sections}
+            animationFinish={animationFinish}
+            onOpenChange={setMenuOpen}
+          />
         </Container>
       </Animated.FromDirection>
     </nav>
