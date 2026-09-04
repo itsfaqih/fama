@@ -1,6 +1,6 @@
 # Fama - Portfolio Website Template
 
-Tailwind CSS-based personal branding template built with React, Vite, and Motion.
+Tailwind CSS-based personal branding template built with React, Vite, Motion, and Base UI.
 
 ![Preview](https://cdn.dribbble.com/users/3490149/screenshots/14749044/media/a28226282decfdb8571c551e69feb706.png)
 
@@ -8,14 +8,32 @@ Tailwind CSS-based personal branding template built with React, Vite, and Motion
 
 See the template in use at <https://itsfaqih.vercel.app/>.
 
+## Current Stack
+
+- **Runtime and package manager:** Node.js 24 or newer and Bun 1.4.1
+- **Application:** React 19 with TypeScript 7
+- **Build tool:** Vite 8
+- **Styling:** Tailwind CSS 4 with the `@tailwindcss/vite` plugin
+- **UI primitives:** Base UI
+- **Animation:** Motion
+- **Class utilities:** `cn`
+- **Code quality:** Oxlint and Oxfmt
+
+The project uses Tailwind CSS 4's CSS-first configuration in
+`src/assets/css/styles.css`. It no longer requires Create React App, PostCSS,
+Autoprefixer, or a separate Tailwind configuration file.
+
 ## Requirements
 
 - Node.js 24 or newer
-- Bun 1.4 or newer
+- Bun 1.4.1 or newer
 
-## Available Scripts
+The required Node.js version is recorded in `.node-version`, and the package
+manager is declared in `package.json`.
 
-Install dependencies with:
+## Getting Started
+
+Install dependencies:
 
 ```sh
 bun install
@@ -27,20 +45,58 @@ Start the Vite development server:
 bun run dev
 ```
 
-Run the production build:
+The app is available at <http://localhost:5173/> by default. Vite chooses the
+next available port if that port is already in use.
+
+## Available Scripts
+
+| Command                | Description                                 |
+| ---------------------- | ------------------------------------------- |
+| `bun run dev`          | Start the Vite development server.          |
+| `bun run start`        | Alias for the Vite development server.      |
+| `bun run build`        | Create the production build in `dist/`.     |
+| `bun run preview`      | Serve the production build locally.         |
+| `bun run typecheck`    | Run TypeScript without emitting files.      |
+| `bun run lint`         | Check the project with Oxlint.              |
+| `bun run lint:fix`     | Apply Oxlint's automatic fixes.             |
+| `bun run format`       | Format supported files with Oxfmt.          |
+| `bun run format:check` | Verify that files are formatted with Oxfmt. |
+
+The repository intentionally has no test script. The former Create React App
+and Jest scaffolding was removed because the project did not contain a
+meaningful test suite. Use the typecheck, lint, format, and production-build
+commands above for the configured project checks.
+
+## UI and Navigation
+
+The portfolio includes:
+
+- English and Indonesian language selection.
+- Responsive navigation with animated menu transitions.
+- Section anchors for `#about`, `#projects`, `#blogs`, `#skills`, and `#contact`.
+- Animated hero, section, project, blog, and skills content.
+- Project and blog links to the existing external destinations.
+
+## Project Structure
+
+- `index.html` - Vite application entry document.
+- `src/index.tsx` - React application bootstrap.
+- `src/pages/Home` - Home page composition.
+- `src/components` - Reusable atoms, molecules, organisms, templates, and animations.
+- `src/data` - Portfolio content and skills data.
+- `src/localization` - English and Indonesian text.
+- `src/assets/css/styles.css` - Tailwind CSS 4 entry stylesheet and custom utilities.
+- `vite.config.ts` - Vite, React, and Tailwind plugin configuration.
+- `.oxlintrc.json` - Oxlint configuration.
+- `.oxfmtrc.json` - Oxfmt configuration.
+
+## Production Preview
+
+Build and preview the production output with:
 
 ```sh
 bun run build
-```
-
-Preview the production build locally:
-
-```sh
 bun run preview
 ```
 
-Run the TypeScript check:
-
-```sh
-bun run typecheck
-```
+The generated static assets are written to `dist/`.
