@@ -43,13 +43,14 @@ export default function TextSelect({ options, state, className }: TextSelectProp
           </Select.Icon>
         </Select.Trigger>
         <Select.Portal>
-          <Select.Positioner className="fixed left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 transform sm:absolute sm:left-auto sm:top-auto sm:mt-4 sm:translate-x-0 sm:translate-y-0">
+          <Select.Positioner className="z-20" sideOffset={16}>
             <Select.Popup className="overflow-hidden rounded-xl bg-white text-3xl shadow-md focus:outline-none focus:ring-2 ring-indigo-500 sm:text-base">
               <Select.List>
                 {options.map((option) => (
                   <Select.Item
                     key={String(option.value)}
                     value={String(option.value)}
+                    onClick={() => setSelectedOption(option)}
                     className={({ highlighted }) =>
                       cn(
                         'relative flex w-60 cursor-pointer items-center py-4 px-8 hover:bg-indigo-50 sm:w-32 sm:py-2 sm:px-4',
