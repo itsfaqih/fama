@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion, SVGMotionProps, Variants } from 'framer-motion';
+import { motion, SVGMotionProps, Variants } from 'motion/react';
 import classNames from 'classnames';
 
 export default function TitleLine({ className, ...props }: SVGMotionProps<SVGElement>) {

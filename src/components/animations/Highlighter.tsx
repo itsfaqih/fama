@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion, Variants, SVGMotionProps } from 'framer-motion';
+import { motion, Variants, SVGMotionProps } from 'motion/react';
 import classNames from 'classnames';
 
 interface Props extends SVGMotionProps<SVGElement> {

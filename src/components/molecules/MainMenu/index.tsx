@@ -2,7 +2,7 @@ import { Menu } from '@headlessui/react';
 import { MenuButton } from 'components/molecules';
 import React from 'react';
 import Animated from 'components/animations';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'motion/react';
 import { useContext } from 'react';
 import { LanguageContext } from 'contexts';
 import { MenuItem, Overlay } from 'components/atoms';

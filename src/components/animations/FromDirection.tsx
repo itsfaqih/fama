@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { motion, HTMLMotionProps, Variants } from 'framer-motion';
+import { motion, HTMLMotionProps, Variants } from 'motion/react';
 import classNames from 'classnames';
 import { useRef } from 'react';
 
-interface Props extends HTMLMotionProps<'div'> {
+interface Props extends Omit<HTMLMotionProps<'div'>, 'children'> {
+  children: React.ReactNode;
   from:
     | 'left'
     | 'top'
@@ -54,9 +55,9 @@ export default function FromDirection({
         variants={variants}
         initial="hidden"
         animate="show"
-        onAnimationComplete={() => {
+        onAnimationComplete={definition => {
           if (onAnimationComplete) {
-            onAnimationComplete();
+            onAnimationComplete(definition);
           }
           setOverflow(null);
           if (ref.current !== null) {

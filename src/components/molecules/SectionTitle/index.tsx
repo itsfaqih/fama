@@ -1,7 +1,7 @@
 import { HeaderText, TitleLine } from 'components/atoms';
 import React, { ReactNode } from 'react';
 import classNames from 'classnames';
-import { SVGMotionProps } from 'framer-motion';
+import { SVGMotionProps } from 'motion/react';
 
 interface Props {
   children: ReactNode;

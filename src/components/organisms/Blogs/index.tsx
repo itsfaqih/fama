@@ -2,12 +2,12 @@ import Animated from 'components/animations';
 import { RoundedButton } from 'components/atoms';
 import { SectionTitle, BlogPost } from 'components/molecules';
 import { LanguageContext } from 'contexts';
-import { useAnimation } from 'framer-motion';
+import { useAnimation } from 'motion/react';
 import React, { forwardRef, useContext, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import BlogsSectionProps from './types';
 
-const Blogs = forwardRef<HTMLElement | undefined, BlogsSectionProps>(
+const Blogs = forwardRef<HTMLElement, BlogsSectionProps>(
   ({ title, content, className }: BlogsSectionProps, ref) => {
     const controls = useAnimation();
     const [refView, inView] = useInView({

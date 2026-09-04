@@ -3,7 +3,7 @@ import { MutableRefObject } from "react";
 export default interface HeaderProps {
   data: HeaderDataProps;
   text: HeaderTextProps;
-  lowerSectionRef?: MutableRefObject<HTMLElement | undefined>;
+  lowerSectionRef?: MutableRefObject<HTMLElement | null>;
 }
 
 export interface HeaderDataProps {

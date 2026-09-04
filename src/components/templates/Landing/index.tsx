@@ -25,7 +25,7 @@ interface Props {
 
 export default function Landing({ data, locale, sections }: Props) {
   const { header, about, projects, blogs, skills, contact } = data;
-  const lowerSectionRef = useRef();
+  const lowerSectionRef = useRef<HTMLElement | null>(null);
 
   return (
     <>

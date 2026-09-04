@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import FullRoundButtonProps from 'components/atoms/FullRoundButton/types';
 import { useState } from 'react';
 import { useEffect } from 'react';

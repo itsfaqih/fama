@@ -4,7 +4,7 @@ import React, { ReactElement } from 'react';
 import classNames from 'classnames';
 
 interface Props extends HighlightedTextProps {
-  icon: ReactElement;
+  icon: ReactElement<{ className?: string }>;
 }
 
 export default function HighlightedTextIcon({ icon, children, className, ...props }: Props) {

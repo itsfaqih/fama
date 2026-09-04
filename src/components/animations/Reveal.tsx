@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { motion, HTMLMotionProps, Variants } from 'framer-motion';
+import { motion, HTMLMotionProps, Variants } from 'motion/react';
 import classNames from 'classnames';
 
-interface Props extends HTMLMotionProps<'div'> {
+interface Props extends Omit<HTMLMotionProps<'div'>, 'children'> {
+  children: React.ReactNode;
   duration?: number;
   delay?: number;
   from: 'left' | 'top' | 'right' | 'bottom';
