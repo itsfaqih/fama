@@ -1,14 +1,19 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "tailwindcss";
 
-@layer utilities {
-  @variants hover, focus-within {
-    .filter-none {
-      filter: none;
-    }
-    .filter-grayscale {
-      filter: grayscale(100%);
-    }
-  }
+@theme {
+  --font-sans: "Inter var", ui-sans-serif, system-ui, sans-serif;
+  --spacing-full-2: calc(100% + 0.5rem);
+  --leading-extra-loose: 2.5;
+}
+
+@utility filter-none {
+  filter: none;
+}
+
+@utility filter-grayscale {
+  filter: grayscale(100%);
+}
+
+#root {
+  isolation: isolate;
 }
