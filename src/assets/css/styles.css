@@ -17,3 +17,11 @@
 #root {
   isolation: isolate;
 }
+
+.menu-item-highlight {
+  width: 0;
+}
+
+[data-highlighted] .menu-item-highlight {
+  width: calc(100% + 0.5rem);
+}

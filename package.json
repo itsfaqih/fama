@@ -8,10 +8,9 @@
     "node": ">=24"
   },
   "dependencies": {
-    "@headlessui/react": "^0.2.0",
+    "@base-ui/react": "^1.8.0",
     "@iconify/icons-logos": "^1.2.36",
     "@iconify/react": "^6.0.2",
-    "body-scroll-lock": "^3.1.5",
     "cn": "^0.2.5",
     "motion": "^13.2.0",
     "react": "^19.2.8",
@@ -27,7 +26,6 @@
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.3",
-    "@types/body-scroll-lock": "^2.6.1",
     "@types/node": "^26.4.1",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",
