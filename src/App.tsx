@@ -1,5 +1,4 @@
 import React from 'react';
-import 'assets/css/app.css';
 import Home from 'pages/Home';
 import { LanguageContext } from 'contexts';
 import { useState } from 'react';
