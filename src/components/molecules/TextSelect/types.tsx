@@ -1,6 +1,6 @@
 export default interface TextSelectProps {
   options: TextSelectOptionProps[];
-  state: [TextSelectOptionProps, (any: any) => void];
+  state: [TextSelectOptionProps, (option: TextSelectOptionProps) => void];
   className?: string;
 }
 
