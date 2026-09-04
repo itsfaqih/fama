@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 interface Props {
   text: string;
-  icon: ReactElement;
+  icon: ReactElement<{ className?: string }>;
   className?: string;
   onClick: (params: any) => any;
 }

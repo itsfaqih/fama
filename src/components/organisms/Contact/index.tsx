@@ -3,11 +3,11 @@ import Icons from 'components/icons';
 import React, { useEffect } from 'react';
 import ContactSectionProps from 'components/organisms/Contact/types';
 import Animated from 'components/animations';
-import { useAnimation } from 'framer-motion';
+import { useAnimation } from 'motion/react';
 import { useInView } from 'react-intersection-observer';
 import { forwardRef } from 'react';
 
-const Contact = forwardRef<HTMLElement | undefined, ContactSectionProps>(
+const Contact = forwardRef<HTMLElement, ContactSectionProps>(
   ({ title, content }: ContactSectionProps, ref) => {
     const { email, socials } = content;
     const controls = useAnimation();

@@ -4,12 +4,12 @@ import { SectionTitle } from 'components/molecules';
 import { LanguageContext } from 'contexts';
 import React, { useContext } from 'react';
 import AboutSectionProps from 'components/organisms/About/types';
-import { useAnimation } from 'framer-motion';
+import { useAnimation } from 'motion/react';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { forwardRef } from 'react';
 
-const About = forwardRef<HTMLElement | undefined, AboutSectionProps>(
+const About = forwardRef<HTMLElement, AboutSectionProps>(
   ({ title, content, className }: AboutSectionProps, ref) => {
     const controls = useAnimation();
     const [refView, inView] = useInView({

@@ -1,7 +1,8 @@
 import React from 'react';
-import { motion, Variants, HTMLMotionProps } from 'framer-motion';
+import { motion, Variants, HTMLMotionProps } from 'motion/react';
 
-interface Props extends HTMLMotionProps<'div'> {
+interface Props extends Omit<HTMLMotionProps<'div'>, 'children'> {
+  children?: React.ReactNode;
   text: string;
   delay?: number;
   duration?: number;

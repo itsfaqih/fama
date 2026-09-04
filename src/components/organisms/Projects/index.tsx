@@ -6,12 +6,12 @@ import { LanguageContext } from 'contexts';
 import ProjectCard from 'components/molecules/ProjectCard';
 import Decorations from 'components/decorations';
 import ProjectsSectionProps from 'components/organisms/Projects/types';
-import { useAnimation } from 'framer-motion';
+import { useAnimation } from 'motion/react';
 import { useInView } from 'react-intersection-observer';
 import Animated from 'components/animations';
 import { forwardRef } from 'react';
 
-const Projects = forwardRef<HTMLElement | undefined, ProjectsSectionProps>(
+const Projects = forwardRef<HTMLElement, ProjectsSectionProps>(
   ({ title, content, className }: ProjectsSectionProps, ref) => {
     const controls = useAnimation();
     const [refView, inView] = useInView({

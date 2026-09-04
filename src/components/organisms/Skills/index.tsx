@@ -2,13 +2,13 @@ import Animated from 'components/animations';
 import { ContentText } from 'components/atoms';
 import { SectionTitle } from 'components/molecules';
 import { SectionVariants } from 'components/molecules/SectionTitle';
-import { useAnimation } from 'framer-motion';
+import { useAnimation } from 'motion/react';
 import React, { useEffect } from 'react';
 import { forwardRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import SkillsSectionProps from './types';
 
-const Skills = forwardRef<HTMLElement | undefined, SkillsSectionProps>(
+const Skills = forwardRef<HTMLElement, SkillsSectionProps>(
   ({ title, content, className }: SkillsSectionProps, ref) => {
     const { text, items } = content;
     const upperSkills = items.slice(0, items.length / 2);
