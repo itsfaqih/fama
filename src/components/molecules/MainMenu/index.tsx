@@ -40,9 +40,7 @@ export default function MainMenu({ animationFinish, sections }: Props) {
             animationFinish && 'shadow-lg',
             animationFinish === false && 'scale-75',
             animationFinish != null && 'transition-all transform duration-500',
-            open
-              ? 'bg-white text-indigo-600'
-              : 'bg-indigo-500 text-white hover:bg-indigo-600',
+            open ? 'bg-white text-indigo-600' : 'bg-indigo-500 text-white hover:bg-indigo-600',
           )}
         >
           {open ? <Icons.Close className="w-6 h-6" /> : <Icons.Menu className="w-6 h-6" />}
@@ -61,7 +59,7 @@ export default function MainMenu({ animationFinish, sections }: Props) {
               <AnimatePresence initial={false}>
                 {open && (
                   <div className="grid gap-x-32 gap-y-10">
-                    {menuItems.map(item => (
+                    {menuItems.map((item) => (
                       <Menu.LinkItem
                         key={item.href}
                         href={item.href}

@@ -8,13 +8,12 @@ export default function HighlightedText({
   href,
   className,
 }: HighlightedTextProps) {
-  const classes = cn('px-3 bg-white rounded-full shadow-md focus:outline-none focus:ring-2 ring-indigo-500', className);
+  const classes = cn(
+    'px-3 bg-white rounded-full shadow-md focus:outline-none focus:ring-2 ring-indigo-500',
+    className,
+  );
   if (as === 'span') {
-    return (
-      <span className={classes}>
-        {children}
-      </span>
-    );
+    return <span className={classes}>{children}</span>;
   }
   return (
     <a href={href} className={classes}>

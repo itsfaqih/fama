@@ -8,8 +8,6 @@ interface Props {
 
 export default function ContentText({ children, className }: Props) {
   return (
-    <p className={cn('text-center text-gray-700 leading-extra-loose', className)}>
-      {children}
-    </p>
+    <p className={cn('text-center text-gray-700 leading-extra-loose', className)}>{children}</p>
   );
 }

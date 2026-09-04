@@ -27,7 +27,7 @@ const About = forwardRef<HTMLElement, AboutSectionProps>(
       <section
         id="about"
         className={className}
-        ref={section => {
+        ref={(section) => {
           refView(section);
           if (ref) {
             if (typeof ref === 'function') {
@@ -71,7 +71,7 @@ const About = forwardRef<HTMLElement, AboutSectionProps>(
         </div>
       </section>
     );
-  }
+  },
 );
 
 export default About;

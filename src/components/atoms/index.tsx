@@ -23,5 +23,5 @@ export {
   ContentText,
   Container,
   TitleLine,
-  MenuItem
+  MenuItem,
 };

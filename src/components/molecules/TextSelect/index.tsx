@@ -7,7 +7,7 @@ export default function TextSelect({ options, state, className }: TextSelectProp
   const [selectedOption, setSelectedOption] = state;
 
   const handleValueChange = (value: string | null) => {
-    const nextOption = options.find(option => String(option.value) === value);
+    const nextOption = options.find((option) => String(option.value) === value);
 
     if (nextOption) {
       setSelectedOption(nextOption);
@@ -46,7 +46,7 @@ export default function TextSelect({ options, state, className }: TextSelectProp
           <Select.Positioner className="fixed left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 transform sm:absolute sm:left-auto sm:top-auto sm:mt-4 sm:translate-x-0 sm:translate-y-0">
             <Select.Popup className="overflow-hidden rounded-xl bg-white text-3xl shadow-md focus:outline-none focus:ring-2 ring-indigo-500 sm:text-base">
               <Select.List>
-                {options.map(option => (
+                {options.map((option) => (
                   <Select.Item
                     key={String(option.value)}
                     value={String(option.value)}

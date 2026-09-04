@@ -15,7 +15,7 @@ export default function HighlightedTextIcon({ icon, children, className, ...prop
       {...props}
       className={cn(
         'inline-flex items-baseline text-gray-800 font-medium transition-all transform hover:-translate-y-1 hover:shadow-xl',
-        className
+        className,
       )}
     >
       {Icon}

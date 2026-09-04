@@ -3,7 +3,7 @@ import Stripes from 'components/decorations/Stripes';
 
 const Decorations = {
   Bullets,
-  Stripes
+  Stripes,
 };
 
 export default Decorations;

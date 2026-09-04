@@ -1,7 +1,7 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
-  --font-sans: "Inter var", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Inter var', ui-sans-serif, system-ui, sans-serif;
   --spacing-full-2: calc(100% + 0.5rem);
   --leading-extra-loose: 2.5;
 }

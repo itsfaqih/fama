@@ -1,4 +1,4 @@
-import { MutableRefObject } from "react";
+import { MutableRefObject } from 'react';
 
 export default interface HeaderProps {
   data: HeaderDataProps;

@@ -21,14 +21,14 @@ export default function Navigation({ locale, sections, className }: Props) {
   ];
 
   const selectedLanguage =
-    languageOptions.find(option => option.value === locale.value) || languageOptions[0];
+    languageOptions.find((option) => option.value === locale.value) || languageOptions[0];
 
   const setSelectedLanguage = (option: TextSelectOptionProps) => {
     if (option.value === 'en' || option.value === 'id') {
       locale.change(option.value);
     }
   };
-  
+
   return (
     <nav>
       <Animated.FromDirection

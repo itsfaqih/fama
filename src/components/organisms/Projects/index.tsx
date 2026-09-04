@@ -32,7 +32,7 @@ const Projects = forwardRef<HTMLElement, ProjectsSectionProps>(
       <section
         id="projects"
         className={className}
-        ref={section => {
+        ref={(section) => {
           refView(section);
           if (ref) {
             if (typeof ref === 'function') {
@@ -84,14 +84,20 @@ const Projects = forwardRef<HTMLElement, ProjectsSectionProps>(
           ))}
         </div>
 
-        <Animated.FromDirection className="flex justify-center mt-8" from="bottom" animate={controls} custom={2} delay={1}>
+        <Animated.FromDirection
+          className="flex justify-center mt-8"
+          from="bottom"
+          animate={controls}
+          custom={2}
+          delay={1}
+        >
           <RoundedButton as="a" href="https://github.com/itsfaqih">
             {language.value === 'en' ? 'See more' : 'Lihat Selengkapnya'}
           </RoundedButton>
         </Animated.FromDirection>
       </section>
     );
-  }
+  },
 );
 
 export default Projects;

@@ -16,8 +16,6 @@ export default function HeaderText({ children, className, tag = 'div' }: Props) 
     );
   }
   return (
-    <h2 className={cn('text-3xl font-bold leading-normal text-gray-800', className)}>
-      {children}
-    </h2>
+    <h2 className={cn('text-3xl font-bold leading-normal text-gray-800', className)}>{children}</h2>
   );
 }
