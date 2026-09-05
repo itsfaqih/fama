@@ -6,7 +6,7 @@ Tailwind CSS-based personal branding template built with React, Vite, Motion, an
 
 ## Live Demo
 
-See the template in use at <https://itsfaqih.vercel.app/>.
+See the template in use at <https://fama.itsfaqih.dev/>.
 
 ## Current Stack
 
