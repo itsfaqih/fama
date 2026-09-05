@@ -3,6 +3,10 @@ import { Icon } from '@iconify/react';
 import phpIcon from '@iconify/icons-logos/php';
 import javascriptIcon from '@iconify/icons-logos/javascript';
 import { HighlightedTextIcon } from 'components/molecules';
+import normalizeIconifyIcon from 'utils/normalize-iconify';
+
+const phpIconData = normalizeIconifyIcon(phpIcon);
+const javascriptIconData = normalizeIconifyIcon(javascriptIcon);
 
 const Text = () => (
   <>
@@ -12,14 +16,14 @@ const Text = () => (
       as="a"
       href="https://php.net"
       className="mx-2"
-      icon={<Icon icon={phpIcon} style={{ fontSize: '24px' }} />}
+      icon={<Icon icon={phpIconData} ssr style={{ fontSize: '24px' }} />}
     >
       PHP
     </HighlightedTextIcon>{' '}
     dan{' '}
     <HighlightedTextIcon
       className="mx-2"
-      icon={<Icon icon={javascriptIcon} style={{ fontSize: '24px' }} />}
+      icon={<Icon icon={javascriptIconData} ssr style={{ fontSize: '24px' }} />}
     >
       Javascript
     </HighlightedTextIcon>{' '}

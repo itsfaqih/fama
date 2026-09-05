@@ -2,8 +2,12 @@ import React from 'react';
 import { Icon } from '@iconify/react';
 import { HighlightedTextIcon } from 'components/molecules';
 import { AboutSectionContentProps } from 'components/organisms/About/types';
+import normalizeIconifyIcon from 'utils/normalize-iconify';
 import reactIcon from '@iconify/icons-logos/react';
 import tailwindcssIcon from '@iconify/icons-logos/tailwindcss-icon';
+
+const reactIconData = normalizeIconifyIcon(reactIcon);
+const tailwindcssIconData = normalizeIconifyIcon(tailwindcssIcon);
 
 const Text = () => (
   <>
@@ -14,7 +18,7 @@ const Text = () => (
       as="a"
       href="https://tailwindcss.com"
       className="mx-2"
-      icon={<Icon icon={tailwindcssIcon} />}
+      icon={<Icon icon={tailwindcssIconData} ssr />}
     >
       TailwindCSS
     </HighlightedTextIcon>{' '}
@@ -23,7 +27,7 @@ const Text = () => (
       as="a"
       href="https://reactjs.org"
       className="mx-2"
-      icon={<Icon icon={reactIcon} />}
+      icon={<Icon icon={reactIconData} ssr />}
     >
       React
     </HighlightedTextIcon>

@@ -16,6 +16,7 @@ export default defineConfig({
       data: srcPath('data'),
       localization: srcPath('localization'),
       pages: srcPath('pages'),
+      utils: srcPath('utils'),
     },
   },
 });
