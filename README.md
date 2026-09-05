@@ -100,3 +100,26 @@ bun run preview
 ```
 
 The generated static assets are written to `dist/`.
+
+## Cloudflare Pages
+
+Fama is configured as a static Cloudflare Pages project, not a Worker. The
+repository-level configuration lives in `wrangler.toml`:
+
+- **Project name:** `fama`
+- **Build command:** `bun run build`
+- **Build output directory:** `dist`
+- **Production branch:** `main`
+- **Node.js:** 24, selected by `.node-version`
+
+After authenticating Wrangler and creating the Pages project once, a direct
+production upload can be made with:
+
+```sh
+npx wrangler pages project create fama --production-branch main
+npx wrangler pages deploy --branch main
+```
+
+If the `fama` Pages project already exists, skip the `project create` command.
+The custom domain `fama.itsfaqih.dev` must be assigned to the Pages project in
+Cloudflare after the first project is created.

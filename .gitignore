@@ -10,6 +10,9 @@
 /build
 /dist
 
+# Cloudflare local state
+/.wrangler
+
 # misc
 .DS_Store
 .env.local
