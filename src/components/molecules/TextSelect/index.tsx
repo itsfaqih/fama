@@ -43,8 +43,14 @@ export default function TextSelect({ options, state, className }: TextSelectProp
           </Select.Icon>
         </Select.Trigger>
         <Select.Portal>
-          <Select.Positioner className="z-20" sideOffset={16}>
-            <Select.Popup className="overflow-hidden rounded-xl bg-white text-3xl shadow-md focus:outline-none focus:ring-2 ring-indigo-500 sm:text-base">
+          <Select.Positioner
+            align="end"
+            alignItemWithTrigger={false}
+            className="language-positioner z-20"
+            side="bottom"
+            sideOffset={16}
+          >
+            <Select.Popup className="language-popup overflow-hidden rounded-xl bg-white text-3xl shadow-md focus:outline-none focus:ring-2 ring-indigo-500 sm:text-base">
               <Select.List>
                 {options.map((option) => (
                   <Select.Item

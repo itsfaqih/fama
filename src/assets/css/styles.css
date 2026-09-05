@@ -21,3 +21,60 @@
 [data-highlighted] .menu-item-highlight {
   width: calc(100% + 0.5rem);
 }
+
+.menu-trigger-intro {
+  transition:
+    transform 500ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 500ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.menu-backdrop {
+  width: 0;
+  transition: width 1000ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.menu-backdrop[data-open] {
+  width: 100%;
+}
+
+.menu-backdrop[data-starting-style],
+.menu-backdrop[data-ending-style] {
+  width: 0;
+}
+
+.language-popup {
+  transform: scale(1);
+  transform-origin: center;
+  transition:
+    transform 250ms linear(0, 0.6 10%, 1.4 25%, 2 40%, 1.7 55%, 1.25 75%, 1),
+    opacity 100ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.language-popup[data-starting-style],
+.language-popup[data-ending-style] {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.language-popup[data-ending-style] {
+  transition:
+    transform 75ms cubic-bezier(0, 0, 0.2, 1),
+    opacity 75ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+@media (width < 40rem) {
+  .language-positioner {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-trigger-intro,
+  .menu-backdrop,
+  .language-popup {
+    transition-duration: 0ms;
+  }
+}
