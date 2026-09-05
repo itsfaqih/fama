@@ -107,10 +107,14 @@ Fama is configured as a static Cloudflare Pages project, not a Worker. The
 repository-level configuration lives in `wrangler.toml`:
 
 - **Project name:** `fama`
-- **Build command:** `bun run build`
+- **Build command (Git integration):** `bun install --frozen-lockfile && bun run build`
 - **Build output directory:** `dist`
 - **Production branch:** `main`
 - **Node.js:** 24, selected by `.node-version`
+
+The Git build command installs the locked dependencies before invoking Vite;
+Cloudflare provides Bun in the build image but does not provide this
+repository's `node_modules` directory.
 
 After authenticating Wrangler and creating the Pages project once, a direct
 production upload can be made with:
