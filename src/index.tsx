@@ -1,3 +1,7 @@
+if (import.meta.env.DEV) {
+  void import('react-grab');
+}
+
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';

@@ -36,6 +36,7 @@
     "@vitejs/plugin-react": "^6.1.1",
     "oxfmt": "^0.66.0",
     "oxlint": "^1.81.0",
+    "react-grab": "^0.2.0",
     "tailwindcss": "^4.3.3",
     "typescript": "^7.0.2",
     "vite": "^8.2.2"
