@@ -8,7 +8,9 @@
   font-weight: 100 900;
   font-display: swap;
   src: url('../fonts/inter-variable-latin.woff2') format('woff2');
-  unicode-range: U+0020-007E, U+00A0, U+2019;
+  unicode-range:
+    U+0020, U+0025, U+0027-0029, U+002B-0034, U+0036, U+003A, U+003F-0050, U+0052-0055, U+0057-0059,
+    U+0061-0079, U+00A0, U+2019;
 }
 
 @theme {

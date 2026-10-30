@@ -70,7 +70,13 @@ const sectionIds = ['about', 'projects', 'blogs', 'skills', 'contact'];
 test.each(['/', '/id/'])('Every character on %s is in the subset font', async (path) => {
   const page = await open(path, { javaScript: false });
 
-  const text = await page.evaluate(() => document.body.textContent + document.title);
+  const text = await page.evaluate(() => {
+    const body = document.body.cloneNode(true) as HTMLElement;
+
+    body.querySelectorAll('script').forEach((script) => script.remove());
+
+    return body.textContent + document.title;
+  });
 
   const missing = [...new Set(text.replaceAll(/[\s\p{Extended_Pictographic}]/gu, ''))].filter(
     (character) => {
