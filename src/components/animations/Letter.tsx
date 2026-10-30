@@ -34,19 +34,24 @@ export default function Letter({ text, delay = 0, duration = 0.05, ...props }: P
     },
   };
 
+  // Screen readers get the whole text once instead of one letter per flex item.
   return (
-    <motion.div
-      className="flex overflow-hidden"
-      variants={container}
-      initial="hidden"
-      animate="show"
-      {...props}
-    >
-      {letters.map((letter, index) => (
-        <motion.span key={index} variants={child}>
-          {letter === ' ' ? '\u00A0' : letter}
-        </motion.span>
-      ))}
-    </motion.div>
+    <>
+      <span className="sr-only">{text}</span>
+      <motion.div
+        aria-hidden
+        className="flex overflow-hidden"
+        variants={container}
+        initial="hidden"
+        animate="show"
+        {...props}
+      >
+        {letters.map((letter, index) => (
+          <motion.span key={index} variants={child}>
+            {letter === ' ' ? '\u00A0' : letter}
+          </motion.span>
+        ))}
+      </motion.div>
+    </>
   );
 }

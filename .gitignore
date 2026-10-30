@@ -5,6 +5,9 @@
 
 # testing
 /coverage
+/component-artifacts
+/.vitest
+__screenshots__/
 
 # production
 /build

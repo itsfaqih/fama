@@ -24,6 +24,8 @@
     "start": "portless run vp dev",
     "build": "vp build",
     "preview": "vp preview --port 0",
+    "test": "vp test run --project unit",
+    "test:components": "vp test run --project components",
     "lint": "vp run lint:ts && vp run lint:format && vp run lint:workflow",
     "lint:fix": "vp run lint:ts:fix && vp run lint:format:fix",
     "lint:ts": "vp lint --deny-warnings . && tsc --noEmit",
@@ -47,6 +49,7 @@
     "typescript": "^7.0.2",
     "vite": "catalog:",
     "vite-plus": "catalog:",
+    "vitest": "5.0.5",
     "vitest-browser-react": "2.3.0"
   }
 }

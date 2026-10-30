@@ -1,10 +1,13 @@
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig, lazyPlugins } from 'vite-plus';
+import { playwright } from 'vite-plus/test/browser-playwright';
 import { fileURLToPath } from 'node:url';
 
 const srcPath = (directory: string) =>
   fileURLToPath(new URL(`./src/${directory}`, import.meta.url));
+
+const componentArtifactsDir = fileURLToPath(new URL('./component-artifacts', import.meta.url));
 
 // Project-local agent tooling and vendored lint plugins are not application source.
 const toolingIgnores = [
@@ -113,10 +116,46 @@ export default defineConfig({
   },
   // lazyPlugins returns undefined while vp only reads config metadata (lint, fmt).
   plugins: lazyPlugins(() => [react(), tailwindcss()]) ?? [],
+  test: {
+    retry: 0,
+    projects: [
+      {
+        extends: true,
+        test: {
+          name: 'unit',
+          include: ['src/**/*.test.{ts,tsx}'],
+          exclude: ['src/**/*.browser.test.tsx'],
+          environment: 'node',
+          sequence: { shuffle: true },
+        },
+      },
+      {
+        extends: true,
+        define: {
+          COMPONENT_ARTIFACTS_DIR: JSON.stringify(componentArtifactsDir),
+        },
+        test: {
+          name: 'components',
+          expect: { poll: { timeout: 3000 } },
+          include: ['src/**/*.browser.test.tsx'],
+          globalSetup: ['./tools/component-tests/global-setup.ts'],
+          setupFiles: ['./tools/component-tests/setup.ts'],
+          browser: {
+            enabled: true,
+            provider: playwright({ actionTimeout: 5000 }),
+            headless: true,
+            viewport: { width: 1280, height: 720 },
+            instances: [{ browser: 'chromium' }],
+          },
+        },
+      },
+    ],
+  },
   resolve: {
     alias: {
       assets: srcPath('assets'),
       components: srcPath('components'),
+      'component-tests': fileURLToPath(new URL('./tools/component-tests', import.meta.url)),
       contexts: srcPath('contexts'),
       data: srcPath('data'),
       localization: srcPath('localization'),

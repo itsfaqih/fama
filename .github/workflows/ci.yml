@@ -15,5 +15,14 @@ jobs:
           node-version-file: .node-version
           cache: true
       - run: vp run setup
+      - run: vp exec playwright install-deps chromium
       - run: vp run lint
+      - run: vp run test
+      - run: vp run test:components
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: component-artifacts
+          path: component-artifacts/
+          if-no-files-found: ignore
       - run: vp run build

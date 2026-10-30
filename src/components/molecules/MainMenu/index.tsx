@@ -113,7 +113,7 @@ export default function MainMenu({ animationFinish, sections, onOpenChange }: Pr
             }
           }}
           className={cn(
-            'relative z-30 flex h-12 w-12 items-center justify-center rounded-full focus:outline-none focus:ring-2 ring-indigo-500 ring-offset-2',
+            'relative z-30 flex h-12 w-12 items-center justify-center rounded-full focus:outline-none focus-visible:ring-2 ring-indigo-500 ring-offset-2',
             animationFinish && 'shadow-lg',
             animationFinish === false && 'scale-75',
             animationFinish != null && !buttonAnimationFinish && 'menu-trigger-intro',
@@ -123,8 +123,12 @@ export default function MainMenu({ animationFinish, sections, onOpenChange }: Pr
           {open ? <Icons.Close className="w-6 h-6" /> : <Icons.Menu className="w-6 h-6" />}
         </Menu.Trigger>
         <Menu.Portal>
-          <Menu.Backdrop className="menu-backdrop fixed top-0 right-0 z-10 h-full bg-indigo-500" />
-          <Menu.Positioner className="fixed inset-0 z-20 h-full w-full">
+          <Menu.Backdrop
+            data-testid="menu-backdrop"
+            className="menu-backdrop fixed top-0 right-0 z-10 h-full bg-indigo-600"
+          />
+          {/* The menu is a full-screen overlay; the important utilities override the anchor offset Base UI sets inline. */}
+          <Menu.Positioner className="fixed! inset-0! z-20 h-full w-full transform-none!">
             <Menu.Popup className="fixed inset-0 z-20 flex h-full w-full items-center justify-center text-4xl font-bold text-white focus:outline-none">
               <AnimatePresence>
                 {open && (

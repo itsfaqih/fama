@@ -3,11 +3,9 @@ import { Icon } from '@iconify/react';
 import reactIcon from '@iconify/icons-logos/react';
 import tailwindcssIcon from '@iconify/icons-logos/tailwindcss-icon';
 import laravelIcon from '@iconify/icons-logos/laravel';
-import codeigniterIcon from '@iconify/icons-logos/codeigniter';
 import postCssIcon from '@iconify/icons-logos/postcss';
-import bootstrapIcon from '@iconify/icons-logos/bootstrap';
-import nextjsIcon from '@iconify/icons-logos/nextjs';
 import normalizeIconifyIcon from 'utils/normalize-iconify';
+import { bootstrapIcon, codeigniterIcon, nextjsIcon } from 'data/legacy-skill-icons';
 
 const reactIconData = normalizeIconifyIcon(reactIcon);
 
@@ -15,35 +13,44 @@ const tailwindcssIconData = normalizeIconifyIcon(tailwindcssIcon);
 
 const laravelIconData = normalizeIconifyIcon(laravelIcon);
 
-const codeigniterIconData = normalizeIconifyIcon(codeigniterIcon);
-
 const postCssIconData = normalizeIconifyIcon(postCssIcon);
 
-const bootstrapIconData = normalizeIconifyIcon(bootstrapIcon);
-
-const nextjsIconData = normalizeIconifyIcon(nextjsIcon);
-
 const skills = [
-  <a key="react" href="https://reactjs.org" className="focus:outline-none">
+  <a key="react" aria-label="React" href="https://reactjs.org" className="focus:outline-none">
     <Icon className="text-5xl" icon={reactIconData} ssr />
   </a>,
-  <a key="tailwindcss" href="https://tailwindcss.com" className="focus:outline-none">
+  <a
+    key="tailwindcss"
+    aria-label="Tailwind CSS"
+    href="https://tailwindcss.com"
+    className="focus:outline-none"
+  >
     <Icon className="text-4xl" icon={tailwindcssIconData} ssr />
   </a>,
-  <a key="laravel" href="https://laravel.com" className="focus:outline-none">
+  <a key="laravel" aria-label="Laravel" href="https://laravel.com" className="focus:outline-none">
     <Icon className="text-5xl" icon={laravelIconData} ssr />
   </a>,
-  <a key="codeigniter" href="https://codeigniter.com" className="focus:outline-none">
-    <Icon className="text-6xl" icon={codeigniterIconData} ssr />
+  <a
+    key="codeigniter"
+    aria-label="CodeIgniter"
+    href="https://codeigniter.com"
+    className="focus:outline-none"
+  >
+    <Icon className="text-6xl" icon={codeigniterIcon} ssr />
   </a>,
-  <a key="postcss" href="https://postcss.org" className="focus:outline-none">
+  <a key="postcss" aria-label="PostCSS" href="https://postcss.org" className="focus:outline-none">
     <Icon className="text-5xl" icon={postCssIconData} ssr />
   </a>,
-  <a key="bootstrap" href="https://getboostrap.com" className="focus:outline-none">
-    <Icon className="text-5xl" icon={bootstrapIconData} ssr />
+  <a
+    key="bootstrap"
+    aria-label="Bootstrap"
+    href="https://getbootstrap.com"
+    className="focus:outline-none"
+  >
+    <Icon className="text-5xl" icon={bootstrapIcon} ssr />
   </a>,
-  <a key="nextjs" href="https://nextjs.org" className="focus:outline-none">
-    <Icon className="text-5xl" icon={nextjsIconData} ssr />
+  <a key="nextjs" aria-label="Next.js" href="https://nextjs.org" className="focus:outline-none">
+    <Icon className="text-5xl" icon={nextjsIcon} ssr />
   </a>,
 ];
 

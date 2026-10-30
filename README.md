@@ -52,19 +52,21 @@ next available port if that port is already in use.
 
 ## Available Scripts
 
-| Command                | Description                                                    |
-| ---------------------- | -------------------------------------------------------------- |
-| `vp run setup`         | Install dependencies and the Chromium build the tests use.     |
-| `vp run dev`           | Start the dev server at `https://fama.localhost` (portless).   |
-| `vp run build`         | Create the production build in `dist/`.                        |
-| `vp run preview`       | Serve the production build locally on a free port.             |
-| `vp run lint`          | Run every lint check: Oxlint, tsc, Oxfmt, actionlint (Docker). |
-| `vp run lint:fix`      | Apply Oxlint and Oxfmt fixes.                                  |
-| `vp run lint:ts`       | Run Oxlint (warnings fail) and tsc.                            |
-| `vp run lint:format`   | Check formatting with Oxfmt.                                   |
-| `vp run lint:workflow` | Check GitHub Actions workflows with actionlint.                |
+| Command                  | Description                                                    |
+| ------------------------ | -------------------------------------------------------------- |
+| `vp run setup`           | Install dependencies and the Chromium build the tests use.     |
+| `vp run dev`             | Start the dev server at `https://fama.localhost` (portless).   |
+| `vp run build`           | Create the production build in `dist/`.                        |
+| `vp run preview`         | Serve the production build locally on a free port.             |
+| `vp run test`            | Run the unit tests (shuffled).                                 |
+| `vp run test:components` | Run the component tests in headless Chromium.                  |
+| `vp run lint`            | Run every lint check: Oxlint, tsc, Oxfmt, actionlint (Docker). |
+| `vp run lint:fix`        | Apply Oxlint and Oxfmt fixes.                                  |
+| `vp run lint:ts`         | Run Oxlint (warnings fail) and tsc.                            |
+| `vp run lint:format`     | Check formatting with Oxfmt.                                   |
+| `vp run lint:workflow`   | Check GitHub Actions workflows with actionlint.                |
 
-The rules behind these checks are in `docs/lint.md`.
+The rules behind these checks are in `docs/lint.md`, `docs/testing.md`, and `docs/component-tests.md`.
 
 ## UI and Navigation
 

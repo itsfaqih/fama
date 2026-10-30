@@ -15,6 +15,7 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "paths": {
+      "component-tests/*": ["./tools/component-tests/*"],
       "*": ["./src/*"]
     },
     "types": ["node", "vite/client"],
@@ -24,5 +25,5 @@
     "noImplicitReturns": true,
     "noPropertyAccessFromIndexSignature": true
   },
-  "include": ["src", "vite.config.ts", "tools/oxlint/test-rules"]
+  "include": ["src", "vite.config.ts", "tools/oxlint/test-rules", "tools/component-tests"]
 }

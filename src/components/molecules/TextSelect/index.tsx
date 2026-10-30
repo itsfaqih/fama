@@ -44,33 +44,30 @@ export default function TextSelect({ options, state, className }: TextSelectProp
         </Select.Trigger>
         <Select.Portal>
           <Select.Positioner
-            align="end"
+            align="start"
             alignItemWithTrigger={false}
             className="language-positioner z-20"
             side="bottom"
             sideOffset={16}
           >
-            <Select.Popup className="language-popup overflow-hidden rounded-xl bg-white text-3xl shadow-md focus:outline-none focus:ring-2 ring-indigo-500 sm:text-base">
-              <Select.List>
-                {options.map((option) => (
-                  <Select.Item
-                    key={String(option.value)}
-                    value={String(option.value)}
-                    onClick={() => setSelectedOption(option)}
-                    className={({ highlighted }) =>
-                      cn(
-                        'relative flex w-60 cursor-pointer items-center py-4 px-8 hover:bg-indigo-50 sm:w-32 sm:py-2 sm:px-4',
-                        highlighted && 'bg-indigo-50',
-                      )
-                    }
-                  >
-                    <Select.ItemText>{option.label}</Select.ItemText>
-                    <Select.ItemIndicator className="absolute right-4 text-indigo-500">
-                      <Icons.CheckRounded className="h-7 w-7 sm:h-4 sm:w-4" />
-                    </Select.ItemIndicator>
-                  </Select.Item>
-                ))}
-              </Select.List>
+            <Select.Popup className="language-popup overflow-hidden rounded-xl bg-white text-3xl shadow-md focus:outline-none focus-within:ring-2 ring-indigo-500 sm:text-base">
+              {options.map((option) => (
+                <Select.Item
+                  key={String(option.value)}
+                  value={String(option.value)}
+                  className={({ highlighted }) =>
+                    cn(
+                      'relative flex w-60 cursor-pointer items-center py-4 px-8 hover:bg-indigo-50 sm:w-32 sm:py-2 sm:px-4',
+                      highlighted && 'bg-indigo-50',
+                    )
+                  }
+                >
+                  <Select.ItemText>{option.label}</Select.ItemText>
+                  <Select.ItemIndicator className="absolute right-4 text-indigo-500">
+                    <Icons.CheckRounded className="h-7 w-7 sm:h-4 sm:w-4" />
+                  </Select.ItemIndicator>
+                </Select.Item>
+              ))}
             </Select.Popup>
           </Select.Positioner>
         </Select.Portal>
