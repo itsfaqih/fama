@@ -8,4 +8,5 @@ export default interface BlogsSectionProps {
 
 export interface BlogsSectionContentProps {
   items: BlogsPostProps[];
+  moreUrl?: string;
 }

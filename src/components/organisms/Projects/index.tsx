@@ -10,7 +10,7 @@ import Animated from 'components/animations';
 
 export default function Projects({ title, content, className }: ProjectsSectionProps) {
   const language = useContext(LanguageContext);
-  const { items } = content;
+  const { items, moreUrl } = content;
 
   const bulletsClasses = 'w-32 h-32 text-indigo-300 md:w-40 md:h-40';
 
@@ -46,16 +46,18 @@ export default function Projects({ title, content, className }: ProjectsSectionP
         ))}
       </div>
 
-      <Animated.FromDirection
-        className="flex justify-center mt-8"
-        from="bottom"
-        custom={2}
-        delay={1}
-      >
-        <RoundedButton as="a" href="https://github.com/itsfaqih">
-          {language === 'en' ? 'See more' : 'Lihat Selengkapnya'}
-        </RoundedButton>
-      </Animated.FromDirection>
+      {moreUrl && (
+        <Animated.FromDirection
+          className="flex justify-center mt-8"
+          from="bottom"
+          custom={2}
+          delay={1}
+        >
+          <RoundedButton as="a" href={moreUrl}>
+            {language === 'en' ? 'See more' : 'Lihat Selengkapnya'}
+          </RoundedButton>
+        </Animated.FromDirection>
+      )}
     </section>
   );
 }

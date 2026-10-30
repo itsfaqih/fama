@@ -7,7 +7,7 @@ import BlogsSectionProps from './types';
 
 export default function Blogs({ title, content, className }: BlogsSectionProps) {
   const language = useContext(LanguageContext);
-  const { items } = content;
+  const { items, moreUrl } = content;
 
   return (
     <section id="blogs" className={className} data-reveal="0.45">
@@ -15,11 +15,13 @@ export default function Blogs({ title, content, className }: BlogsSectionProps) 
         <SectionTitle>
           <Animated.Letter text={title} custom={0} delay={1} />
         </SectionTitle>
-        <Animated.FromDirection from="bottom" custom={0.5} delay={1}>
-          <RoundedButton as="a" href="https://medium.com/@itsfaqih">
-            {language === 'en' ? 'More article' : 'Artikel lainnya'}
-          </RoundedButton>
-        </Animated.FromDirection>
+        {moreUrl && (
+          <Animated.FromDirection from="bottom" custom={0.5} delay={1}>
+            <RoundedButton as="a" href={moreUrl}>
+              {language === 'en' ? 'More article' : 'Artikel lainnya'}
+            </RoundedButton>
+          </Animated.FromDirection>
+        )}
       </div>
       <div className="grid grid-cols-1 mt-10 md:mt-8 md:grid-cols-2 md:gap-x-20 gap-y-10 md:gap-y-16">
         {items.map((item, index) => (

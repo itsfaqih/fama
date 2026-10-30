@@ -8,4 +8,5 @@ export default interface AboutSectionProps {
 
 export interface AboutSectionContentProps {
   text: ReactNode;
+  resumeUrl?: string;
 }

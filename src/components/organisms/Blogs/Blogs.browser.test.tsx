@@ -13,8 +13,10 @@ const items = [
   },
 ];
 
+const moreUrl = 'https://medium.com/@example';
+
 test('Blogs: each post links to its article with an English date', async () => {
-  await render(<Blogs title="Blogs" content={{ items }} />);
+  await render(<Blogs title="Blogs" content={{ items, moreUrl }} />);
 
   await expect
     .element(page.getByRole('link', { name: 'Apa itu JWT (JSON Web Token)?' }))
@@ -25,13 +27,20 @@ test('Blogs: each post links to its article with an English date', async () => {
   await expect.element(page.getByText('November 14, 2020')).toBeVisible();
   await expect
     .element(page.getByRole('link', { name: 'More article' }))
-    .toHaveAttribute('href', 'https://medium.com/@itsfaqih');
+    .toHaveAttribute('href', moreUrl);
   await capture('Blogs', 'default');
 });
 
 test('Blogs: in Indonesian dates and the more link are in Indonesian', async () => {
-  await render(inIndonesian(<Blogs title="Blog" content={{ items }} />));
+  await render(inIndonesian(<Blogs title="Blog" content={{ items, moreUrl }} />));
 
   await expect.element(page.getByText('14 November 2020')).toBeVisible();
   await expect.element(page.getByRole('link', { name: 'Artikel lainnya' })).toBeVisible();
+});
+
+test('Blogs: without a more URL there is no More article link', async () => {
+  await render(<Blogs title="Blogs" content={{ items }} />);
+
+  await expect.element(page.getByText('November 14, 2020')).toBeVisible();
+  await expect.element(page.getByRole('link', { name: 'More article' })).not.toBeInTheDocument();
 });

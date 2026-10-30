@@ -30,25 +30,9 @@ export default function Landing({ data, sections }: Props) {
         <div className="flex flex-wrap">
           <main className="w-full mt-12">
             <Header data={header.data} text={header.text} />
-            <About
-              title={sections.about}
-              content={{
-                text: about.text,
-              }}
-              className="pt-32 mt-24"
-            />
-            <Projects
-              title={sections.projects}
-              content={{
-                items: projects.items,
-              }}
-              className="pt-12 mt-40"
-            />
-            <Blogs
-              title={sections.blogs}
-              content={{ items: blogs.items }}
-              className="mt-12 pt-28"
-            />
+            <About title={sections.about} content={about} className="pt-32 mt-24" />
+            <Projects title={sections.projects} content={projects} className="pt-12 mt-40" />
+            <Blogs title={sections.blogs} content={blogs} className="mt-12 pt-28" />
             <Skills
               title={sections.skills}
               content={{ text: skills.text, items: skills.items }}

@@ -8,4 +8,5 @@ export default interface ProjectsSectionProps {
 
 export interface ProjectsSectionContentProps {
   items: ProjectCardDataProps[];
+  moreUrl?: string;
 }
