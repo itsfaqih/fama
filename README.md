@@ -52,21 +52,19 @@ next available port if that port is already in use.
 
 ## Available Scripts
 
-| Command               | Description                                         |
-| --------------------- | --------------------------------------------------- |
-| `vp dev`              | Start the Vite development server.                  |
-| `vp build`            | Create the production build in `dist/`.             |
-| `vp preview`          | Serve the production build locally.                 |
-| `vp check`            | Check formatting, lint rules, and types in one run. |
-| `vp run typecheck`    | Run TypeScript without emitting files.              |
-| `vp run lint`         | Check the project with Oxlint.                      |
-| `vp run lint:fix`     | Apply Oxlint's automatic fixes.                     |
-| `vp run format`       | Format supported files with Oxfmt.                  |
-| `vp run format:check` | Verify that files are formatted with Oxfmt.         |
+| Command                | Description                                                    |
+| ---------------------- | -------------------------------------------------------------- |
+| `vp run setup`         | Install dependencies and the Chromium build the tests use.     |
+| `vp run dev`           | Start the dev server at `https://fama.localhost` (portless).   |
+| `vp run build`         | Create the production build in `dist/`.                        |
+| `vp run preview`       | Serve the production build locally on a free port.             |
+| `vp run lint`          | Run every lint check: Oxlint, tsc, Oxfmt, actionlint (Docker). |
+| `vp run lint:fix`      | Apply Oxlint and Oxfmt fixes.                                  |
+| `vp run lint:ts`       | Run Oxlint (warnings fail) and tsc.                            |
+| `vp run lint:format`   | Check formatting with Oxfmt.                                   |
+| `vp run lint:workflow` | Check GitHub Actions workflows with actionlint.                |
 
-The repository intentionally has no test script. The former Create React App
-and Jest scaffolding was removed because the project did not contain a
-meaningful test suite. Use `vp check`, `vp run typecheck`, and `vp build` for the configured project checks.
+The rules behind these checks are in `docs/lint.md`.
 
 ## UI and Navigation
 

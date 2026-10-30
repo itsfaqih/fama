@@ -1,11 +1,11 @@
 import React from 'react';
 import { cn } from 'cn';
-import { ReactNode } from 'react';
+import { MouseEventHandler, ReactNode } from 'react';
 
 interface Props {
   children: ReactNode;
-  className?: string;
-  onClick?: (params: any) => any;
+  className?: string | undefined;
+  onClick?: MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
 export default function TextButton({ children, className, onClick }: Props) {

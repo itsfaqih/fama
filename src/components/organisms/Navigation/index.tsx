@@ -16,13 +16,14 @@ interface Props {
 export default function Navigation({ locale, sections, className }: Props) {
   const [animationFinish, setAnimationFinish] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const languageOptions: TextSelectOptionProps[] = [
+
+  const languageOptions: [TextSelectOptionProps, TextSelectOptionProps] = [
     { label: 'English', value: 'en' },
     { label: 'Indonesia', value: 'id' },
   ];
 
   const selectedLanguage =
-    languageOptions.find((option) => option.value === locale.value) || languageOptions[0];
+    languageOptions.find((option) => option.value === locale.value) ?? languageOptions[0];
 
   const setSelectedLanguage = (option: TextSelectOptionProps) => {
     if (option.value === 'en' || option.value === 'id') {

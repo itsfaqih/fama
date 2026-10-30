@@ -10,11 +10,17 @@ import nextjsIcon from '@iconify/icons-logos/nextjs';
 import normalizeIconifyIcon from 'utils/normalize-iconify';
 
 const reactIconData = normalizeIconifyIcon(reactIcon);
+
 const tailwindcssIconData = normalizeIconifyIcon(tailwindcssIcon);
+
 const laravelIconData = normalizeIconifyIcon(laravelIcon);
+
 const codeigniterIconData = normalizeIconifyIcon(codeigniterIcon);
+
 const postCssIconData = normalizeIconifyIcon(postCssIcon);
+
 const bootstrapIconData = normalizeIconifyIcon(bootstrapIcon);
+
 const nextjsIconData = normalizeIconifyIcon(nextjsIcon);
 
 const skills = [

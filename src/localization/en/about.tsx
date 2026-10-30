@@ -7,6 +7,7 @@ import reactIcon from '@iconify/icons-logos/react';
 import tailwindcssIcon from '@iconify/icons-logos/tailwindcss-icon';
 
 const reactIconData = normalizeIconifyIcon(reactIcon);
+
 const tailwindcssIconData = normalizeIconifyIcon(tailwindcssIcon);
 
 const Text = () => (

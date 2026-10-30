@@ -30,6 +30,7 @@ export default function FromDirection({
   ...props
 }: Props) {
   const [overflow, setOverflow] = useState<string | null>('overflow-hidden');
+
   const variants: Variants = {
     show: (i: number = 1) => ({
       y: 0,
@@ -59,7 +60,9 @@ export default function FromDirection({
           if (onAnimationComplete) {
             onAnimationComplete(definition);
           }
+
           setOverflow(null);
+
           if (ref.current !== null) {
             ref.current.style.transform = '';
           }

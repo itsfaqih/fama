@@ -12,9 +12,11 @@ export default function HighlightedText({
     'px-3 bg-white rounded-full shadow-md focus:outline-none focus:ring-2 ring-indigo-500',
     className,
   );
+
   if (as === 'span') {
     return <span className={classes}>{children}</span>;
   }
+
   return (
     <a href={href} className={classes}>
       {children}

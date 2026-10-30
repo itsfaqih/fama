@@ -14,6 +14,8 @@ The tools this project uses, chosen with the user during setup. The other docs n
 | Linter                       | Oxlint (through `vp lint`), with the vendored anti-slop plugin                                                  |
 | Formatter                    | Oxfmt (through `vp fmt`)                                                                                        |
 | Type checker                 | tsc (TypeScript 7)                                                                                              |
+| Workflow linter              | actionlint 1.7.12 (Docker image `rhysd/actionlint`)                                                             |
+| CI                           | GitHub Actions (`.github/workflows/ci.yml`, Vite+ through `voidzero-dev/setup-vp`)                              |
 | Unit test runner             | Vitest (through `vp test`), `unit` project                                                                      |
 | Component test runner        | Vitest browser mode with the Playwright provider (headless Chromium), `components` project                      |
 | Browser driver for agents    | agent-browser (global CLI)                                                                                      |

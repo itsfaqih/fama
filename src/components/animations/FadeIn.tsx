@@ -7,7 +7,7 @@ interface Props extends Omit<HTMLMotionProps<'div'>, 'children'> {
   duration?: number;
 }
 
-export default function FadeIn({ children, delay = 0, duration = 0.5, animate, ...props }: Props) {
+export default function FadeIn({ children, delay = 0, duration = 0.5, ...props }: Props) {
   const variants: Variants = {
     show: (i: number = 1) => ({
       opacity: 1,
@@ -22,7 +22,7 @@ export default function FadeIn({ children, delay = 0, duration = 0.5, animate, .
   };
 
   return (
-    <motion.div {...props} variants={variants} initial="hidden" animate={animate}>
+    <motion.div {...props} variants={variants} initial="hidden">
       {children}
     </motion.div>
   );

@@ -16,6 +16,7 @@ export default function FullRoundButton({
   onClick,
 }: FullRoundButtonProps) {
   const [animationFinish, setAnimationFinish] = useState(false);
+
   const classes = cn(
     'flex items-center justify-center w-12 h-12 rounded-full focus:outline-none focus:ring-2 ring-indigo-500 ring-offset-2',
     className,
@@ -49,6 +50,7 @@ export default function FullRoundButton({
       </motion.button>
     );
   }
+
   return (
     <motion.a
       href={href}

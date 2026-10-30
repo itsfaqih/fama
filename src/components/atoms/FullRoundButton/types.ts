@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { MouseEventHandler, ReactNode } from 'react';
 
 export default interface FullRoundButtonProps {
   children?: ReactNode;
@@ -8,5 +8,5 @@ export default interface FullRoundButtonProps {
   className?: string;
   animationComplete?: boolean;
   active?: boolean;
-  onClick?: (params: any) => any;
+  onClick?: MouseEventHandler<HTMLButtonElement & HTMLAnchorElement>;
 }

@@ -6,6 +6,7 @@ import { HighlightedTextIcon } from 'components/molecules';
 import normalizeIconifyIcon from 'utils/normalize-iconify';
 
 const phpIconData = normalizeIconifyIcon(phpIcon);
+
 const javascriptIconData = normalizeIconifyIcon(javascriptIcon);
 
 const Text = () => (

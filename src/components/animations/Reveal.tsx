@@ -9,6 +9,14 @@ interface Props extends Omit<HTMLMotionProps<'div'>, 'children'> {
   from: 'left' | 'top' | 'right' | 'bottom';
 }
 
+// The cover slides out on the side opposite the one it came from.
+const exitOffsets: Record<Props['from'], { x: string } | { y: string }> = {
+  right: { x: '-100%' },
+  left: { x: '100%' },
+  bottom: { y: '-100%' },
+  top: { y: '100%' },
+};
+
 export default function Reveal({
   children,
   duration,
@@ -18,16 +26,11 @@ export default function Reveal({
   ...props
 }: Props) {
   const [animatedFinish, setAnimatedFinish] = useState(false);
+
   const variants: Variants = {
     show: (i: number = 1) => ({
-      ...(from === 'right' && { x: '-100%' }),
-      ...(from === 'left' && { x: '100%' }),
-      ...(from === 'bottom' && { y: '-100%' }),
-      ...(from === 'top' && { y: '100%' }),
-      transition: {
-        delay: i * delay,
-        duration: duration,
-      },
+      ...exitOffsets[from],
+      transition: duration === undefined ? { delay: i * delay } : { delay: i * delay, duration },
     }),
     hidden: {
       x: 0,

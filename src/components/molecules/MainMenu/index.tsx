@@ -49,6 +49,7 @@ export default function MainMenu({ animationFinish, sections, onOpenChange }: Pr
 
     if (open) {
       actionsRef.current?.close();
+
       return;
     }
 
@@ -86,6 +87,7 @@ export default function MainMenu({ animationFinish, sections, onOpenChange }: Pr
 
           if (!nextOpen) {
             eventDetails.preventUnmountOnClose();
+
             const closeDuration = window.matchMedia('(prefers-reduced-motion: reduce)').matches
               ? 0
               : 1000;
@@ -107,11 +109,7 @@ export default function MainMenu({ animationFinish, sections, onOpenChange }: Pr
           onClick={handleTriggerClick}
           onMouseDown={(event) => {
             if (event.button === 0) {
-              (
-                event as React.MouseEvent<HTMLButtonElement> & {
-                  preventBaseUIHandler: () => void;
-                }
-              ).preventBaseUIHandler();
+              event.preventBaseUIHandler();
             }
           }}
           className={cn(

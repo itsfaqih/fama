@@ -1,5 +1,6 @@
 import React from 'react';
 import { cn } from 'cn';
+
 interface Props {
   children?: React.ReactNode;
   className?: string;

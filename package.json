@@ -24,13 +24,16 @@
     "start": "portless run vp dev",
     "build": "vp build",
     "preview": "vp preview --port 0",
-    "typecheck": "tsc --noEmit",
-    "lint": "vp lint .",
-    "lint:fix": "vp lint --fix .",
-    "format": "vp fmt",
-    "format:check": "vp fmt --check"
+    "lint": "vp run lint:ts && vp run lint:format && vp run lint:workflow",
+    "lint:fix": "vp run lint:ts:fix && vp run lint:format:fix",
+    "lint:ts": "vp lint --deny-warnings . && tsc --noEmit",
+    "lint:ts:fix": "vp lint --fix .",
+    "lint:format": "vp fmt --check",
+    "lint:format:fix": "vp fmt",
+    "lint:workflow": "docker run --rm -v \"$PWD\":/repo -w /repo rhysd/actionlint:1.7.12 -color"
   },
   "devDependencies": {
+    "@oxlint/plugins": "1.89.0",
     "@tailwindcss/vite": "^4.3.3",
     "@types/node": "^26.4.1",
     "@types/react": "^19.2.18",
