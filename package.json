@@ -9,8 +9,6 @@
     "node": ">=24"
   },
   "dependencies": {
-    "@iconify/icons-logos": "^1.2.36",
-    "@iconify/react": "^6.0.2",
     "cn": "^0.2.5",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"

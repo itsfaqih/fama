@@ -85,9 +85,11 @@ async function capture(
 
   const photoReencodedAsAvif = page.getByRole('img', { name: 'Profile Picture' });
 
+  const logosRasterizedAsImages = page.locator('#skills a > *');
+
   const image = await page.screenshot({
     fullPage: true,
-    mask: [photoReencodedAsAvif],
+    mask: [photoReencodedAsAvif, logosRasterizedAsImages],
   });
 
   await context.close();

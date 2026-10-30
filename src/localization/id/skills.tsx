@@ -1,31 +1,16 @@
 import React from 'react';
-import { Icon } from '@iconify/react';
-import phpIcon from '@iconify/icons-logos/php';
-import javascriptIcon from '@iconify/icons-logos/javascript';
+import { Logo } from 'components/atoms';
 import { HighlightedTextIcon } from 'components/molecules';
-import normalizeIconifyIcon from 'utils/normalize-iconify';
-
-const phpIconData = normalizeIconifyIcon(phpIcon);
-
-const javascriptIconData = normalizeIconifyIcon(javascriptIcon);
 
 const Text = () => (
   <>
     Saya sudah berpengalaman selama dua tahun mendalami{' '}
     <span className="font-bold text-gray-800">pengembangan website</span> menggunakan{' '}
-    <HighlightedTextIcon
-      as="a"
-      href="https://php.net"
-      className="mx-2"
-      icon={<Icon icon={phpIconData} ssr style={{ fontSize: '24px' }} />}
-    >
+    <HighlightedTextIcon as="a" href="https://php.net" className="mx-2" icon={<Logo name="php" />}>
       PHP
     </HighlightedTextIcon>{' '}
     dan{' '}
-    <HighlightedTextIcon
-      className="mx-2"
-      icon={<Icon icon={javascriptIconData} ssr style={{ fontSize: '24px' }} />}
-    >
+    <HighlightedTextIcon className="mx-2" icon={<Logo name="javascript" />}>
       Javascript
     </HighlightedTextIcon>{' '}
     hingga saya cukup percaya diri untuk membangun aplikasi menggunakan:

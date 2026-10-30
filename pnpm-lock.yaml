@@ -178,12 +178,6 @@ importers:
 
   .:
     dependencies:
-      '@iconify/icons-logos':
-        specifier: ^1.2.36
-        version: 1.2.36
-      '@iconify/react':
-        specifier: ^6.0.2
-        version: 6.0.3(react@19.3.1)
       cn:
         specifier: ^0.2.5
         version: 0.2.6
@@ -283,17 +277,6 @@ packages:
 
   '@iarna/toml@2.2.5':
     resolution: {integrity: sha512-trnsAYxU3xnS1gPHPyU961coFyLkh4gAD/0zQ5mymY4yOZ+CYvsPqUbOFSw0aDM4y0tV7tiFxL/1XfXPNC6IPg==}
-
-  '@iconify/icons-logos@1.2.36':
-    resolution: {integrity: sha512-RVdZE9figuWmd8HeVmM8oQvOdv/4YzXV6lZ+G9QJgzCB/VBLV0inPltZxOt939oj4GbKbr7PF6J4bADMua/GPw==}
-
-  '@iconify/react@6.0.3':
-    resolution: {integrity: sha512-2x7gVs+tpUG75aXYo/0c5wPOqrFy75YSGKmuJZyuHyrHMydzXpI/+i9/USIzWXJL9WWc2BCgPVnGY2FhbeiiDQ==}
-    peerDependencies:
-      react: '>=18.0.0'
-
-  '@iconify/types@2.0.0':
-    resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
 
   '@jridgewell/gen-mapping@0.3.13':
     resolution: {integrity: sha512-2kkt/7niJ6MgEPxF0bYdQ6etZaA+fQvDcLKckhy1yIQOzaoKjBBjSj63/aLVjYE3qhRt5dvM+uUyfCg6UKCBbA==}
@@ -2292,17 +2275,6 @@ snapshots:
       tslib: 2.8.1
 
   '@iarna/toml@2.2.5': {}
-
-  '@iconify/icons-logos@1.2.36':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify/react@6.0.3(react@19.3.1)':
-    dependencies:
-      '@iconify/types': 2.0.0
-      react: 19.3.1
-
-  '@iconify/types@2.0.0': {}
 
   '@jridgewell/gen-mapping@0.3.13':
     dependencies:

@@ -34,6 +34,7 @@ execFileSync(
     input,
     `--unicodes=${unicodeRange}`,
     '--glyph-names',
+    '--layout-features-=frac,numr,dnom',
     '--flavor=woff2',
     `--output-file=${output}`,
   ],

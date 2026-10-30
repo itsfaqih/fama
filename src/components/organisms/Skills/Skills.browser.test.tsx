@@ -9,7 +9,7 @@ function iconSize(name: string) {
   const { width, height } = page
     .getByRole('link', { name })
     .element()
-    .querySelector('svg')!
+    .querySelector('img')!
     .getBoundingClientRect();
 
   return { width: Math.round(width), height: Math.round(height) };
