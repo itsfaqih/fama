@@ -80,6 +80,14 @@ test('Menu: keyboard focus on the trigger shows an indigo ring', async () => {
   await capture('MainMenu', 'keyboard-focus');
 });
 
+test('Menu: without keyboard focus the trigger has no white ring around it', async () => {
+  await render(<MainMenu sections={sections} animationFinish />);
+
+  expect(
+    getComputedStyle(page.getByRole('button', { name: 'Menu' }).element()).boxShadow,
+  ).not.toContain('rgb(255, 255, 255)');
+});
+
 test('Menu: Escape closes the menu', async () => {
   const onOpenChange = vi.fn<(open: boolean) => void>();
   await render(<MainMenu sections={sections} onOpenChange={onOpenChange} />);

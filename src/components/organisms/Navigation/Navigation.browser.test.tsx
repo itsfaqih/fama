@@ -1,6 +1,6 @@
 import { capture } from 'component-tests/capture';
 import Navigation from 'components/organisms/Navigation';
-import { expect, test, vi } from 'vite-plus/test';
+import { expect, onTestFinished, test, vi } from 'vite-plus/test';
 import { page, userEvent } from 'vite-plus/test/browser';
 import { render } from 'vitest-browser-react';
 
@@ -63,4 +63,36 @@ test('Navigation: closing the menu with the mouse leaves no focus ring on the tr
   await expect.element(page.getByRole('menuitem', { name: 'About me' })).not.toBeInTheDocument();
   expect(getComputedStyle(trigger.element()).boxShadow).not.toContain('rgb(99, 102, 241)');
   await capture('Navigation', 'menu-closed-by-mouse');
+});
+
+test('Navigation: the menu button stays above the overlay while it slides shut', async () => {
+  // Transitions are off in tests, so hold the overlay at full width as it is early in its exit.
+  const fullWidthOverlay = document.createElement('style');
+
+  fullWidthOverlay.textContent = '[data-testid="menu-backdrop"] { width: 100% !important; }';
+  document.head.append(fullWidthOverlay);
+  onTestFinished(() => fullWidthOverlay.remove());
+  await render(
+    <Navigation
+      className="fixed z-10 top-8"
+      locale={{ value: 'en', change: () => {} }}
+      sections={sections}
+    />,
+  );
+  const trigger = page.getByRole('button', { name: 'Menu' });
+
+  await userEvent.click(trigger);
+  await expect.element(page.getByRole('menuitem', { name: 'About me' })).toBeVisible();
+  await userEvent.click(trigger);
+
+  await expect.element(page.getByRole('menuitem', { name: 'About me' })).not.toBeInTheDocument();
+  await expect.element(page.getByTestId('menu-backdrop')).toBeInTheDocument();
+
+  const { left, top, width, height } = trigger.element().getBoundingClientRect();
+  const topmost = document.elementFromPoint(left + width / 2, top + height / 2);
+
+  expect(topmost?.closest('[aria-label="Menu"]')).toBe(trigger.element());
+  await capture('Navigation', 'menu-closing');
+  await expect.element(page.getByTestId('menu-backdrop')).not.toBeInTheDocument();
+  await expect.element(page.getByRole('combobox', { name: 'Language' })).toBeVisible();
 });

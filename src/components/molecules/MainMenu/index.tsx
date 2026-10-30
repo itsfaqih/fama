@@ -11,9 +11,15 @@ interface Props {
   animationFinish?: boolean;
   sections: { about: string; projects: string; blogs: string; skills: string; contact: string };
   onOpenChange?: (open: boolean) => void;
+  onCloseComplete?: () => void;
 }
 
-export default function MainMenu({ animationFinish, sections, onOpenChange }: Props) {
+export default function MainMenu({
+  animationFinish,
+  sections,
+  onOpenChange,
+  onCloseComplete,
+}: Props) {
   const language = useContext(LanguageContext);
   const shouldReduceMotion = useReducedMotion();
   const [open, setOpen] = useState(false);
@@ -95,6 +101,7 @@ export default function MainMenu({ animationFinish, sections, onOpenChange }: Pr
             closeTimeoutRef.current = window.setTimeout(() => {
               actionsRef.current?.unmount();
               closeTimeoutRef.current = undefined;
+              onCloseComplete?.();
             }, closeDuration);
           }
 
@@ -113,7 +120,7 @@ export default function MainMenu({ animationFinish, sections, onOpenChange }: Pr
             }
           }}
           className={cn(
-            'relative z-30 flex h-12 w-12 items-center justify-center rounded-full focus:outline-none focus-visible:ring-2 ring-indigo-500 ring-offset-2',
+            'relative z-30 flex h-12 w-12 items-center justify-center rounded-full focus:outline-none focus-visible:ring-2 ring-indigo-500 focus-visible:ring-offset-2',
             animationFinish && 'shadow-lg',
             animationFinish === false && 'scale-75',
             animationFinish != null && !buttonAnimationFinish && 'menu-trigger-intro',
