@@ -21,6 +21,7 @@ The tools this project uses, chosen with the user during setup. The other docs n
 | Browser driver for agents    | agent-browser (global CLI)                                                                                      |
 | PR descriptions and evidence | GitHub CLI (`gh`, 2.101 or later)                                                                               |
 | Hosting                      | Cloudflare Pages (static `dist/`)                                                                               |
+| Page-load measurement        | Lighthouse 13 (`vp run perf`, simulated 3G throttling, `tools/perf/measure.ts`)                                 |
 
 Jobs this project does not have: backend, infrastructure as code, schema validation (no input crosses a boundary: no fetch, storage, or env), dependency containers, API and cloud emulation, web e2e runner (the user chose component tests), logging and analytics (no server), mutation and property-based testing (declined), pre-commit hooks (declined; lint runs in CI).
 

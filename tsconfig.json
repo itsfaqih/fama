@@ -13,6 +13,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
+    "allowImportingTsExtensions": true,
     "allowJs": true,
     "checkJs": true,
     "jsx": "react-jsx",
@@ -32,6 +33,8 @@
     "vite.config.ts",
     "tools/oxlint/test-rules",
     "tools/component-tests",
-    "tools/screenshots"
+    "tools/screenshots",
+    "tools/static-site",
+    "tools/perf"
   ]
 }

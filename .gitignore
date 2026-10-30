@@ -26,3 +26,6 @@ __screenshots__/
 
 npm-debug.log*
 pnpm-debug.log*
+
+# performance measurements
+/perf-artifacts
