@@ -39,14 +39,12 @@ export default function MainMenu({
     return () => window.clearTimeout(timeout);
   }, [animationFinish]);
 
-  useEffect(
-    () => () => {
-      if (closeTimeoutRef.current !== undefined) {
-        window.clearTimeout(closeTimeoutRef.current);
-      }
-    },
-    [],
-  );
+  const cancelPendingUnmount = () => {
+    window.clearTimeout(closeTimeoutRef.current);
+    closeTimeoutRef.current = undefined;
+  };
+
+  useEffect(() => () => window.clearTimeout(closeTimeoutRef.current), []);
 
   const handleTriggerClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (event.detail === 0) {
@@ -59,25 +57,17 @@ export default function MainMenu({
       return;
     }
 
-    if (closeTimeoutRef.current !== undefined) {
-      window.clearTimeout(closeTimeoutRef.current);
-      closeTimeoutRef.current = undefined;
-    }
-
+    cancelPendingUnmount();
     setOpen(true);
     onOpenChange?.(true);
   };
 
   const menuItems = [
-    { href: '#about', label: sections.about, custom: 1 },
-    { href: '#projects', label: sections.projects, custom: 2 },
-    { href: '#blogs', label: sections.blogs, custom: 3 },
-    { href: '#skills', label: sections.skills, custom: 4 },
-    {
-      href: '#contact',
-      label: language.value === 'en' ? 'Contact' : 'Kontak',
-      custom: 5,
-    },
+    { href: '#about', label: sections.about },
+    { href: '#projects', label: sections.projects },
+    { href: '#blogs', label: sections.blogs },
+    { href: '#skills', label: sections.skills },
+    { href: '#contact', label: language.value === 'en' ? 'Contact' : 'Kontak' },
   ];
 
   return (
@@ -86,23 +76,19 @@ export default function MainMenu({
         actionsRef={actionsRef}
         open={open}
         onOpenChange={(nextOpen, eventDetails) => {
-          if (closeTimeoutRef.current !== undefined) {
-            window.clearTimeout(closeTimeoutRef.current);
-            closeTimeoutRef.current = undefined;
-          }
+          cancelPendingUnmount();
 
           if (!nextOpen) {
             eventDetails.preventUnmountOnClose();
 
-            const closeDuration = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-              ? 0
-              : 1000;
-
-            closeTimeoutRef.current = window.setTimeout(() => {
-              actionsRef.current?.unmount();
-              closeTimeoutRef.current = undefined;
-              onCloseComplete?.();
-            }, closeDuration);
+            closeTimeoutRef.current = window.setTimeout(
+              () => {
+                actionsRef.current?.unmount();
+                closeTimeoutRef.current = undefined;
+                onCloseComplete?.();
+              },
+              shouldReduceMotion ? 0 : 1000,
+            );
           }
 
           setOpen(nextOpen);
@@ -140,24 +126,19 @@ export default function MainMenu({
               <AnimatePresence>
                 {open && (
                   <div className="grid gap-x-32 gap-y-10">
-                    {menuItems.map((item) => (
+                    {menuItems.map((item, index) => (
                       <Menu.LinkItem
                         key={item.href}
                         href={item.href}
                         closeOnClick
-                        className={({ highlighted }) =>
-                          cn(
-                            'group relative inline-flex rounded-lg focus:outline-none',
-                            highlighted && 'text-white',
-                          )
-                        }
+                        className="group relative inline-flex rounded-lg focus:outline-none"
                       >
                         <Animated.FromDirection
                           from="bottom"
                           initial={shouldReduceMotion ? false : 'hidden'}
                           animate="show"
                           exit={{ opacity: 0 }}
-                          custom={item.custom}
+                          custom={index + 1}
                           delay={shouldReduceMotion ? 0 : 0.2}
                         >
                           <MenuItem>{item.label}</MenuItem>
