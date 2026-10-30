@@ -15,8 +15,7 @@ interface Props {
 
 export default function Navigation({ locale, sections, className }: Props) {
   const [animationFinish, setAnimationFinish] = useState(false);
-  // True from opening the menu until its overlay has finished sliding shut.
-  const [menuShown, setMenuShown] = useState(false);
+  const [menuOverlayPresent, setMenuOverlayPresent] = useState(false);
 
   const languageOptions: [TextSelectOptionProps, TextSelectOptionProps] = [
     { label: 'English', value: 'en' },
@@ -36,7 +35,7 @@ export default function Navigation({ locale, sections, className }: Props) {
     <nav>
       <Animated.FromDirection
         from="top"
-        className={cn('w-full', className, menuShown && 'z-30')}
+        className={cn('w-full', className, menuOverlayPresent && 'z-30')}
         duration={1}
         onAnimationComplete={() => setAnimationFinish(true)}
       >
@@ -54,10 +53,10 @@ export default function Navigation({ locale, sections, className }: Props) {
             animationFinish={animationFinish}
             onOpenChange={(open) => {
               if (open) {
-                setMenuShown(true);
+                setMenuOverlayPresent(true);
               }
             }}
-            onCloseComplete={() => setMenuShown(false)}
+            onCloseComplete={() => setMenuOverlayPresent(false)}
           />
         </Container>
       </Animated.FromDirection>

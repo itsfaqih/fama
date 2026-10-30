@@ -68,13 +68,16 @@ test('Navigation: closing the menu with the mouse leaves no focus ring on the tr
   await capture('Navigation', 'menu-closed-by-mouse');
 });
 
-test('Navigation: the menu button stays above the overlay while it slides shut', async () => {
-  // Transitions are off in tests, so hold the overlay at full width as it is early in its exit.
+function holdOverlayAtFullWidthWhileTransitionsAreOff() {
   const fullWidthOverlay = document.createElement('style');
 
   fullWidthOverlay.textContent = '[data-testid="menu-backdrop"] { width: 100% !important; }';
   document.head.append(fullWidthOverlay);
   onTestFinished(() => fullWidthOverlay.remove());
+}
+
+test('Navigation: the menu button stays above the overlay while it slides shut', async () => {
+  holdOverlayAtFullWidthWhileTransitionsAreOff();
   await render(
     <Navigation
       className="fixed z-10 top-8"

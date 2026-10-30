@@ -34,7 +34,6 @@ export default function Letter({ text, delay = 0, duration = 0.05, ...props }: P
     },
   };
 
-  // Screen readers get the whole text once instead of one letter per flex item.
   return (
     <>
       <span className="sr-only">{text}</span>

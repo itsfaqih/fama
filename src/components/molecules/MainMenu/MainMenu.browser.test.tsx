@@ -64,8 +64,7 @@ test('Menu: the section links sit in the vertical centre of the screen', async (
     .element()
     .getBoundingClientRect().bottom;
 
-  // The 720px viewport's centre line is y=360.
-  expect((top + bottom) / 2).toBeCloseTo(360, 0);
+  expect((top + bottom) / 2).toBeCloseTo(window.innerHeight / 2, 0);
 });
 
 test('Menu: keyboard focus on the trigger shows an indigo ring', async () => {

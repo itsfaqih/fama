@@ -5,7 +5,6 @@
   --spacing-full-2: calc(100% + 0.5rem);
   --leading-extra-loose: 2.5;
 
-  /* The Tailwind v2 indigo and cool gray scales the design was drawn with. */
   --color-indigo-50: #eef2ff;
   --color-indigo-100: #e0e7ff;
   --color-indigo-200: #c7d2fe;

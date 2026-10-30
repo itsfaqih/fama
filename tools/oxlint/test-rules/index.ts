@@ -2,7 +2,6 @@ import { defineRule, eslintCompatPlugin } from 'vite-plus/lint/plugins';
 
 const WAIT_CALLEES = new Set(['setTimeout', 'sleep', 'wait', 'waitForTimeout', 'delay']);
 
-/** Tests wait on a condition (a retrying assertion), never on the clock. */
 const noFixedWaitRule = defineRule({
   meta: {
     type: 'problem',
@@ -32,7 +31,6 @@ const noFixedWaitRule = defineRule({
   },
 });
 
-/** A forced click skips the actionability checks a real user is subject to. */
 const noForceClickRule = defineRule({
   meta: {
     type: 'problem',
@@ -58,7 +56,6 @@ const noForceClickRule = defineRule({
   },
 });
 
-/** Test rules the generic Vitest plugin does not cover. */
 const testRulesPlugin = eslintCompatPlugin({
   meta: { name: 'test-rules' },
   rules: {

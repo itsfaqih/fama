@@ -9,7 +9,6 @@ interface Props extends Omit<HTMLMotionProps<'div'>, 'children'> {
   from: 'left' | 'top' | 'right' | 'bottom';
 }
 
-// The cover slides out on the side opposite the one it came from.
 const exitOffsets: Record<Props['from'], { x: string } | { y: string }> = {
   right: { x: '-100%' },
   left: { x: '100%' },

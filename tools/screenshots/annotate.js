@@ -14,8 +14,6 @@
 //   from:   'top' | 'right' | 'bottom' | 'left'   where an arrow starts (default 'left')
 // }
 // options: { color: '#e5173f', padding: 24 }
-//
-// Checked by tsc through JSDoc (tsconfig checkJs); the Window global is declared in globals.d.ts.
 
 /** @typedef {{ x: number, y: number, width: number, height: number }} Rect */
 /** @typedef {[number, number]} Point */
@@ -231,7 +229,6 @@
       height: Math.min(doc.scrollHeight, Math.ceil(y1 + padding)) - y,
     };
 
-    // An element over the crop rectangle, so a tool that only crops to an element can screenshot "#__annotate-crop".
     const frame = place(document.createElement('div'), crop.x, crop.y, crop.width, crop.height);
     frame.id = '__annotate-crop';
     root.append(frame);

@@ -9,7 +9,6 @@ const srcPath = (directory: string) =>
 
 const componentArtifactsDir = fileURLToPath(new URL('./component-artifacts', import.meta.url));
 
-// Project-local agent tooling and vendored lint plugins are not application source.
 const toolingIgnores = [
   '.agent/**',
   '.agents/**',
