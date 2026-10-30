@@ -52,12 +52,10 @@ test('Menu: open, an indigo 600 (#4f46e5) backdrop covers the whole screen', asy
   const backdrop = page.getByTestId('menu-backdrop');
 
   await expect.element(backdrop).toHaveStyle('background-color: rgb(79, 70, 229)');
-  expect(backdrop.element().getBoundingClientRect().toJSON()).toMatchObject({
-    left: 0,
-    top: 0,
-    width: 1280,
-    height: 720,
-  });
+  const { left, top, right, bottom } = backdrop.element().getBoundingClientRect();
+
+  expect([left, top]).toEqual([-1, -1]);
+  expect([right, bottom]).toEqual([1281, 721]);
 });
 
 test('Menu: open, the section links sit in the vertical centre of the screen', async () => {

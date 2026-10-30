@@ -44,7 +44,7 @@ export default function MainMenu({ sections }: Props) {
     <div id="menu" className="main-menu fixed inset-0 z-9">
       <div
         data-testid="menu-backdrop"
-        className="menu-backdrop absolute top-0 right-0 h-full bg-indigo-600"
+        className="menu-backdrop absolute -inset-y-px -right-px bg-indigo-600"
       />
       <nav
         aria-label="Sections"

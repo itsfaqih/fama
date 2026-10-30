@@ -71,7 +71,7 @@ function holdOverlayMidCloseWhileTransitionsAreOff() {
   const midClose = document.createElement('style');
 
   midClose.textContent =
-    '#menu { visibility: visible !important; } [data-testid="menu-backdrop"] { width: 100% !important; }';
+    '#menu { visibility: visible !important; } [data-testid="menu-backdrop"] { scale: none !important; }';
   document.head.append(midClose);
   onTestFinished(() => midClose.remove());
 }
