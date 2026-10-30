@@ -7,13 +7,16 @@ import { render } from 'vitest-browser-react';
 
 const data = {
   name: 'Faqih Muntashir',
-  profilePicture: { jpeg: '/img/person.jpg', avif: '/img/person.avif' },
+  profilePicture: {
+    jpeg: '/img/person.jpg',
+    avif: { small: '/img/person-240.avif', large: '/img/person.avif' },
+  },
   job: 'Fullstack Developer',
 };
 
 const text = { headerText: { greetings: 'Hello', intro: "I'm", preTitle: 'a' } };
 
-test('Header: the profile picture loads as AVIF, with the JPEG as the fallback', async () => {
+test('Header: the 240 px profile picture loads the 240 px AVIF, with the JPEG as the fallback', async () => {
   await render(<Header data={data} text={text} />);
   const picture = page.getByRole('img', { name: 'Profile Picture' });
 
@@ -21,9 +24,9 @@ test('Header: the profile picture loads as AVIF, with the JPEG as the fallback',
   await expect.poll(() => picture.element()).toHaveProperty('complete', true);
   expect(picture.element()).toHaveProperty(
     'currentSrc',
-    expect.stringMatching(/\/img\/person\.avif$/),
+    expect.stringMatching(/\/img\/person-240\.avif$/),
   );
-  expect(picture.element()).toHaveProperty('naturalWidth', 480);
+  expect(picture.element()).toHaveProperty('naturalWidth', 240);
   await capture('Header', 'default');
 });
 

@@ -4,7 +4,7 @@ export default interface HeaderProps {
 }
 
 export interface HeaderDataProps {
-  profilePicture: { jpeg: string; avif: string };
+  profilePicture: { jpeg: string; avif: { small: string; large: string } };
   name: string;
   job: string;
 }

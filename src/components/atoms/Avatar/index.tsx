@@ -2,7 +2,7 @@ import React from 'react';
 import { cn } from 'cn';
 
 interface Props {
-  image: { jpeg: string; avif: string };
+  image: { jpeg: string; avif: { small: string; large: string } };
   alt: string;
   className?: string;
 }
@@ -10,7 +10,11 @@ interface Props {
 export default function Avatar({ image, alt, className }: Props) {
   return (
     <picture>
-      <source type="image/avif" srcSet={image.avif} />
+      <source
+        type="image/avif"
+        srcSet={`${image.avif.small} 240w, ${image.avif.large} 480w`}
+        sizes="(min-width: 48rem) 240px, 112px"
+      />
       <img
         src={image.jpeg}
         alt={alt}

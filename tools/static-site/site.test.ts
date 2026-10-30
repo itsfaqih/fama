@@ -102,6 +102,42 @@ test.each([
   expect(await page.getByRole('img', { name: 'Profile Picture' }).isVisible()).toBe(true);
 });
 
+test.each([
+  {
+    screen: 'a phone',
+    viewport: { width: 412, height: 823 },
+    deviceScaleFactor: 1.75,
+    file: 'person-240.avif',
+  },
+  {
+    screen: 'a retina laptop',
+    viewport: { width: 1280, height: 800 },
+    deviceScaleFactor: 2,
+    file: 'person.avif',
+  },
+])(
+  'On $screen the profile picture downloads $file',
+  async ({ viewport, deviceScaleFactor, file }) => {
+    const context = await browser.newContext({
+      viewport,
+      deviceScaleFactor,
+      ignoreHTTPSErrors: true,
+    });
+
+    onTestFinished(() => context.close());
+
+    const page = await context.newPage();
+
+    await page.goto(site.url);
+
+    const photo = page.getByRole('img', { name: 'Profile Picture' });
+
+    await expect
+      .poll(() => photo.evaluate((image: HTMLImageElement) => image.currentSrc))
+      .toMatch(new RegExp(`/img/${file}$`));
+  },
+);
+
 test('Without JavaScript the menu opens, and a section link closes it and jumps there', async () => {
   const page = await open('/', { javaScript: false });
 
