@@ -2,7 +2,7 @@
 
 Tailwind CSS-based personal branding template built with React, Vite, Motion, and Base UI.
 
-![Preview](https://cdn.dribbble.com/users/3490149/screenshots/14749044/media/a28226282decfdb8571c551e69feb706.png)
+![Preview](.github/preview.png)
 
 ## Live Demo
 
