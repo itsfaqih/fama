@@ -24,7 +24,7 @@ const Skills = forwardRef<HTMLElement, SkillsSectionProps>(
 
     useEffect(() => {
       if (inView) {
-        controls.start('show');
+        void controls.start('show');
       }
     }, [controls, inView]);
 

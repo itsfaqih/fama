@@ -17,7 +17,7 @@ const Contact = forwardRef<HTMLElement, ContactSectionProps>(
 
     useEffect(() => {
       if (inView) {
-        controls.start('show');
+        void controls.start('show');
       }
     }, [controls, inView]);
 

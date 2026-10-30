@@ -24,7 +24,7 @@ const Projects = forwardRef<HTMLElement, ProjectsSectionProps>(
 
     useEffect(() => {
       if (inView) {
-        controls.start('show');
+        void controls.start('show');
       }
     }, [controls, inView]);
 

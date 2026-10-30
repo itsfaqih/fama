@@ -19,7 +19,7 @@ const About = forwardRef<HTMLElement, AboutSectionProps>(
 
     useEffect(() => {
       if (inView) {
-        controls.start('show');
+        void controls.start('show');
       }
     }, [controls, inView]);
 

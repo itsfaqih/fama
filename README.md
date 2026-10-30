@@ -10,14 +10,14 @@ See the template in use at <https://fama.itsfaqih.dev/>.
 
 ## Current Stack
 
-- **Runtime and package manager:** Node.js 24 or newer and Bun 1.4.1
+- **Toolchain:** Vite+ (`vp`) 1.4 with Node.js 24 or newer and pnpm 12
 - **Application:** React 19 with TypeScript 7
-- **Build tool:** Vite 8
+- **Build tool:** Vite 8, bundled with Vite+
 - **Styling:** Tailwind CSS 4 with the `@tailwindcss/vite` plugin
 - **UI primitives:** Base UI
 - **Animation:** Motion
 - **Class utilities:** `cn`
-- **Code quality:** Oxlint and Oxfmt
+- **Code quality:** Oxlint and Oxfmt, run through Vite+
 
 The project uses Tailwind CSS 4's CSS-first configuration in
 `src/assets/css/styles.css`. It no longer requires Create React App, PostCSS,
@@ -25,24 +25,26 @@ Autoprefixer, or a separate Tailwind configuration file.
 
 ## Requirements
 
+- [Vite+](https://viteplus.dev/) (`vp`)
 - Node.js 24 or newer
-- Bun 1.4.1 or newer
+- pnpm 12
 
 The required Node.js version is recorded in `.node-version`, and the package
-manager is declared in `package.json`.
+manager is declared in `package.json`. `vp` reads both and provides the matching
+Node.js and pnpm versions.
 
 ## Getting Started
 
 Install dependencies:
 
 ```sh
-bun install
+vp install
 ```
 
 Start the Vite development server:
 
 ```sh
-bun run dev
+vp dev
 ```
 
 The app is available at <http://localhost:5173/> by default. Vite chooses the
@@ -50,22 +52,21 @@ next available port if that port is already in use.
 
 ## Available Scripts
 
-| Command                | Description                                 |
-| ---------------------- | ------------------------------------------- |
-| `bun run dev`          | Start the Vite development server.          |
-| `bun run start`        | Alias for the Vite development server.      |
-| `bun run build`        | Create the production build in `dist/`.     |
-| `bun run preview`      | Serve the production build locally.         |
-| `bun run typecheck`    | Run TypeScript without emitting files.      |
-| `bun run lint`         | Check the project with Oxlint.              |
-| `bun run lint:fix`     | Apply Oxlint's automatic fixes.             |
-| `bun run format`       | Format supported files with Oxfmt.          |
-| `bun run format:check` | Verify that files are formatted with Oxfmt. |
+| Command               | Description                                         |
+| --------------------- | --------------------------------------------------- |
+| `vp dev`              | Start the Vite development server.                  |
+| `vp build`            | Create the production build in `dist/`.             |
+| `vp preview`          | Serve the production build locally.                 |
+| `vp check`            | Check formatting, lint rules, and types in one run. |
+| `vp run typecheck`    | Run TypeScript without emitting files.              |
+| `vp run lint`         | Check the project with Oxlint.                      |
+| `vp run lint:fix`     | Apply Oxlint's automatic fixes.                     |
+| `vp run format`       | Format supported files with Oxfmt.                  |
+| `vp run format:check` | Verify that files are formatted with Oxfmt.         |
 
 The repository intentionally has no test script. The former Create React App
 and Jest scaffolding was removed because the project did not contain a
-meaningful test suite. Use the typecheck, lint, format, and production-build
-commands above for the configured project checks.
+meaningful test suite. Use `vp check`, `vp run typecheck`, and `vp build` for the configured project checks.
 
 ## UI and Navigation
 
@@ -86,17 +87,16 @@ The portfolio includes:
 - `src/data` - Portfolio content and skills data.
 - `src/localization` - English and Indonesian text.
 - `src/assets/css/styles.css` - Tailwind CSS 4 entry stylesheet and custom utilities.
-- `vite.config.ts` - Vite, React, and Tailwind plugin configuration.
-- `.oxlintrc.json` - Oxlint configuration.
-- `.oxfmtrc.json` - Oxfmt configuration.
+- `vite.config.ts` - Vite+ configuration: React and Tailwind plugins, Oxlint (`lint`), and Oxfmt (`fmt`).
+- `pnpm-workspace.yaml` - pnpm catalog that maps `vite` to the Vite+ core package.
 
 ## Production Preview
 
 Build and preview the production output with:
 
 ```sh
-bun run build
-bun run preview
+vp build
+vp preview
 ```
 
 The generated static assets are written to `dist/`.
@@ -107,21 +107,22 @@ Fama is configured as a static Cloudflare Pages project, not a Worker. The
 repository-level configuration lives in `wrangler.toml`:
 
 - **Project name:** `fama`
-- **Build command (Git integration):** `bun install --frozen-lockfile && bun run build`
+- **Build command (Git integration):** `pnpm install --frozen-lockfile && pnpm run build`
 - **Build output directory:** `dist`
 - **Production branch:** `main`
 - **Node.js:** 24, selected by `.node-version`
 
 The Git build command installs the locked dependencies before invoking Vite;
-Cloudflare provides Bun in the build image but does not provide this
-repository's `node_modules` directory.
+Cloudflare provides pnpm in the build image but not the global `vp` CLI, so the
+`build` script runs the `vp` binary that the `vite-plus` dev dependency installs
+into `node_modules/.bin`.
 
 After authenticating Wrangler and creating the Pages project once, a direct
 production upload can be made with:
 
 ```sh
-npx wrangler pages project create fama --production-branch main
-npx wrangler pages deploy --branch main
+vp dlx wrangler pages project create fama --production-branch main
+vp dlx wrangler pages deploy --branch main
 ```
 
 If the `fama` Pages project already exists, skip the `project create` command.

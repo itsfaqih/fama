@@ -18,7 +18,7 @@ const Blogs = forwardRef<HTMLElement, BlogsSectionProps>(
 
     useEffect(() => {
       if (inView) {
-        controls.start('show');
+        void controls.start('show');
       }
     }, [controls, inView]);
 
