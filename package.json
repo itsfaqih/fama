@@ -2,6 +2,7 @@
   "name": "personal-branding-template",
   "version": "0.1.0",
   "private": true,
+  "portless": "fama",
   "type": "module",
   "packageManager": "pnpm@12.16.1",
   "engines": {
@@ -18,8 +19,9 @@
     "react-intersection-observer": "^11.0.1"
   },
   "scripts": {
-    "dev": "vp dev",
-    "start": "vp dev",
+    "setup": "vp install && playwright install chromium",
+    "dev": "portless run vp dev",
+    "start": "portless run vp dev",
     "build": "vp build",
     "preview": "vp preview",
     "typecheck": "tsc --noEmit",
@@ -34,10 +36,14 @@
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",
     "@vitejs/plugin-react": "^6.1.1",
+    "@vitest/browser-playwright": "5.0.5",
+    "playwright": "1.64.1",
+    "portless": "0.15.12",
     "react-grab": "^0.2.0",
     "tailwindcss": "^4.3.3",
     "typescript": "^7.0.2",
     "vite": "catalog:",
-    "vite-plus": "catalog:"
+    "vite-plus": "catalog:",
+    "vitest-browser-react": "2.3.0"
   }
 }
