@@ -71,11 +71,9 @@ test.each(['/', '/id/'])('Every character on %s is in the subset font', async (p
   const page = await open(path, { javaScript: false });
 
   const text = await page.evaluate(() => {
-    const body = document.body.cloneNode(true) as HTMLElement;
+    document.body.querySelectorAll('script').forEach((script) => script.remove());
 
-    body.querySelectorAll('script').forEach((script) => script.remove());
-
-    return body.textContent + document.title;
+    return document.body.textContent + document.title;
   });
 
   const missing = [...new Set(text.replaceAll(/[\s\p{Extended_Pictographic}]/gu, ''))].filter(
