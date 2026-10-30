@@ -6,7 +6,7 @@ const header: HeaderDataProps = {
     jpeg: '/img/person.jpg',
     avif: { small: '/img/person-240.avif', large: '/img/person.avif' },
   },
-  job: 'Fullstack Developer',
+  job: 'Full-Stack Engineer',
 };
 
 export default header;

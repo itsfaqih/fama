@@ -5,27 +5,27 @@ import { AboutSectionContentProps } from 'components/organisms/About/types';
 
 const Text = () => (
   <>
-    I’m currently working as a freelance{' '}
-    <span className="font-bold text-gray-800">fullstack developer</span> and{' '}
-    <span className="font-bold text-gray-800">UI/UX designer</span>. I enjoy building web apps using
+    I’m a <span className="font-bold text-gray-800">full-stack engineer</span> with more than five
+    years on web products, mostly built with
     <HighlightedTextIcon
       as="a"
-      href="https://tailwindcss.com"
+      href="https://www.typescriptlang.org"
       className="mx-2"
-      icon={<Logo name="tailwindcss" />}
+      icon={<Logo name="typescript" />}
     >
-      TailwindCSS
+      TypeScript
     </HighlightedTextIcon>{' '}
     and{' '}
     <HighlightedTextIcon
       as="a"
-      href="https://reactjs.org"
+      href="https://react.dev"
       className="mx-2"
       icon={<Logo name="react" />}
     >
       React
     </HighlightedTextIcon>
-    . I'm also an active student in University of AMIKOM Yogyakarta.
+    . Right now I’m building healthcare software at EvidenceCare. Before that I worked at Vestis
+    Labs and Jatis Mobile.
   </>
 );
 

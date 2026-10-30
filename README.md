@@ -58,14 +58,15 @@ All personal content lives in a few files. Edit them, then run the tests (see
 | Projects and the **See more** link              | `src/data/projects.ts`                            |
 | Blog posts and the **More article** link        | `src/data/blogs.ts`                               |
 | Skill logos and their links                     | `src/data/skills.tsx`                             |
-| Email and Facebook, Twitter, Instagram links    | `src/data/contact.ts`                             |
+| Email and GitHub, LinkedIn, Dribbble links      | `src/data/contact.ts`                             |
 | Greeting, section titles, About and Skills text | `src/localization/en/` and `src/localization/id/` |
 | Page title and description                      | `index.html`                                      |
 | App name for home-screen installs               | `public/manifest.json`                            |
 | README preview image                            | `.github/preview.png`                             |
 
 The resume, **See more** and **More article** links are optional. Leave one out
-and its button disappears. The three social networks are fixed in
+and its button disappears. Each project's `type` picks the icon on its card:
+`github`, `dribbble`, `figma` or `web`. The three social networks are fixed in
 `src/components/organisms/Contact/types.ts`; change them there and in the
 Contact component.
 

@@ -6,6 +6,6 @@ export default interface ProjectCardProps {
 export interface ProjectCardDataProps {
   title: string;
   description: string;
-  type: 'github' | 'dribbble';
+  type: 'github' | 'dribbble' | 'figma' | 'web';
   url: string;
 }

@@ -11,9 +11,9 @@ test('Contact: the email and each social profile are links', async () => {
       content={{
         email: 'hello@example.com',
         socials: {
-          facebook: 'https://facebook.com/example',
-          twitter: 'https://twitter.com/example',
-          instagram: 'https://instagram.com/example',
+          github: 'https://github.com/example',
+          linkedin: 'https://www.linkedin.com/in/example',
+          dribbble: 'https://dribbble.com/example',
         },
       }}
     />,
@@ -23,13 +23,13 @@ test('Contact: the email and each social profile are links', async () => {
     .element(page.getByRole('link', { name: 'hello@example.com' }))
     .toHaveAttribute('href', 'mailto:hello@example.com');
   await expect
-    .element(page.getByRole('link', { name: 'Facebook' }))
-    .toHaveAttribute('href', 'https://facebook.com/example');
+    .element(page.getByRole('link', { name: 'GitHub' }))
+    .toHaveAttribute('href', 'https://github.com/example');
   await expect
-    .element(page.getByRole('link', { name: 'Twitter' }))
-    .toHaveAttribute('href', 'https://twitter.com/example');
+    .element(page.getByRole('link', { name: 'LinkedIn' }))
+    .toHaveAttribute('href', 'https://www.linkedin.com/in/example');
   await expect
-    .element(page.getByRole('link', { name: 'Instagram' }))
-    .toHaveAttribute('href', 'https://instagram.com/example');
+    .element(page.getByRole('link', { name: 'Dribbble' }))
+    .toHaveAttribute('href', 'https://dribbble.com/example');
   await capture('Contact', 'default');
 });

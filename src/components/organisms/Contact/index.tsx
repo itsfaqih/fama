@@ -22,18 +22,18 @@ export default function Contact({ title, content }: ContactSectionProps) {
         </a>
         <div className="flex items-center mt-8 md:mt-0">
           <Animated.FromDirection from="bottom" custom={2.2} delay={0.6}>
-            <FullRoundButton href={socials.facebook} label="Facebook">
-              <Icons.Facebook className="w-6" />
+            <FullRoundButton href={socials.github} label="GitHub">
+              <Icons.GithubOutline className="w-6" />
             </FullRoundButton>
           </Animated.FromDirection>
           <Animated.FromDirection from="bottom" custom={2.4} delay={0.6}>
-            <FullRoundButton href={socials.twitter} className="mx-6" label="Twitter">
-              <Icons.Twitter className="w-6" />
+            <FullRoundButton href={socials.linkedin} className="mx-6" label="LinkedIn">
+              <Icons.Linkedin className="w-6" />
             </FullRoundButton>
           </Animated.FromDirection>
           <Animated.FromDirection from="bottom" custom={2.6} delay={0.6}>
-            <FullRoundButton href={socials.instagram} label="Instagram">
-              <Icons.Instagram className="w-6" />
+            <FullRoundButton href={socials.dribbble} label="Dribbble">
+              <Icons.DribbbleOutline className="w-6" />
             </FullRoundButton>
           </Animated.FromDirection>
         </div>

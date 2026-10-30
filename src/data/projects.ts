@@ -4,17 +4,28 @@ const projects: ProjectsSectionContentProps = {
   moreUrl: 'https://github.com/itsfaqih',
   items: [
     {
-      title: 'usePagination',
-      description: 'Simple client side pagination hooks for react.',
-      type: 'github',
-      url: 'https://github.com/itsfaqih/usepagination',
+      title: 'Schemata',
+      description: 'Entity relationship diagram builder. Built with React and Tailwind CSS.',
+      type: 'web',
+      url: 'https://schemata.ruine.app/',
     },
     {
-      title: 'larareactia',
-      description:
-        'Laravel SPA + React + Inertia.js + TailwindCSS starter template with authentication.',
+      title: 'ruine UI',
+      description: 'Dashboard UI kit. Built with Astro and Tailwind CSS.',
       type: 'github',
-      url: 'https://github.com/itsfaqih/larareactia',
+      url: 'https://github.com/ruine-dev/ruine-ui-dashboard',
+    },
+    {
+      title: 'Fama',
+      description: 'Statically generated portfolio template. Built with React and Tailwind CSS.',
+      type: 'github',
+      url: 'https://github.com/itsfaqih/fama',
+    },
+    {
+      title: 'PHPID',
+      description: 'Online learning platform redesign for PHPID. Designed in Figma.',
+      type: 'figma',
+      url: 'https://www.figma.com/design/qNIg0A9h7PnrFdOVSBbMEH/PHPID-Online-Learning-Redesign?node-id=0-1&t=PcPvOnrKzLginYqa-1',
     },
     {
       title: 'Overflow',
@@ -23,23 +34,10 @@ const projects: ProjectsSectionContentProps = {
       url: 'https://dribbble.com/shots/11877395-Overflow-TailwindCSS-Admin-Dashboard-Template',
     },
     {
-      title: 'kos-manager',
-      description:
-        'Lodgement management application. Developed with Laravel, Inertiajs, and React.',
+      title: 'usePagination',
+      description: 'Simple client side pagination hooks for react.',
       type: 'github',
-      url: 'http://github.com/itsfaqih/kos-manager',
-    },
-    {
-      title: 'Nyx',
-      description: 'TailwindCSS Landing Page Template.',
-      type: 'dribbble',
-      url: 'https://dribbble.com/shots/11712756-Nyx-TailwindCSS-Landing-Page-Template',
-    },
-    {
-      title: 'flexbox-tutorial',
-      description: 'CSS layouting using flexbox tutorial.',
-      type: 'github',
-      url: 'http://github.com/itsfaqih/flexbox-tutorial',
+      url: 'https://github.com/itsfaqih/usepagination',
     },
   ],
 };

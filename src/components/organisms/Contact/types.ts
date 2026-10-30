@@ -6,8 +6,8 @@ export default interface ContactSectionProps {
 export interface ContactSectionContentProps {
   email: string;
   socials: {
-    facebook: string;
-    twitter: string;
-    instagram: string;
+    github: string;
+    linkedin: string;
+    dribbble: string;
   };
 }

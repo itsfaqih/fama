@@ -4,16 +4,20 @@ import { HighlightedTextIcon } from 'components/molecules';
 
 const Text = () => (
   <>
-    Saya sudah berpengalaman selama dua tahun mendalami{' '}
-    <span className="font-bold text-gray-800">pengembangan website</span> menggunakan{' '}
-    <HighlightedTextIcon as="a" href="https://php.net" className="mx-2" icon={<Logo name="php" />}>
-      PHP
+    Saya paling banyak menulis kode dengan
+    <HighlightedTextIcon
+      as="a"
+      href="https://www.typescriptlang.org"
+      className="mx-2"
+      icon={<Logo name="typescript" />}
+    >
+      TypeScript
     </HighlightedTextIcon>{' '}
     dan{' '}
-    <HighlightedTextIcon className="mx-2" icon={<Logo name="javascript" />}>
-      Javascript
-    </HighlightedTextIcon>{' '}
-    hingga saya cukup percaya diri untuk membangun aplikasi menggunakan:
+    <HighlightedTextIcon as="a" href="https://php.net" className="mx-2" icon={<Logo name="php" />}>
+      PHP
+    </HighlightedTextIcon>
+    , untuk antarmuka, server, sampai basis data. Ini alat yang saya pakai:
   </>
 );
 
