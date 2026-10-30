@@ -13,6 +13,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
+    "allowJs": true,
+    "checkJs": true,
     "jsx": "react-jsx",
     "paths": {
       "component-tests/*": ["./tools/component-tests/*"],
@@ -25,5 +27,11 @@
     "noImplicitReturns": true,
     "noPropertyAccessFromIndexSignature": true
   },
-  "include": ["src", "vite.config.ts", "tools/oxlint/test-rules", "tools/component-tests"]
+  "include": [
+    "src",
+    "vite.config.ts",
+    "tools/oxlint/test-rules",
+    "tools/component-tests",
+    "tools/screenshots"
+  ]
 }
