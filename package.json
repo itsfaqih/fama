@@ -23,7 +23,7 @@
     "dev": "portless run vp dev",
     "start": "portless run vp dev",
     "build": "vp build",
-    "preview": "vp preview",
+    "preview": "vp preview --port 0",
     "typecheck": "tsc --noEmit",
     "lint": "vp lint .",
     "lint:fix": "vp lint --fix .",
