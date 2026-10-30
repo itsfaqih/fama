@@ -23,7 +23,7 @@ export default function ProjectCard({ data, className }: ProjectCardProps) {
           className="font-medium text-indigo-400 rounded-lg hover:text-indigo-500 focus:outline-none focus:ring-2 ring-indigo-500 ring-offset-2 focus:text-indigo-500"
           href={url}
         >
-          {language.value === 'en' ? 'Details' : 'Lihat'}
+          {language === 'en' ? 'Details' : 'Lihat'}
         </a>
       </div>
     </article>

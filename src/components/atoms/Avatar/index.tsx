@@ -2,22 +2,26 @@ import React from 'react';
 import { cn } from 'cn';
 
 interface Props {
-  src: string;
+  image: { jpeg: string; avif: string };
   alt: string;
   className?: string;
 }
 
-export default function Avatar({ src, alt, className }: Props) {
+export default function Avatar({ image, alt, className }: Props) {
   return (
-    <img
-      src={src}
-      alt={alt}
-      width="auto"
-      height="auto"
-      className={cn(
-        'object-cover border-4 border-indigo-400 rounded-3xl w-28 h-28 md:w-60 md:h-60 shadow-xl',
-        className,
-      )}
-    />
+    <picture>
+      <source type="image/avif" srcSet={image.avif} />
+      <img
+        src={image.jpeg}
+        alt={alt}
+        width="auto"
+        height="auto"
+        fetchPriority="high"
+        className={cn(
+          'object-cover border-4 border-indigo-400 rounded-3xl w-28 h-28 md:w-60 md:h-60 shadow-xl',
+          className,
+        )}
+      />
+    </picture>
   );
 }

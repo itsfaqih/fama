@@ -1,0 +1,247 @@
+import { chromium, type Browser, type Page } from 'playwright';
+import { afterAll, beforeAll, expect, onTestFinished, test } from 'vite-plus/test';
+import { codePointRanges } from '../fonts/unicode-range.ts';
+import { serveDist } from './serve.ts';
+
+let browser: Browser;
+
+let site: Awaited<ReturnType<typeof serveDist>>;
+
+beforeAll(async () => {
+  site = await serveDist();
+  browser = await chromium.launch();
+});
+
+afterAll(async () => {
+  await browser.close();
+  await site.close();
+});
+
+async function open(path: string, { javaScript = true, storage = true } = {}) {
+  const context = await browser.newContext({
+    viewport: { width: 1280, height: 720 },
+    javaScriptEnabled: javaScript,
+    ignoreHTTPSErrors: true,
+    reducedMotion: 'reduce',
+  });
+
+  context.setDefaultTimeout(5000);
+  onTestFinished(() => context.close());
+
+  if (!storage) {
+    await context.addInitScript(() =>
+      Object.defineProperty(window, 'sessionStorage', {
+        get: () => {
+          throw new DOMException('Site data is blocked', 'SecurityError');
+        },
+      }),
+    );
+  }
+
+  const page = await context.newPage();
+
+  const errors: string[] = [];
+
+  page.on('pageerror', (error) => errors.push(error.message));
+  page.on('console', (message) => {
+    if (message.type() === 'error') {
+      errors.push(message.text());
+    }
+  });
+  onTestFinished(() => expect(errors).toEqual([]));
+
+  await page.goto(`${site.url}${path}`);
+
+  return page;
+}
+
+const inViewport = (page: Page, selector: string) =>
+  page.locator(selector).evaluate((element) => {
+    const { top, bottom } = element.getBoundingClientRect();
+
+    return top < window.innerHeight && bottom > 0;
+  });
+
+const menuLink = (page: Page, name: string) =>
+  page.getByRole('navigation', { name: 'Sections' }).getByRole('link', { name, exact: true });
+
+const sectionIds = ['about', 'projects', 'blogs', 'skills', 'contact'];
+
+test.each(['/', '/id/'])('Every character on %s is in the subset font', async (path) => {
+  const page = await open(path, { javaScript: false });
+
+  const text = await page.evaluate(() => document.body.textContent + document.title);
+
+  const missing = [...new Set(text.replaceAll(/[\s\p{Extended_Pictographic}]/gu, ''))].filter(
+    (character) => {
+      const code = character.codePointAt(0) ?? 0;
+
+      return !codePointRanges.some(({ from, to }) => code >= from && code <= to);
+    },
+  );
+
+  expect(missing).toEqual([]);
+});
+
+test.each([
+  ['/', 'en', ['About me', 'Projects', 'Blogs', 'Skills', 'Get in touch']],
+  ['/id/', 'id', ['Tentang saya', 'Proyek', 'Blog', 'Kemampuan', 'Hubungi saya']],
+])('Without JavaScript %s shows every section in its language', async (path, lang, titles) => {
+  const page = await open(path, { javaScript: false });
+
+  expect(await page.locator('html').getAttribute('lang')).toBe(lang);
+
+  for (const [index, id] of sectionIds.entries()) {
+    const section = page.locator(`#${id}`);
+
+    await section.scrollIntoViewIfNeeded();
+    expect(await inViewport(page, `#${id}`)).toBe(true);
+    expect(await section.textContent()).toContain(titles[index]);
+  }
+
+  expect(await page.getByRole('img', { name: 'Profile Picture' }).isVisible()).toBe(true);
+});
+
+test('Without JavaScript the menu opens, and a section link closes it and jumps there', async () => {
+  const page = await open('/', { javaScript: false });
+
+  expect(await menuLink(page, 'Projects').isVisible()).toBe(false);
+  await page.getByRole('link', { name: 'Menu' }).click();
+  await menuLink(page, 'Projects').waitFor({ state: 'visible' });
+  await menuLink(page, 'Projects').click();
+
+  await menuLink(page, 'Projects').waitFor({ state: 'hidden' });
+  expect(await inViewport(page, '#projects')).toBe(true);
+});
+
+test('Without JavaScript the open menu closes from the same corner', async () => {
+  const page = await open('/', { javaScript: false });
+
+  await page.getByRole('link', { name: 'Menu' }).click();
+  await menuLink(page, 'About me').waitFor({ state: 'visible' });
+  await page.getByRole('link', { name: 'Close menu' }).click();
+
+  await menuLink(page, 'About me').waitFor({ state: 'hidden' });
+  expect(await page.evaluate(() => window.scrollY)).toBe(0);
+});
+
+test('Without JavaScript the language switch goes to the Indonesian page and back', async () => {
+  const page = await open('/', { javaScript: false });
+
+  await page.locator('summary').click();
+  await page.getByRole('link', { name: 'Indonesia' }).click();
+  await page.waitForURL(`${site.url}/id/`);
+
+  await page.locator('summary').click();
+  await page.getByRole('link', { name: 'English' }).click();
+  await page.waitForURL(`${site.url}/`);
+
+  expect(await page.locator('html').getAttribute('lang')).toBe('en');
+});
+
+test('Without JavaScript Scroll down jumps to About me', async () => {
+  const page = await open('/', { javaScript: false });
+
+  await page.getByRole('link', { name: 'Scroll down' }).click();
+
+  await expect.poll(() => inViewport(page, '#about')).toBe(true);
+});
+
+test('With JavaScript the menu button opens the menu without touching the address', async () => {
+  const page = await open('/');
+  const trigger = page.getByRole('button', { name: 'Menu' });
+
+  expect(await trigger.getAttribute('aria-expanded')).toBe('false');
+  await trigger.click();
+
+  await menuLink(page, 'About me').waitFor({ state: 'visible' });
+  expect(await trigger.getAttribute('aria-expanded')).toBe('true');
+  expect(new URL(page.url()).hash).toBe('');
+
+  await trigger.click();
+  await menuLink(page, 'About me').waitFor({ state: 'hidden' });
+  expect(await trigger.getAttribute('aria-expanded')).toBe('false');
+});
+
+test('With JavaScript Enter opens the menu on its first link and Escape returns to the button', async () => {
+  const page = await open('/');
+  const trigger = page.getByRole('button', { name: 'Menu' });
+
+  await trigger.focus();
+  await page.keyboard.press('Enter');
+  await expect
+    .poll(() => menuLink(page, 'About me').evaluate((link) => link === document.activeElement))
+    .toBe(true);
+
+  await page.keyboard.press('Escape');
+
+  await menuLink(page, 'About me').waitFor({ state: 'hidden' });
+  expect(await trigger.evaluate((button) => button === document.activeElement)).toBe(true);
+});
+
+test('With JavaScript a section link closes the menu and jumps to the section', async () => {
+  const page = await open('/');
+
+  await page.getByRole('button', { name: 'Menu' }).click();
+  await menuLink(page, 'Skills').click();
+
+  await menuLink(page, 'Skills').waitFor({ state: 'hidden' });
+  await expect.poll(() => inViewport(page, '#skills')).toBe(true);
+});
+
+test('With JavaScript switching language keeps the reader at the same place', async () => {
+  const page = await open('/');
+
+  await page.locator('#blogs').scrollIntoViewIfNeeded();
+
+  const scrollY = await page.evaluate(() => window.scrollY);
+
+  await page.locator('summary').click();
+  await page.getByRole('link', { name: 'Indonesia' }).click();
+  await page.waitForURL(`${site.url}/id/`);
+
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(scrollY);
+  expect(await page.getByText('Artikel lainnya').isVisible()).toBe(true);
+});
+
+test('With JavaScript Escape closes the language list', async () => {
+  const page = await open('/');
+
+  await page.locator('summary').click();
+  await page.getByRole('link', { name: 'Indonesia' }).waitFor({ state: 'visible' });
+  await page.keyboard.press('Escape');
+
+  await page.getByRole('link', { name: 'Indonesia' }).waitFor({ state: 'hidden' });
+  expect(new URL(page.url()).pathname).toBe('/');
+});
+
+test('With JavaScript Scroll down glides to About me without changing the address', async () => {
+  const page = await open('/');
+
+  await page.getByRole('link', { name: 'Scroll down' }).click();
+
+  await expect.poll(() => inViewport(page, '#about')).toBe(true);
+  expect(new URL(page.url()).hash).toBe('');
+});
+
+test('With JavaScript a section waits off screen and shows once scrolled into view', async () => {
+  const page = await open('/');
+  const moreArticles = page.getByRole('link', { name: 'More article' });
+
+  expect(await page.locator('#blogs').getAttribute('data-in')).toBeNull();
+
+  await page.locator('#blogs').scrollIntoViewIfNeeded();
+
+  await expect.poll(() => page.locator('#blogs').getAttribute('data-in')).toBe('');
+  await moreArticles.waitFor({ state: 'visible' });
+});
+
+test('With site data blocked the sections still show and the menu still opens', async () => {
+  const page = await open('/', { storage: false });
+
+  await page.locator('#blogs').scrollIntoViewIfNeeded();
+  await expect.poll(() => page.locator('#blogs').getAttribute('data-in')).toBe('');
+
+  await page.getByRole('button', { name: 'Menu' }).click();
+  await menuLink(page, 'About me').waitFor({ state: 'visible' });
+});

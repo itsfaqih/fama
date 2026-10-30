@@ -1,8 +1,5 @@
 import 'assets/css/styles.css';
-import { MotionGlobalConfig } from 'motion/react';
 import { afterEach, beforeEach } from 'vite-plus/test';
-
-MotionGlobalConfig.skipAnimations = true;
 
 const noTransitions = document.createElement('style');
 

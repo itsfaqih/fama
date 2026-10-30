@@ -1,6 +1,5 @@
 import React, { ReactNode } from 'react';
 import { cn } from 'cn';
-import { motion } from 'motion/react';
 
 interface Props {
   children: ReactNode;
@@ -11,26 +10,17 @@ interface Props {
 
 export default function RoundedButton({ children, as = 'button', href = '', className }: Props) {
   const classes = cn(
-    'flex items-center justify-center h-12 px-12 shadow-lg hover:shadow-none transition-shadow text-sm text-white hover:bg-indigo-600 bg-indigo-500 font-bold rounded-full transform focus:outline-none focus:ring-2 ring-indigo-500 focus:ring-offset-2',
+    'lift flex items-center justify-center h-12 px-12 shadow-lg hover:shadow-none text-sm text-white hover:bg-indigo-600 bg-indigo-500 font-bold rounded-full focus:outline-none focus:ring-2 ring-indigo-500 focus:ring-offset-2',
     className,
   );
 
   if (as === 'button') {
-    return (
-      <motion.button whileHover={{ translateY: 10 }} whileTap={{ scale: 0.8 }} className={classes}>
-        {children}
-      </motion.button>
-    );
+    return <button className={classes}>{children}</button>;
   }
 
   return (
-    <motion.a
-      href={href}
-      whileHover={{ translateY: 10 }}
-      whileTap={{ scale: 0.8 }}
-      className={classes}
-    >
+    <a href={href} className={classes}>
       {children}
-    </motion.a>
+    </a>
   );
 }

@@ -28,13 +28,6 @@
     "noImplicitReturns": true,
     "noPropertyAccessFromIndexSignature": true
   },
-  "include": [
-    "src",
-    "vite.config.ts",
-    "tools/oxlint/test-rules",
-    "tools/component-tests",
-    "tools/screenshots",
-    "tools/static-site",
-    "tools/perf"
-  ]
+  "include": ["src", "vite.config.ts", "tools"],
+  "exclude": ["tools/oxlint/anti-slop"]
 }

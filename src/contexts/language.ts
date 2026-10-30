@@ -1,13 +1,12 @@
 import { createContext } from 'react';
 
-export interface LocaleProps {
-  value: 'en' | 'id';
-  change: (lang: 'en' | 'id') => void;
-}
+export const languages = [
+  { value: 'en', label: 'English', path: '/' },
+  { value: 'id', label: 'Indonesia', path: '/id/' },
+] as const;
 
-const LanguageContext = createContext<LocaleProps>({
-  value: 'en',
-  change: () => {},
-});
+export type Language = (typeof languages)[number]['value'];
+
+const LanguageContext = createContext<Language>('en');
 
 export default LanguageContext;

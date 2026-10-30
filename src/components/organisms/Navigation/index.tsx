@@ -1,65 +1,30 @@
 import Animated from 'components/animations';
-import { MainMenu, TextSelect } from 'components/molecules';
-import { TextSelectOptionProps } from 'components/molecules/TextSelect/types';
-import { LocaleProps } from 'contexts/language';
+import { LanguageSwitch, MainMenu, MenuTrigger } from 'components/molecules';
 import React from 'react';
-import { useState } from 'react';
 import { cn } from 'cn';
 import { Container } from 'components/atoms';
 
 interface Props {
-  locale: LocaleProps;
   sections: { about: string; projects: string; blogs: string; skills: string; contact: string };
   className?: string;
 }
 
-export default function Navigation({ locale, sections, className }: Props) {
-  const [animationFinish, setAnimationFinish] = useState(false);
-  const [menuOverlayPresent, setMenuOverlayPresent] = useState(false);
-
-  const languageOptions: [TextSelectOptionProps, TextSelectOptionProps] = [
-    { label: 'English', value: 'en' },
-    { label: 'Indonesia', value: 'id' },
-  ];
-
-  const selectedLanguage =
-    languageOptions.find((option) => option.value === locale.value) ?? languageOptions[0];
-
-  const setSelectedLanguage = (option: TextSelectOptionProps) => {
-    if (option.value === 'en' || option.value === 'id') {
-      locale.change(option.value);
-    }
-  };
-
+export default function Navigation({ sections, className }: Props) {
   return (
-    <nav>
-      <Animated.FromDirection
-        from="top"
-        className={cn('w-full', className, menuOverlayPresent && 'z-30')}
-        duration={1}
-        onAnimationComplete={() => setAnimationFinish(true)}
-      >
-        <Container className="flex">
-          <div className="flex self-center flex-1 pr-8">
-            <div className="sm:ml-auto">
-              <TextSelect
-                state={[selectedLanguage, setSelectedLanguage]}
-                options={languageOptions}
-              />
+    <>
+      <nav data-in>
+        <Animated.FromDirection from="top" className={cn('w-full', className)} duration={1}>
+          <Container className="flex">
+            <div className="flex self-center flex-1 pr-8">
+              <div className="sm:ml-auto">
+                <LanguageSwitch />
+              </div>
             </div>
-          </div>
-          <MainMenu
-            sections={sections}
-            animationFinish={animationFinish}
-            onOpenChange={(open) => {
-              if (open) {
-                setMenuOverlayPresent(true);
-              }
-            }}
-            onCloseComplete={() => setMenuOverlayPresent(false)}
-          />
-        </Container>
-      </Animated.FromDirection>
-    </nav>
+            <MenuTrigger />
+          </Container>
+        </Animated.FromDirection>
+      </nav>
+      <MainMenu sections={sections} />
+    </>
   );
 }

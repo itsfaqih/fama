@@ -1,78 +1,40 @@
-import React, { useState } from 'react';
-import { motion, HTMLMotionProps, Variants } from 'motion/react';
+import React from 'react';
 import { cn } from 'cn';
-import { useRef } from 'react';
 
-interface Props extends Omit<HTMLMotionProps<'div'>, 'children'> {
+const offsets = {
+  left: ['-100%', '0'],
+  top: ['0', '-100%'],
+  right: ['100%', '0'],
+  bottom: ['0', '100%'],
+} as const;
+
+interface Props {
   children: React.ReactNode;
-  from:
-    | 'left'
-    | 'top'
-    | 'right'
-    | 'bottom'
-    | 'top-left'
-    | 'top-right'
-    | 'bottom-left'
-    | 'bottom-right';
+  from: keyof typeof offsets;
+  custom?: number;
   delay?: number;
   duration?: number;
-  innerClassName?: string;
+  className?: string;
 }
 
 export default function FromDirection({
   children,
   from,
+  custom = 1,
   delay = 0,
   duration = 0.6,
   className,
-  innerClassName,
-  onAnimationComplete,
-  ...props
 }: Props) {
-  const [overflow, setOverflow] = useState<string | null>('overflow-hidden');
-
-  const variants: Variants = {
-    show: (i: number = 1) => ({
-      y: 0,
-      x: 0,
-      transition: {
-        duration: duration,
-        delay: i * delay,
-      },
-    }),
-    hidden: {
-      ...(from.includes('top') && { y: '-100%' }),
-      ...(from.includes('bottom') && { y: '100%' }),
-      ...(from.includes('left') && { x: '-100%' }),
-      ...(from.includes('right') && { x: '100%' }),
-    },
-  };
-
-  const ref = useRef<HTMLDivElement>(null);
+  const [x, y] = offsets[from];
 
   return (
-    <div className={cn(overflow, className)}>
-      <motion.div
-        variants={variants}
-        initial="hidden"
-        animate="show"
-        onAnimationComplete={(definition) => {
-          if (onAnimationComplete) {
-            onAnimationComplete(definition);
-          }
-
-          setOverflow(null);
-
-          if (ref.current !== null) {
-            ref.current.style.transform = '';
-          }
-        }}
-        className={innerClassName}
-        ref={ref}
-        {...props}
-      >
+    <div
+      className={cn('from-clip', className)}
+      style={{ '--delay': `${custom * delay}s`, '--duration': `${duration}s` }}
+    >
+      <div className="from" style={{ '--from-x': x, '--from-y': y }}>
         {children}
-      </motion.div>
+      </div>
     </div>
   );
 }

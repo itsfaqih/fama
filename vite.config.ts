@@ -3,6 +3,7 @@ import tailwindcss from '@tailwindcss/vite';
 import { defineConfig, lazyPlugins } from 'vite-plus';
 import { playwright } from 'vite-plus/test/browser-playwright';
 import { fileURLToPath } from 'node:url';
+import { staticSite } from './tools/static-site/plugin.ts';
 
 const srcPath = (directory: string) =>
   fileURLToPath(new URL(`./src/${directory}`, import.meta.url));
@@ -99,7 +100,7 @@ export default defineConfig({
     },
     overrides: [
       {
-        files: ['src/**/*.test.ts', 'src/**/*.test.tsx'],
+        files: ['src/**/*.test.ts', 'src/**/*.test.tsx', 'tools/static-site/**/*.test.ts'],
         rules: {
           'vitest/expect-expect': 'error',
           'vitest/no-conditional-expect': 'error',
@@ -114,7 +115,7 @@ export default defineConfig({
     ],
   },
   // lazyPlugins returns undefined while vp only reads config metadata (lint, fmt).
-  plugins: lazyPlugins(() => [react(), tailwindcss()]) ?? [],
+  plugins: lazyPlugins(() => [react(), tailwindcss(), staticSite()]) ?? [],
   test: {
     retry: 0,
     projects: [
@@ -126,6 +127,15 @@ export default defineConfig({
           exclude: ['src/**/*.browser.test.tsx'],
           environment: 'node',
           sequence: { shuffle: true },
+        },
+      },
+      {
+        extends: true,
+        test: {
+          name: 'site',
+          include: ['tools/static-site/**/*.test.ts'],
+          environment: 'node',
+          testTimeout: 20000,
         },
       },
       {

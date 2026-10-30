@@ -62,6 +62,8 @@ async function launchChrome() {
     '--remote-debugging-port=0',
     `--user-data-dir=${userDataDir}`,
     '--no-first-run',
+    '--disable-background-networking',
+    '--ignore-certificate-errors',
   ]);
 
   for (let attempt = 0; attempt < 100; attempt += 1) {

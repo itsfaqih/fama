@@ -9,14 +9,11 @@
     "node": ">=24"
   },
   "dependencies": {
-    "@base-ui/react": "^1.8.0",
     "@iconify/icons-logos": "^1.2.36",
     "@iconify/react": "^6.0.2",
     "cn": "^0.2.5",
-    "motion": "^13.2.0",
     "react": "^19.2.8",
-    "react-dom": "^19.2.8",
-    "react-intersection-observer": "^11.0.1"
+    "react-dom": "^19.2.8"
   },
   "scripts": {
     "setup": "vp install && vp exec playwright install chromium",
@@ -25,8 +22,10 @@
     "build": "vp build",
     "preview": "vp preview --port 0",
     "perf": "node tools/perf/measure.ts",
+    "font": "node tools/fonts/subset.ts",
     "test": "vp test run --project unit",
     "test:components": "vp test run --project components",
+    "test:site": "vp build && vp test run --project site",
     "lint": "vp run lint:ts && vp run lint:format && vp run lint:workflow",
     "lint:fix": "vp run lint:ts:fix && vp run lint:format:fix",
     "lint:ts": "vp lint --deny-warnings . && tsc --noEmit",
@@ -44,6 +43,7 @@
     "@vitejs/plugin-react": "^6.1.1",
     "@vitest/browser-playwright": "5.0.5",
     "lighthouse": "^13.6.0",
+    "motion": "^13.5.1",
     "playwright": "1.64.1",
     "portless": "0.15.12",
     "react-grab": "^0.2.0",

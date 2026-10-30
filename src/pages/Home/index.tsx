@@ -22,11 +22,11 @@ import {
 import React, { useContext } from 'react';
 
 export default function Home() {
-  const languange = useContext(LanguageContext);
+  const language = useContext(LanguageContext);
 
   let locale;
 
-  if (languange.value === 'en') {
+  if (language === 'en') {
     locale = {
       sections: sectionsEn,
       header: headerEn,
@@ -65,7 +65,6 @@ export default function Home() {
         },
         contact: contactData,
       }}
-      locale={{ value: languange.value, change: languange.change }}
     />
   );
 }

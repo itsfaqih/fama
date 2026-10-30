@@ -1,5 +1,18 @@
 @import 'tailwindcss';
 
+@custom-variant menu-open (:root:is([data-menu-open], :not(.js):has(#menu:target)) &);
+
+@font-face {
+  font-family: 'Inter var';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('../fonts/inter-variable-latin.woff2') format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 @theme {
   --font-sans: 'Inter var', ui-sans-serif, system-ui, sans-serif;
   --spacing-full-2: calc(100% + 0.5rem);
@@ -35,67 +48,454 @@
   filter: grayscale(100%);
 }
 
+:root {
+  --motion-ease-out: cubic-bezier(0, 0, 0.58, 1);
+  --motion-keyframes-ease: cubic-bezier(0.25, 0.1, 0.35, 1);
+  /* springs:start */
+  --spring-letter: linear(
+    0,
+    0.0048,
+    0.0181,
+    0.0387,
+    0.0653,
+    0.0969,
+    0.1325,
+    0.1711,
+    0.2121,
+    0.2547,
+    0.2982,
+    0.3423,
+    0.3862,
+    0.4298,
+    0.4726,
+    0.5143,
+    0.5547,
+    0.5936,
+    0.6308,
+    0.6663,
+    0.7,
+    0.7317,
+    0.7615,
+    0.7894,
+    0.8153,
+    0.8394,
+    0.8616,
+    0.882,
+    0.9006,
+    0.9176,
+    0.9329,
+    0.9468,
+    0.9592,
+    0.9702,
+    0.98,
+    0.9886,
+    0.9962,
+    1.0027,
+    1.0083,
+    1.013,
+    1.0169,
+    1.0202,
+    1.0228,
+    1.0248,
+    1.0263,
+    1.0274,
+    1.028,
+    1.0283,
+    1.0283,
+    1.0281,
+    1.0276,
+    1.0269,
+    1.0261,
+    1.0251,
+    1.0241,
+    1.0229,
+    1.0218,
+    1.0205,
+    1.0193,
+    1.018,
+    1.0168,
+    1.0156,
+    1.0144,
+    1.0132,
+    1.0121,
+    1.011,
+    1.01,
+    1.009,
+    1.0081,
+    1.0072,
+    1.0064,
+    1.0056,
+    1.0049,
+    1.0042,
+    1.0036,
+    1.0031,
+    1.0026,
+    1.0021,
+    1.0017,
+    1.0013,
+    1.001,
+    1.0007,
+    1.0004,
+    1.0002,
+    1
+  );
+  --spring-letter-duration: 840ms;
+  --spring-cover: linear(
+    0,
+    0.0229,
+    0.0839,
+    0.1717,
+    0.2765,
+    0.3901,
+    0.5054,
+    0.617,
+    0.7208,
+    0.8139,
+    0.8946,
+    0.9621,
+    1.0164,
+    1.0579,
+    1.0877,
+    1.107,
+    1.1174,
+    1.1203,
+    1.1172,
+    1.1097,
+    1.099,
+    1.0863,
+    1.0726,
+    1.0587,
+    1.0453,
+    1.0329,
+    1.0218,
+    1.0122,
+    1.0042,
+    0.9977,
+    0.9928,
+    0.9893,
+    0.987,
+    0.9858,
+    0.9855,
+    0.9859,
+    0.9869,
+    0.9882,
+    0.9897,
+    0.9914,
+    0.993,
+    0.9946,
+    0.9961,
+    0.9974,
+    0.9986,
+    1
+  );
+  --spring-cover-duration: 450ms;
+  --spring-lift: linear(
+    0,
+    0.0229,
+    0.0839,
+    0.1717,
+    0.2765,
+    0.3901,
+    0.5054,
+    0.617,
+    0.7208,
+    0.8139,
+    0.8946,
+    0.9621,
+    1.0164,
+    1.0579,
+    1.0877,
+    1.107,
+    1.1174,
+    1.1203,
+    1.1172,
+    1.1097,
+    1.099,
+    1.0863,
+    1.0726,
+    1.0587,
+    1.0453,
+    1.0329,
+    1.0218,
+    1
+  );
+  --spring-lift-duration: 270ms;
+  --spring-press: linear(
+    0,
+    0.0248,
+    0.0894,
+    0.1802,
+    0.2863,
+    0.3987,
+    0.5104,
+    0.6162,
+    0.7128,
+    0.798,
+    0.8706,
+    0.9305,
+    1
+  );
+  --spring-press-duration: 120ms;
+  /* springs:end */
+}
+
+.js .from-clip {
+  clip-path: inset(0);
+}
+
+.js [data-in] .from-clip {
+  clip-path: none;
+  animation: clip calc(var(--delay) + var(--duration)) step-end backwards;
+}
+
+.js .from {
+  translate: var(--from-x, 0) var(--from-y, 0);
+}
+
+.js [data-in] .from {
+  translate: none;
+  animation: from var(--duration) var(--motion-ease-out) var(--delay) backwards;
+}
+
+.js .fade {
+  opacity: 0;
+}
+
+.js [data-in] .fade {
+  opacity: 1;
+  animation: fade var(--duration) var(--motion-ease-out) var(--delay) backwards;
+}
+
+.js .letters {
+  opacity: 0;
+}
+
+.js [data-in] .letters {
+  opacity: 1;
+  animation: fade 0.3s var(--motion-keyframes-ease) backwards;
+}
+
+.letters > span {
+  --from-y: 100%;
+}
+
+.js .letters > span {
+  translate: 0 100%;
+}
+
+.js [data-in] .letters > span {
+  translate: none;
+  animation: from var(--spring-letter-duration) var(--spring-letter)
+    calc(var(--delay) + var(--i) * 50ms) backwards;
+}
+
+.js .draw {
+  clip-path: inset(0 100% 0 0 round var(--radius, 0));
+}
+
+.js [data-in] .draw {
+  clip-path: none;
+  animation: grow var(--duration) var(--ease) var(--delay) backwards;
+}
+
+.reveal-cover {
+  display: none;
+}
+
+.js .reveal-cover {
+  display: block;
+}
+
+.js [data-in] .reveal-cover {
+  translate: var(--to-x, 0) var(--to-y, 0);
+  animation: cover var(--duration) var(--ease) var(--delay) backwards;
+}
+
+.js .menu-trigger {
+  animation: trigger-intro 500ms cubic-bezier(0.4, 0, 0.2, 1) 1s backwards;
+}
+
+[data-instant],
+[data-instant] * {
+  animation: none !important;
+}
+
+@keyframes clip {
+  from,
+  to {
+    clip-path: inset(0);
+  }
+}
+
+@keyframes from {
+  from {
+    translate: var(--from-x, 0) var(--from-y, 0);
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes grow {
+  from {
+    clip-path: inset(0 100% 0 0 round var(--radius, 0));
+  }
+
+  to {
+    clip-path: inset(0 -1px 0 0 round var(--radius, 0));
+  }
+}
+
+@keyframes cover {
+  from {
+    translate: none;
+  }
+}
+
+@keyframes trigger-intro {
+  from {
+    scale: 0.75;
+    box-shadow: none;
+  }
+}
+
+.press {
+  transition: scale var(--spring-press-duration) var(--spring-press);
+}
+
+.lift {
+  transition:
+    translate var(--spring-lift-duration) var(--spring-lift),
+    scale var(--spring-press-duration) var(--spring-press),
+    box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (hover: hover) {
+  .press:hover {
+    scale: 1.1;
+  }
+
+  .lift:hover {
+    translate: 0 10px;
+  }
+}
+
+.press:active,
+.lift:active {
+  scale: var(--press-scale, 0.8);
+}
+
 .menu-item-highlight {
   width: 0;
 }
 
-[data-highlighted] .menu-item-highlight {
+a:is(:hover, :focus-visible) .menu-item-highlight {
   width: calc(100% + 0.5rem);
 }
 
-.menu-trigger-intro {
-  transition:
-    transform 500ms cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 500ms cubic-bezier(0.4, 0, 0.2, 1);
+:root:is([data-menu-open], :not(.js):has(#menu:target)) {
+  overflow: hidden;
+}
+
+.js .menu-close {
+  display: none;
+}
+
+.main-menu {
+  visibility: hidden;
+  transition: visibility 0s 1000ms;
+
+  @variant menu-open {
+    visibility: visible;
+    transition-delay: 0s;
+  }
 }
 
 .menu-backdrop {
   width: 0;
   transition: width 1000ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  @variant menu-open {
+    width: 100%;
+  }
 }
 
-.menu-backdrop[data-open] {
-  width: 100%;
-}
-
-.menu-backdrop[data-starting-style],
-.menu-backdrop[data-ending-style] {
-  width: 0;
-}
-
-.language-popup {
-  transform: scale(1);
-  transform-origin: center;
-  transition:
-    transform 250ms linear(0, 0.6 10%, 1.4 25%, 2 40%, 1.7 55%, 1.25 75%, 1),
-    opacity 100ms cubic-bezier(0, 0, 0.2, 1);
-}
-
-.language-popup[data-starting-style],
-.language-popup[data-ending-style] {
+.menu-links a {
   opacity: 0;
-  transform: scale(0.9);
+  visibility: hidden;
+  transition:
+    opacity 0.3s var(--motion-keyframes-ease),
+    visibility 0s 0.3s;
+
+  @variant menu-open {
+    opacity: 1;
+    visibility: visible;
+    transition: none;
+  }
 }
 
-.language-popup[data-ending-style] {
-  transition:
-    transform 75ms cubic-bezier(0, 0, 0.2, 1),
-    opacity 75ms cubic-bezier(0, 0, 0.2, 1);
+.language summary {
+  list-style: none;
+}
+
+.language summary::-webkit-details-marker {
+  display: none;
+}
+
+.language-positioner {
+  position: absolute;
+  top: calc(100% + 1rem);
+  left: 0;
+}
+
+.language[open] .language-popup {
+  animation:
+    language-scale 250ms linear(0, 0.6 10%, 1.4 25%, 2 40%, 1.7 55%, 1.25 75%, 1),
+    fade 100ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.language[data-closing] .language-popup {
+  animation: language-out 75ms cubic-bezier(0, 0, 0.2, 1) forwards;
+}
+
+@keyframes language-scale {
+  from {
+    scale: 0.9;
+  }
+}
+
+@keyframes language-out {
+  to {
+    opacity: 0;
+    scale: 0.9;
+  }
 }
 
 @media (width < 40rem) {
   .language-positioner {
-    position: fixed !important;
-    top: 50% !important;
-    left: 50% !important;
-    transform: translate(-50%, -50%) !important;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .menu-trigger-intro,
-  .menu-backdrop,
+  .js .menu-trigger,
+  .menu-links .from,
+  .menu-links .from-clip,
   .language-popup {
-    transition-duration: 0ms;
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+
+  .main-menu,
+  .menu-backdrop,
+  .menu-links a {
+    transition-duration: 0s;
+    transition-delay: 0s;
   }
 }

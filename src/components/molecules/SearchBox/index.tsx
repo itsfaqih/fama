@@ -30,7 +30,7 @@ export default function SearchBox({ className }: TextBoxProps) {
       </svg>
       <TextBox
         className="flex-1 focus:outline-none"
-        placeholder={language.value === 'en' ? 'Search...' : 'Cari sesuatu...'}
+        placeholder={language === 'en' ? 'Search...' : 'Cari sesuatu...'}
       />
     </div>
   );

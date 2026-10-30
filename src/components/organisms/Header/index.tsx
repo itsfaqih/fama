@@ -6,14 +6,14 @@ import HeaderProps from 'components/organisms/Header/types';
 import { LanguageContext } from 'contexts';
 import React, { useContext } from 'react';
 
-export default function Header({ data, text, lowerSectionRef }: HeaderProps) {
-  const languange = useContext(LanguageContext);
+export default function Header({ data, text }: HeaderProps) {
+  const language = useContext(LanguageContext);
   const { profilePicture, name, job } = data;
   const { headerText } = text;
   const { greetings, intro, preTitle } = headerText;
 
   return (
-    <header className="flex justify-center">
+    <header data-in className="flex justify-center">
       <div className="grid grid-rows-3 md:grid-cols-2 md:h-60">
         <div className="relative col-start-1 row-span-3 justify-self-center">
           <Animated.FromDirection
@@ -26,7 +26,7 @@ export default function Header({ data, text, lowerSectionRef }: HeaderProps) {
           </Animated.FromDirection>
           <Animated.FromDirection from="right" custom={1} delay={0.3} duration={0.8}>
             <Animated.Reveal from="right" className="rounded-3xl" delay={0.8} duration={1.2}>
-              <Avatar src={profilePicture} alt="Profile Picture" />
+              <Avatar image={profilePicture} alt="Profile Picture" />
             </Animated.Reveal>
           </Animated.FromDirection>
         </div>
@@ -50,8 +50,8 @@ export default function Header({ data, text, lowerSectionRef }: HeaderProps) {
         >
           <TextIconButton
             className="group"
-            onClick={() => lowerSectionRef?.current?.scrollIntoView({ behavior: 'smooth' })}
-            text={languange.value === 'en' ? 'Scroll down' : 'Scroll ke bawah'}
+            href="#about"
+            text={language === 'en' ? 'Scroll down' : 'Scroll ke bawah'}
             icon={
               <svg
                 className="transition-all transform group-hover:translate-y-1"

@@ -1,17 +1,18 @@
 import TextIconButton from 'components/molecules/TextIconButton';
-import TextSelect from 'components/molecules/TextSelect';
+import LanguageSwitch from 'components/molecules/LanguageSwitch';
 import SectionTitle from 'components/molecules/SectionTitle';
 import HighlightedTextIcon from 'components/molecules/HighlightedTextIcon';
 import SearchBox from 'components/molecules/SearchBox';
 import BlogPost from 'components/molecules/BlogPost';
-import MainMenu from 'components/molecules/MainMenu';
+import MainMenu, { MenuTrigger } from 'components/molecules/MainMenu';
 
 export {
   TextIconButton,
-  TextSelect,
+  LanguageSwitch,
   SectionTitle,
   HighlightedTextIcon,
   SearchBox,
   BlogPost,
   MainMenu,
+  MenuTrigger,
 };

@@ -30,4 +30,4 @@ The screenshots show a reviewer the state; the assertions are what prove it. A p
 - `vp run test:components <file name>` runs one component's file; `vp run test:components -t "<title>"` runs tests by title.
 - `capture('<Component>', '<state>')` from `component-tests/capture` writes `component-artifacts/<Component>/<state>.png`. Each run clears the folder first, and CI keeps it as the `component-artifacts` build artifact.
 - `component-tests/locale` wraps a component in the Indonesian locale; components default to English.
-- The setup file loads the app's stylesheet, turns off Motion animations and CSS transitions, and fails any test that logs `console.error`.
+- The setup file loads the app’s stylesheet, turns off CSS transitions and animations, and fails any test that logs `console.error`.

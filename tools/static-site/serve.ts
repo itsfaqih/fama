@@ -1,10 +1,12 @@
-import { readFile, stat } from 'node:fs/promises';
-import { createServer } from 'node:http';
+import { execFileSync } from 'node:child_process';
+import { mkdtemp, readFile, rm, stat } from 'node:fs/promises';
+import { createSecureServer, type ServerHttp2Session } from 'node:http2';
+import { tmpdir } from 'node:os';
 import { extname, join, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { brotliCompressSync } from 'node:zlib';
 
-const distDir = fileURLToPath(new URL('../../dist', import.meta.url));
+export const distDir = fileURLToPath(new URL('../../dist', import.meta.url));
 
 const contentTypes = new Map(
   Object.entries({
@@ -24,49 +26,110 @@ const contentTypes = new Map(
 
 const compressible = new Set(['.html', '.js', '.css', '.json', '.svg', '.txt']);
 
-async function resolveFile(pathname: string) {
-  const path = join(distDir, normalize(decodeURIComponent(pathname)));
+async function resolveFile(root: string, pathname: string): Promise<string | undefined> {
+  const path = join(root, normalize(decodeURIComponent(pathname)));
 
-  if (!path.startsWith(distDir)) {
+  if (!path.startsWith(root)) {
     return undefined;
   }
 
   const info = await stat(path).catch(() => undefined);
 
   if (info?.isDirectory()) {
-    return resolveFile(join(pathname, 'index.html'));
+    return resolveFile(root, join(pathname, 'index.html'));
   }
 
   return info?.isFile() ? path : undefined;
 }
 
-/** Serves dist/ the way Cloudflare Pages does: brotli for text, index.html for directories. */
-export async function serveDist() {
-  const server = createServer((request, response) => {
-    const { pathname } = new URL(request.url ?? '/', 'http://localhost');
+async function selfSignedCertificate() {
+  const dir = await mkdtemp(join(tmpdir(), 'fama-tls-'));
 
-    void resolveFile(pathname).then(async (path) => {
-      if (!path) {
-        response.writeHead(404).end();
+  const [key, cert] = [join(dir, 'key.pem'), join(dir, 'cert.pem')];
 
-        return;
-      }
+  execFileSync(
+    'openssl',
+    [
+      'req',
+      '-x509',
+      '-newkey',
+      'rsa:2048',
+      '-nodes',
+      '-days',
+      '1',
+      '-subj',
+      '/CN=127.0.0.1',
+      '-keyout',
+      key,
+      '-out',
+      cert,
+    ],
+    { stdio: 'pipe' },
+  );
 
-      const extension = extname(path);
+  const pair = { key: await readFile(key), cert: await readFile(cert) };
 
-      const body = await readFile(path);
+  await rm(dir, { recursive: true });
 
-      const brotli =
-        compressible.has(extension) && /\bbr\b/.test(request.headers['accept-encoding'] ?? '');
+  return pair;
+}
 
-      response.setHeader('content-type', contentTypes.get(extension) ?? 'application/octet-stream');
+let certificate: ReturnType<typeof selfSignedCertificate> | undefined;
 
-      if (brotli) {
-        response.setHeader('content-encoding', 'br');
-      }
+/**
+ * Lighthouse's simulator models a page very differently over one warm HTTP/2 connection than over
+ * fresh HTTP/1.1 connections, so the protocol has to match production: HTTP/2 over TLS, as on
+ * Cloudflare Pages.
+ */
+export async function serveDist(root = distDir) {
+  certificate ??= selfSignedCertificate();
 
-      response.writeHead(200).end(brotli ? brotliCompressSync(body) : body);
-    });
+  const compressed = new Map<string, Buffer>();
+
+  const compress = async (path: string) => {
+    const body = compressed.get(path) ?? brotliCompressSync(await readFile(path));
+
+    compressed.set(path, body);
+
+    return body;
+  };
+
+  const server = createSecureServer(
+    { ...(await certificate), allowHTTP1: true },
+    (request, response) => {
+      const { pathname } = new URL(request.url ?? '/', 'http://localhost');
+
+      void resolveFile(root, pathname).then(async (path) => {
+        if (!path) {
+          response.writeHead(404).end();
+
+          return;
+        }
+
+        const extension = extname(path);
+
+        const brotli =
+          compressible.has(extension) && /\bbr\b/.test(request.headers['accept-encoding'] ?? '');
+
+        response.setHeader(
+          'content-type',
+          contentTypes.get(extension) ?? 'application/octet-stream',
+        );
+
+        if (brotli) {
+          response.setHeader('content-encoding', 'br');
+        }
+
+        response.writeHead(200).end(brotli ? await compress(path) : await readFile(path));
+      });
+    },
+  );
+
+  const sessions = new Set<ServerHttp2Session>();
+
+  server.on('session', (session) => {
+    sessions.add(session);
+    session.once('close', () => sessions.delete(session));
   });
 
   await new Promise<void>((resolve) => server.listen(0, '127.0.0.1', resolve));
@@ -78,7 +141,14 @@ export async function serveDist() {
   }
 
   return {
-    url: `http://127.0.0.1:${address.port}`,
-    close: () => new Promise<void>((resolve) => server.close(() => resolve())),
+    url: `https://127.0.0.1:${address.port}`,
+    close: () =>
+      new Promise<void>((resolve) => {
+        server.close(() => resolve());
+
+        for (const session of sessions) {
+          session.close();
+        }
+      }),
   };
 }

@@ -25,4 +25,4 @@ jobs:
           name: component-artifacts
           path: component-artifacts/
           if-no-files-found: ignore
-      - run: vp run build
+      - run: vp run test:site

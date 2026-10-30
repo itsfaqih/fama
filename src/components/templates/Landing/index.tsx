@@ -6,9 +6,7 @@ import { ContactSectionContentProps } from 'components/organisms/Contact/types';
 import HeaderProps from 'components/organisms/Header/types';
 import { ProjectsSectionContentProps } from 'components/organisms/Projects/types';
 import { SkillsSectionContentProps } from 'components/organisms/Skills/types';
-import { LocaleProps } from 'contexts/language';
 import React from 'react';
-import { useRef } from 'react';
 
 interface Props {
   data: {
@@ -19,28 +17,25 @@ interface Props {
     skills: SkillsSectionContentProps;
     contact: ContactSectionContentProps;
   };
-  locale: LocaleProps;
   sections: { about: string; projects: string; blogs: string; skills: string; contact: string };
 }
 
-export default function Landing({ data, locale, sections }: Props) {
+export default function Landing({ data, sections }: Props) {
   const { header, about, projects, blogs, skills, contact } = data;
-  const lowerSectionRef = useRef<HTMLElement | null>(null);
 
   return (
     <>
-      <Navigation className="fixed z-10 top-8" locale={locale} sections={sections} />
+      <Navigation className="fixed z-10 top-8" sections={sections} />
       <Container className="pt-32">
         <div className="flex flex-wrap">
           <main className="w-full mt-12">
-            <Header data={header.data} text={header.text} lowerSectionRef={lowerSectionRef} />
+            <Header data={header.data} text={header.text} />
             <About
               title={sections.about}
               content={{
                 text: about.text,
               }}
               className="pt-32 mt-24"
-              ref={lowerSectionRef}
             />
             <Projects
               title={sections.projects}

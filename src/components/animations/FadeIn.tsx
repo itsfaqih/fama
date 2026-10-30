@@ -1,29 +1,15 @@
-import { HTMLMotionProps, motion, Variants } from 'motion/react';
 import React from 'react';
 
-interface Props extends Omit<HTMLMotionProps<'div'>, 'children'> {
+interface Props {
   children: React.ReactNode;
+  custom?: number;
   delay?: number;
-  duration?: number;
 }
 
-export default function FadeIn({ children, delay = 0, duration = 0.5, ...props }: Props) {
-  const variants: Variants = {
-    show: (i: number = 1) => ({
-      opacity: 1,
-      transition: {
-        delay: i * delay,
-        duration: duration,
-      },
-    }),
-    hidden: {
-      opacity: 0,
-    },
-  };
-
+export default function FadeIn({ children, custom = 1, delay = 0 }: Props) {
   return (
-    <motion.div {...props} variants={variants} initial="hidden">
+    <div className="fade" style={{ '--delay': `${custom * delay}s`, '--duration': '0.5s' }}>
       {children}
-    </motion.div>
+    </div>
   );
 }

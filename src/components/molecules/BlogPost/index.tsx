@@ -8,10 +8,11 @@ export default function BlogPost({ data, className }: BlogsProps) {
   const { title, date, url } = data;
   const language = useContext(LanguageContext);
 
-  const formattedDate = new Intl.DateTimeFormat(language.value === 'en' ? 'en-US' : 'id-ID', {
+  const formattedDate = new Intl.DateTimeFormat(language === 'en' ? 'en-US' : 'id-ID', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
+    timeZone: 'UTC',
   }).format(date);
 
   return (

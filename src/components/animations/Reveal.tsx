@@ -1,54 +1,42 @@
-import React, { useState } from 'react';
-import { motion, HTMLMotionProps, Variants } from 'motion/react';
+import React from 'react';
 import { cn } from 'cn';
 
-interface Props extends Omit<HTMLMotionProps<'div'>, 'children'> {
-  children: React.ReactNode;
-  duration?: number;
-  delay?: number;
-  from: 'left' | 'top' | 'right' | 'bottom';
-}
+const coverOffsets = {
+  right: ['-100%', '0'],
+  left: ['100%', '0'],
+} as const;
 
-const exitOffsets: Record<Props['from'], { x: string } | { y: string }> = {
-  right: { x: '-100%' },
-  left: { x: '100%' },
-  bottom: { y: '-100%' },
-  top: { y: '100%' },
-};
+interface Props {
+  children: React.ReactNode;
+  from: keyof typeof coverOffsets;
+  custom?: number;
+  delay?: number;
+  duration?: number;
+  className?: string;
+}
 
 export default function Reveal({
   children,
-  duration,
   from,
+  custom = 1,
   delay = 0.6,
+  duration,
   className,
-  ...props
 }: Props) {
-  const [animatedFinish, setAnimatedFinish] = useState(false);
-
-  const variants: Variants = {
-    show: (i: number = 1) => ({
-      ...exitOffsets[from],
-      transition: duration === undefined ? { delay: i * delay } : { delay: i * delay, duration },
-    }),
-    hidden: {
-      x: 0,
-      y: 0,
-    },
-  };
+  const [x, y] = coverOffsets[from];
 
   return (
     <div className={cn('overflow-hidden relative', className)}>
       {children}
-      <motion.div
-        className={cn('absolute top-0 left-0 w-full h-full', {
-          'bg-indigo-500': !animatedFinish,
-        })}
-        variants={variants}
-        initial="hidden"
-        animate="show"
-        {...props}
-        onAnimationComplete={() => setAnimatedFinish(true)}
+      <div
+        className="reveal-cover absolute top-0 left-0 w-full h-full bg-indigo-500"
+        style={{
+          '--to-x': x,
+          '--to-y': y,
+          '--delay': `${custom * delay}s`,
+          '--duration': duration === undefined ? 'var(--spring-cover-duration)' : `${duration}s`,
+          '--ease': duration === undefined ? 'var(--spring-cover)' : 'var(--motion-ease-out)',
+        }}
       />
     </div>
   );

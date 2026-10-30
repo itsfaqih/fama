@@ -1,9 +1,10 @@
 import { capture } from 'component-tests/capture';
 import { inIndonesian } from 'component-tests/locale';
-import MainMenu from 'components/molecules/MainMenu';
-import { expect, test, vi } from 'vite-plus/test';
+import MainMenu, { MenuTrigger } from 'components/molecules/MainMenu';
+import { expect, onTestFinished, test } from 'vite-plus/test';
 import { page, userEvent } from 'vite-plus/test/browser';
 import { render } from 'vitest-browser-react';
+import { enhanceMenu } from '../../../client/menu';
 
 const sections = {
   about: 'About me',
@@ -13,125 +14,123 @@ const sections = {
   contact: 'Get in touch',
 };
 
-test('Menu: clicking the trigger opens links to the five sections', async () => {
-  const onOpenChange = vi.fn<(open: boolean) => void>();
-  await render(<MainMenu sections={sections} onOpenChange={onOpenChange} />);
+const menu = (
+  <>
+    <MenuTrigger />
+    <MainMenu sections={sections} />
+  </>
+);
 
-  await userEvent.click(page.getByRole('button', { name: 'Menu' }));
+const sectionLink = (name: string, { includeHidden = false } = {}) =>
+  page
+    .getByRole('navigation', { name: 'Sections', includeHidden })
+    .getByRole('link', { name, exact: true, includeHidden });
 
-  await expect
-    .element(page.getByRole('menuitem', { name: 'About me' }))
-    .toHaveAttribute('href', '#about');
-  await expect
-    .element(page.getByRole('menuitem', { name: 'Projects' }))
-    .toHaveAttribute('href', '#projects');
-  await expect
-    .element(page.getByRole('menuitem', { name: 'Blogs' }))
-    .toHaveAttribute('href', '#blogs');
-  await expect
-    .element(page.getByRole('menuitem', { name: 'Skills' }))
-    .toHaveAttribute('href', '#skills');
-  await expect
-    .element(page.getByRole('menuitem', { name: 'Contact' }))
-    .toHaveAttribute('href', '#contact');
-  expect(onOpenChange).toHaveBeenLastCalledWith(true);
+function openMenu() {
+  document.documentElement.setAttribute('data-menu-open', '');
+  onTestFinished(() => document.documentElement.removeAttribute('data-menu-open'));
+}
+
+test('Menu: open, it links to the five sections', async () => {
+  await render(menu);
+
+  openMenu();
+
+  await expect.element(sectionLink('About me')).toHaveAttribute('href', '#about');
+  await expect.element(sectionLink('Projects')).toHaveAttribute('href', '#projects');
+  await expect.element(sectionLink('Blogs')).toHaveAttribute('href', '#blogs');
+  await expect.element(sectionLink('Skills')).toHaveAttribute('href', '#skills');
+  await expect.element(sectionLink('Contact')).toHaveAttribute('href', '#contact');
   await capture('MainMenu', 'open');
 });
 
-test('Menu: the open menu covers the page in indigo 600 (#4f46e5)', async () => {
-  await render(<MainMenu sections={sections} />);
+test('Menu: open, an indigo 600 (#4f46e5) backdrop covers the whole screen', async () => {
+  await render(menu);
 
-  await userEvent.click(page.getByRole('button', { name: 'Menu' }));
+  openMenu();
 
-  await expect
-    .element(page.getByTestId('menu-backdrop'))
-    .toHaveStyle('background-color: rgb(79, 70, 229)');
+  const backdrop = page.getByTestId('menu-backdrop');
+
+  await expect.element(backdrop).toHaveStyle('background-color: rgb(79, 70, 229)');
+  expect(backdrop.element().getBoundingClientRect().toJSON()).toMatchObject({
+    left: 0,
+    top: 0,
+    width: 1280,
+    height: 720,
+  });
 });
 
-test('Menu: the section links sit in the vertical centre of the screen', async () => {
-  await render(<MainMenu sections={sections} />);
+test('Menu: open, the section links sit in the vertical centre of the screen', async () => {
+  await render(menu);
 
-  await userEvent.click(page.getByRole('button', { name: 'Menu' }));
-  await expect.element(page.getByRole('menuitem', { name: 'Contact' })).toBeVisible();
+  openMenu();
+  await expect.element(sectionLink('Contact')).toBeVisible();
 
-  const top = page
-    .getByRole('menuitem', { name: 'About me' })
-    .element()
-    .getBoundingClientRect().top;
+  const { top } = sectionLink('About me').element().getBoundingClientRect();
+  const { bottom } = sectionLink('Contact').element().getBoundingClientRect();
 
-  const bottom = page
-    .getByRole('menuitem', { name: 'Contact' })
-    .element()
-    .getBoundingClientRect().bottom;
+  expect((top + bottom) / 2).toBeCloseTo(360, 0);
+});
 
-  expect((top + bottom) / 2).toBeCloseTo(window.innerHeight / 2, 0);
+test('Menu: open, the trigger turns white with an indigo 600 icon', async () => {
+  await render(menu);
+
+  openMenu();
+
+  await expect
+    .element(page.getByRole('link', { name: 'Menu', exact: true }))
+    .toHaveStyle({ backgroundColor: 'rgb(255, 255, 255)', color: 'rgb(79, 70, 229)' });
 });
 
 test('Menu: keyboard focus on the trigger shows an indigo ring', async () => {
-  await render(<MainMenu sections={sections} />);
+  await render(menu);
+  const trigger = page.getByRole('link', { name: 'Menu', exact: true });
 
   await userEvent.tab();
 
-  await expect.element(page.getByRole('button', { name: 'Menu' })).toHaveFocus();
-  expect(
-    getComputedStyle(page.getByRole('button', { name: 'Menu' }).element()).boxShadow,
-  ).toContain('rgb(99, 102, 241)');
+  await expect.element(trigger).toHaveFocus();
+  expect(getComputedStyle(trigger.element()).boxShadow).toContain('rgb(99, 102, 241)');
   await capture('MainMenu', 'keyboard-focus');
 });
 
 test('Menu: without keyboard focus the trigger has no white ring around it', async () => {
-  await render(<MainMenu sections={sections} animationFinish />);
+  await render(menu);
 
   expect(
-    getComputedStyle(page.getByRole('button', { name: 'Menu' }).element()).boxShadow,
+    getComputedStyle(page.getByRole('link', { name: 'Menu', exact: true }).element()).boxShadow,
   ).not.toContain('rgb(255, 255, 255)');
 });
 
-test('Menu: Escape closes the menu', async () => {
-  const onOpenChange = vi.fn<(open: boolean) => void>();
-  await render(<MainMenu sections={sections} onOpenChange={onOpenChange} />);
+function runMenuScript() {
+  document.documentElement.classList.add('js');
+  const stop = enhanceMenu();
 
-  await userEvent.click(page.getByRole('button', { name: 'Menu' }));
-  await expect.element(page.getByRole('menuitem', { name: 'About me' })).toBeVisible();
-  await userEvent.keyboard('{Escape}');
+  onTestFinished(() => {
+    stop();
+    document.documentElement.classList.remove('js');
+  });
+}
 
-  await expect.element(page.getByRole('menuitem', { name: 'About me' })).not.toBeInTheDocument();
-  expect(onOpenChange).toHaveBeenLastCalledWith(false);
-});
-
-test('Menu: closing with Escape puts keyboard focus back on the trigger', async () => {
-  await render(<MainMenu sections={sections} />);
-  const trigger = page.getByRole('button', { name: 'Menu' });
+test('Menu: closing with Escape shows the focus ring back on the trigger', async () => {
+  await render(menu);
+  runMenuScript();
+  const trigger = page.getByRole('button', { name: 'Menu', exact: true });
 
   await userEvent.tab();
   await userEvent.keyboard('{Enter}');
-  await expect.element(page.getByRole('menuitem', { name: 'About me' })).toHaveFocus();
+  await expect.element(sectionLink('About me')).toHaveFocus();
   await userEvent.keyboard('{Escape}');
 
-  await expect.element(page.getByRole('menuitem', { name: 'About me' })).not.toBeInTheDocument();
+  await expect.element(sectionLink('About me', { includeHidden: true })).not.toBeVisible();
   await expect.element(trigger).toHaveFocus();
   expect(getComputedStyle(trigger.element()).boxShadow).toContain('rgb(99, 102, 241)');
   await capture('MainMenu', 'closed-by-escape');
 });
 
-test('Menu: choosing a section closes the menu and jumps to that section', async () => {
-  const onOpenChange = vi.fn<(open: boolean) => void>();
-  await render(<MainMenu sections={sections} onOpenChange={onOpenChange} />);
-
-  await userEvent.click(page.getByRole('button', { name: 'Menu' }));
-  await userEvent.click(page.getByRole('menuitem', { name: 'Projects' }));
-
-  await expect.element(page.getByRole('menuitem', { name: 'Projects' })).not.toBeInTheDocument();
-  expect(onOpenChange).toHaveBeenLastCalledWith(false);
-  expect(window.location.hash).toBe('#projects');
-});
-
 test('Menu: in Indonesian the contact link reads Kontak', async () => {
-  await render(inIndonesian(<MainMenu sections={sections} />));
+  await render(inIndonesian(menu));
 
-  await userEvent.click(page.getByRole('button', { name: 'Menu' }));
+  openMenu();
 
-  await expect
-    .element(page.getByRole('menuitem', { name: 'Kontak' }))
-    .toHaveAttribute('href', '#contact');
+  await expect.element(sectionLink('Kontak')).toHaveAttribute('href', '#contact');
 });

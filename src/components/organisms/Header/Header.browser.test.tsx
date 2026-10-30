@@ -1,46 +1,37 @@
 import { capture } from 'component-tests/capture';
 import { inIndonesian } from 'component-tests/locale';
 import Header from 'components/organisms/Header';
-import React, { useRef } from 'react';
 import { expect, test } from 'vite-plus/test';
-import { page, userEvent } from 'vite-plus/test/browser';
+import { page } from 'vite-plus/test/browser';
 import { render } from 'vitest-browser-react';
 
 const data = {
   name: 'Faqih Muntashir',
-  profilePicture: '/img/person.jpg',
+  profilePicture: { jpeg: '/img/person.jpg', avif: '/img/person.avif' },
   job: 'Fullstack Developer',
 };
 
 const text = { headerText: { greetings: 'Hello', intro: "I'm", preTitle: 'a' } };
 
-function HeaderAbovePage() {
-  const lowerSectionRef = useRef<HTMLElement | null>(null);
+test('Header: the profile picture loads as AVIF, with the JPEG as the fallback', async () => {
+  await render(<Header data={data} text={text} />);
+  const picture = page.getByRole('img', { name: 'Profile Picture' });
 
-  return (
-    <>
-      <Header data={data} text={text} lowerSectionRef={lowerSectionRef} />
-      <div style={{ height: 2000 }} />
-      <section ref={lowerSectionRef} aria-label="About">
-        About
-      </section>
-    </>
+  await expect.element(picture).toHaveAttribute('src', '/img/person.jpg');
+  await expect.poll(() => picture.element()).toHaveProperty('complete', true);
+  expect(picture.element()).toHaveProperty(
+    'currentSrc',
+    expect.stringMatching(/\/img\/person\.avif$/),
   );
-}
-
-test('Header: Scroll down brings the next section into view', async () => {
-  await render(<HeaderAbovePage />);
-  await expect.element(page.getByRole('region', { name: 'About' })).not.toBeInViewport();
-
-  await userEvent.click(page.getByRole('button', { name: 'Scroll down' }));
-
-  await expect.element(page.getByRole('region', { name: 'About' })).toBeInViewport();
-  await capture('Header', 'scrolled');
+  expect(picture.element()).toHaveProperty('naturalWidth', 480);
+  await capture('Header', 'default');
 });
 
-test('Header: in Indonesian the scroll button reads Scroll ke bawah', async () => {
-  await render(inIndonesian(<HeaderAbovePage />));
+test('Header: in Indonesian the scroll link reads Scroll ke bawah and leads to About me', async () => {
+  await render(inIndonesian(<Header data={data} text={text} />));
 
-  await expect.element(page.getByRole('button', { name: 'Scroll ke bawah' })).toBeVisible();
+  await expect
+    .element(page.getByRole('link', { name: 'Scroll ke bawah' }))
+    .toHaveAttribute('href', '#about');
   await capture('Header', 'indonesian');
 });

@@ -1,157 +1,69 @@
-import { Menu } from '@base-ui/react/menu';
-import { cn } from 'cn';
 import Animated from 'components/animations';
 import { MenuItem } from 'components/atoms';
 import Icons from 'components/icons';
 import { LanguageContext } from 'contexts';
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext } from 'react';
 
-interface Props {
-  animationFinish?: boolean;
-  sections: { about: string; projects: string; blogs: string; skills: string; contact: string };
-  onOpenChange?: (open: boolean) => void;
-  onCloseComplete?: () => void;
+export function MenuTrigger() {
+  return (
+    <div className="relative z-20 self-center ml-auto sm:ml-0">
+      <a
+        href="#menu"
+        aria-label="Menu"
+        aria-controls="menu"
+        className="menu-trigger press relative z-30 flex h-12 w-12 items-center justify-center rounded-full shadow-lg focus:outline-none focus-visible:ring-2 ring-indigo-500 focus-visible:ring-offset-2 bg-indigo-500 text-white hover:bg-indigo-600 menu-open:bg-white menu-open:text-indigo-600"
+      >
+        <Icons.Menu className="w-6 h-6 menu-open:hidden" />
+        <Icons.Close className="hidden w-6 h-6 menu-open:block" />
+      </a>
+      <a
+        href="#close-menu"
+        aria-label="Close menu"
+        className="menu-close absolute inset-0 z-30 hidden rounded-full focus:outline-none focus-visible:ring-2 ring-indigo-500 focus-visible:ring-offset-2 menu-open:block"
+      />
+    </div>
+  );
 }
 
-export default function MainMenu({
-  animationFinish,
-  sections,
-  onOpenChange,
-  onCloseComplete,
-}: Props) {
+interface Props {
+  sections: { about: string; projects: string; blogs: string; skills: string; contact: string };
+}
+
+export default function MainMenu({ sections }: Props) {
   const language = useContext(LanguageContext);
-  const shouldReduceMotion = useReducedMotion();
-  const [open, setOpen] = useState(false);
-  const [buttonAnimationFinish, setButtonAnimationFinish] = useState(false);
-  const actionsRef = useRef<Menu.Root.Actions | null>(null);
-  const closeTimeoutRef = useRef<number | undefined>(undefined);
-
-  useEffect(() => {
-    if (!animationFinish) {
-      return undefined;
-    }
-
-    const timeout = window.setTimeout(() => {
-      setButtonAnimationFinish(true);
-    }, 500);
-
-    return () => window.clearTimeout(timeout);
-  }, [animationFinish]);
-
-  const cancelPendingUnmount = () => {
-    window.clearTimeout(closeTimeoutRef.current);
-    closeTimeoutRef.current = undefined;
-  };
-
-  useEffect(() => () => window.clearTimeout(closeTimeoutRef.current), []);
-
-  const handleTriggerClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    if (event.detail === 0) {
-      return;
-    }
-
-    if (open) {
-      actionsRef.current?.close();
-
-      return;
-    }
-
-    cancelPendingUnmount();
-    setOpen(true);
-    onOpenChange?.(true);
-  };
 
   const menuItems = [
     { href: '#about', label: sections.about },
     { href: '#projects', label: sections.projects },
     { href: '#blogs', label: sections.blogs },
     { href: '#skills', label: sections.skills },
-    { href: '#contact', label: language.value === 'en' ? 'Contact' : 'Kontak' },
+    { href: '#contact', label: language === 'en' ? 'Contact' : 'Kontak' },
   ];
 
   return (
-    <div className="relative z-20 self-center ml-auto sm:ml-0">
-      <Menu.Root
-        actionsRef={actionsRef}
-        open={open}
-        onOpenChange={(nextOpen, eventDetails) => {
-          cancelPendingUnmount();
-
-          if (!nextOpen) {
-            eventDetails.preventUnmountOnClose();
-
-            closeTimeoutRef.current = window.setTimeout(
-              () => {
-                actionsRef.current?.unmount();
-                closeTimeoutRef.current = undefined;
-                onCloseComplete?.();
-              },
-              shouldReduceMotion ? 0 : 1000,
-            );
-          }
-
-          setOpen(nextOpen);
-          onOpenChange?.(nextOpen);
-        }}
+    <div id="menu" className="main-menu fixed inset-0 z-9">
+      <div
+        data-testid="menu-backdrop"
+        className="menu-backdrop absolute top-0 right-0 h-full bg-indigo-600"
+      />
+      <nav
+        aria-label="Sections"
+        className="menu-links relative flex h-full w-full items-center justify-center text-4xl font-bold text-white"
       >
-        <Menu.Trigger
-          render={<motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.8 }} />}
-          type="button"
-          aria-label="Menu"
-          onClick={handleTriggerClick}
-          onMouseDown={(event) => {
-            if (event.button === 0) {
-              event.preventBaseUIHandler();
-            }
-          }}
-          className={cn(
-            'relative z-30 flex h-12 w-12 items-center justify-center rounded-full focus:outline-none focus-visible:ring-2 ring-indigo-500 focus-visible:ring-offset-2',
-            animationFinish && 'shadow-lg',
-            animationFinish === false && 'scale-75',
-            animationFinish != null && !buttonAnimationFinish && 'menu-trigger-intro',
-            open ? 'bg-white text-indigo-600' : 'bg-indigo-500 text-white hover:bg-indigo-600',
-          )}
-        >
-          {open ? <Icons.Close className="w-6 h-6" /> : <Icons.Menu className="w-6 h-6" />}
-        </Menu.Trigger>
-        <Menu.Portal>
-          <Menu.Backdrop
-            data-testid="menu-backdrop"
-            className="menu-backdrop fixed top-0 right-0 z-10 h-full bg-indigo-600"
-          />
-          {/* The menu is a full-screen overlay; the important utilities override the anchor offset Base UI sets inline. */}
-          <Menu.Positioner className="fixed! inset-0! z-20 h-full w-full transform-none!">
-            <Menu.Popup className="fixed inset-0 z-20 flex h-full w-full items-center justify-center text-4xl font-bold text-white focus:outline-none">
-              <AnimatePresence>
-                {open && (
-                  <div className="grid gap-x-32 gap-y-10">
-                    {menuItems.map((item, index) => (
-                      <Menu.LinkItem
-                        key={item.href}
-                        href={item.href}
-                        closeOnClick
-                        className="group relative inline-flex rounded-lg focus:outline-none"
-                      >
-                        <Animated.FromDirection
-                          from="bottom"
-                          initial={shouldReduceMotion ? false : 'hidden'}
-                          animate="show"
-                          exit={{ opacity: 0 }}
-                          custom={index + 1}
-                          delay={shouldReduceMotion ? 0 : 0.2}
-                        >
-                          <MenuItem>{item.label}</MenuItem>
-                        </Animated.FromDirection>
-                      </Menu.LinkItem>
-                    ))}
-                  </div>
-                )}
-              </AnimatePresence>
-            </Menu.Popup>
-          </Menu.Positioner>
-        </Menu.Portal>
-      </Menu.Root>
+        <div className="grid gap-x-32 gap-y-10">
+          {menuItems.map((item, index) => (
+            <a
+              key={item.href}
+              href={item.href}
+              className="group relative inline-flex rounded-lg focus:outline-none"
+            >
+              <Animated.FromDirection from="bottom" custom={index + 1} delay={0.2}>
+                <MenuItem>{item.label}</MenuItem>
+              </Animated.FromDirection>
+            </a>
+          ))}
+        </div>
+      </nav>
     </div>
   );
 }
