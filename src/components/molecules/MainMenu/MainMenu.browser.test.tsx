@@ -99,6 +99,21 @@ test('Menu: Escape closes the menu', async () => {
   expect(onOpenChange).toHaveBeenLastCalledWith(false);
 });
 
+test('Menu: closing with Escape puts keyboard focus back on the trigger', async () => {
+  await render(<MainMenu sections={sections} />);
+  const trigger = page.getByRole('button', { name: 'Menu' });
+
+  await userEvent.tab();
+  await userEvent.keyboard('{Enter}');
+  await expect.element(page.getByRole('menuitem', { name: 'About me' })).toHaveFocus();
+  await userEvent.keyboard('{Escape}');
+
+  await expect.element(page.getByRole('menuitem', { name: 'About me' })).not.toBeInTheDocument();
+  await expect.element(trigger).toHaveFocus();
+  expect(getComputedStyle(trigger.element()).boxShadow).toContain('rgb(99, 102, 241)');
+  await capture('MainMenu', 'closed-by-escape');
+});
+
 test('Menu: choosing a section closes the menu and jumps to that section', async () => {
   const onOpenChange = vi.fn<(open: boolean) => void>();
   await render(<MainMenu sections={sections} onOpenChange={onOpenChange} />);
