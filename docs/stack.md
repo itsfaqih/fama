@@ -2,23 +2,23 @@
 
 The tools this project uses, chosen with the user during setup. The other docs name the job; this table says which tool does it.
 
-| Job | Tool |
-| --- | --- |
-| Toolchain and task runner | Vite+ (`vp`), with `vp run <script>` for `package.json` scripts |
-| Dependency manager | pnpm (through `vp install` / `vp add`) |
-| Dev-server ports and URLs | portless (`vp run dev` serves `https://fama.localhost`, `https://<branch>.fama.localhost` in a linked worktree) |
-| Web frontend | React 19 on Vite (through Vite+) |
-| Interactive UI primitives | Base UI |
-| Animation | Motion (`motion/react`) |
-| Styling | Tailwind CSS 4 |
-| Linter | Oxlint (through `vp lint`), with the vendored anti-slop plugin |
-| Formatter | Oxfmt (through `vp fmt`) |
-| Type checker | tsc (TypeScript 7) |
-| Unit test runner | Vitest (through `vp test`), `unit` project |
-| Component test runner | Vitest browser mode with the Playwright provider (headless Chromium), `components` project |
-| Browser driver for agents | agent-browser (global CLI) |
-| PR descriptions and evidence | GitHub CLI (`gh`, 2.101 or later) |
-| Hosting | Cloudflare Pages (static `dist/`) |
+| Job                          | Tool                                                                                                            |
+| ---------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| Toolchain and task runner    | Vite+ (`vp`), with `vp run <script>` for `package.json` scripts                                                 |
+| Dependency manager           | pnpm (through `vp install` / `vp add`)                                                                          |
+| Dev-server ports and URLs    | portless (`vp run dev` serves `https://fama.localhost`, `https://<branch>.fama.localhost` in a linked worktree) |
+| Web frontend                 | React 19 on Vite (through Vite+)                                                                                |
+| Interactive UI primitives    | Base UI                                                                                                         |
+| Animation                    | Motion (`motion/react`)                                                                                         |
+| Styling                      | Tailwind CSS 4                                                                                                  |
+| Linter                       | Oxlint (through `vp lint`), with the vendored anti-slop plugin                                                  |
+| Formatter                    | Oxfmt (through `vp fmt`)                                                                                        |
+| Type checker                 | tsc (TypeScript 7)                                                                                              |
+| Unit test runner             | Vitest (through `vp test`), `unit` project                                                                      |
+| Component test runner        | Vitest browser mode with the Playwright provider (headless Chromium), `components` project                      |
+| Browser driver for agents    | agent-browser (global CLI)                                                                                      |
+| PR descriptions and evidence | GitHub CLI (`gh`, 2.101 or later)                                                                               |
+| Hosting                      | Cloudflare Pages (static `dist/`)                                                                               |
 
 Jobs this project does not have: backend, infrastructure as code, schema validation (no input crosses a boundary: no fetch, storage, or env), dependency containers, API and cloud emulation, web e2e runner (the user chose component tests), logging and analytics (no server), mutation and property-based testing (declined), pre-commit hooks (declined; lint runs in CI).
 
