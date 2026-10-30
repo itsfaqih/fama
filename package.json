@@ -19,7 +19,7 @@
     "react-intersection-observer": "^11.0.1"
   },
   "scripts": {
-    "setup": "vp install && playwright install chromium",
+    "setup": "vp install && vp exec playwright install chromium",
     "dev": "portless run vp dev",
     "start": "portless run vp dev",
     "build": "vp build",
