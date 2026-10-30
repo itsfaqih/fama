@@ -1,14 +1,24 @@
 import { Container } from 'components/atoms';
-import { About, Blogs, Contact, Header, Navigation, Projects, Skills } from 'components/organisms';
+import {
+  About,
+  Blogs,
+  Contact,
+  Header,
+  Navigation,
+  Notice,
+  Projects,
+  Skills,
+} from 'components/organisms';
 import { AboutSectionContentProps } from 'components/organisms/About/types';
 import { BlogsSectionContentProps } from 'components/organisms/Blogs/types';
 import { ContactSectionContentProps } from 'components/organisms/Contact/types';
 import HeaderProps from 'components/organisms/Header/types';
 import { ProjectsSectionContentProps } from 'components/organisms/Projects/types';
 import { SkillsSectionContentProps } from 'components/organisms/Skills/types';
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 interface Props {
+  notice?: ReactNode;
   data: {
     header: HeaderProps;
     about: AboutSectionContentProps;
@@ -20,13 +30,14 @@ interface Props {
   sections: { about: string; projects: string; blogs: string; skills: string; contact: string };
 }
 
-export default function Landing({ data, sections }: Props) {
+export default function Landing({ notice, data, sections }: Props) {
   const { header, about, projects, blogs, skills, contact } = data;
 
   return (
     <>
-      <Navigation className="fixed z-10 top-8" sections={sections} />
-      <Container className="pt-32">
+      {notice && <Notice text={notice} />}
+      <Navigation className="sticky z-10 top-8 mt-8" sections={sections} />
+      <Container className="pt-12">
         <div className="flex flex-wrap">
           <main className="w-full mt-12">
             <Header data={header.data} text={header.text} />

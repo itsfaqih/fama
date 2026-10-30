@@ -5,5 +5,6 @@ import Blogs from 'components/organisms/Blogs';
 import Skills from 'components/organisms/Skills';
 import Contact from 'components/organisms/Contact';
 import Navigation from 'components/organisms/Navigation';
+import Notice from 'components/organisms/Notice';
 
-export { Header, About, Projects, Blogs, Skills, Contact, Navigation };
+export { Header, About, Projects, Blogs, Skills, Contact, Navigation, Notice };

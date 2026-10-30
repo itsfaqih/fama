@@ -60,12 +60,14 @@ All personal content lives in a few files. Edit them, then run the tests (see
 | Skill logos and their links                     | `src/data/skills.tsx`                             |
 | Email and GitHub, LinkedIn, Dribbble links      | `src/data/contact.ts`                             |
 | Greeting, section titles, About and Skills text | `src/localization/en/` and `src/localization/id/` |
+| Notice bar above the page                       | `notice.tsx` in each localization folder          |
 | Page title and description                      | `index.html`                                      |
 | App name for home-screen installs               | `public/manifest.json`                            |
 | README preview image                            | `.github/preview.png`                             |
 
 The resume, **See more** and **More article** links are optional. Leave one out
-and its button disappears. Each project's `type` picks the icon on its card:
+and its button disappears. Set `notice` to `null` in both languages to remove the
+notice bar. Each project's `type` picks the icon on its card:
 `github`, `dribbble`, `figma` or `web`. The three social networks are fixed in
 `src/components/organisms/Contact/types.ts`; change them there and in the
 Contact component.

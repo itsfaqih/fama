@@ -1,7 +1,6 @@
 import Animated from 'components/animations';
 import { LanguageSwitch, MainMenu, MenuTrigger } from 'components/molecules';
 import React from 'react';
-import { cn } from 'cn';
 import { Container } from 'components/atoms';
 
 interface Props {
@@ -12,8 +11,8 @@ interface Props {
 export default function Navigation({ sections, className }: Props) {
   return (
     <>
-      <nav data-in>
-        <Animated.FromDirection from="top" className={cn('w-full', className)} duration={1}>
+      <nav data-in className={className}>
+        <Animated.FromDirection from="top" className="w-full" duration={1}>
           <Container className="flex">
             <div className="flex self-center flex-1 pr-8">
               <div className="sm:ml-auto">

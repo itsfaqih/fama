@@ -1,4 +1,4 @@
-import { chromium, type Browser, type Page } from 'playwright';
+import { chromium, type Browser, type Locator, type Page } from 'playwright';
 import { afterAll, beforeAll, expect, onTestFinished, test } from 'vite-plus/test';
 import { codePointRanges } from '../fonts/unicode-range.ts';
 import { serveDist } from './serve.ts';
@@ -64,6 +64,16 @@ const inViewport = (page: Page, selector: string) =>
 
 const menuLink = (page: Page, name: string) =>
   page.getByRole('navigation', { name: 'Sections' }).getByRole('link', { name, exact: true });
+
+// Locator.click() first scrolls its target to the viewport's end, which moves the page for the sticky nav; a mouse clicks where the target already is, once it has finished animating in.
+async function clickInPlace(locator: Locator) {
+  await locator.evaluate(() =>
+    Promise.all(document.getAnimations().map(({ finished }) => finished)),
+  );
+  const box = (await locator.boundingBox())!;
+
+  await locator.page().mouse.click(box.x + box.width / 2, box.y + box.height / 2);
+}
 
 const sectionIds = ['about', 'projects', 'blogs', 'skills', 'contact'];
 
@@ -187,6 +197,25 @@ test('Without JavaScript Scroll down jumps to About me', async () => {
   await expect.poll(() => inViewport(page, '#about')).toBe(true);
 });
 
+test.each(['/', '/id/'])(
+  'On %s the notice links to itsfaqih.dev and the menu button sits below it, then stays 32px from the top',
+  async (path) => {
+    const page = await open(path, { javaScript: false });
+    const notice = page.locator('[data-notice]');
+    const menuButton = page.getByRole('link', { name: 'Menu', exact: true });
+
+    await expect
+      .poll(() => notice.getByRole('link', { name: 'itsfaqih.dev' }).getAttribute('href'))
+      .toBe('https://itsfaqih.dev');
+    const noticeBottom = (await notice.boundingBox())!.y + (await notice.boundingBox())!.height;
+    expect((await menuButton.boundingBox())!.y).toBeGreaterThanOrEqual(noticeBottom + 32);
+
+    await page.locator('#blogs').scrollIntoViewIfNeeded();
+    await expect.poll(async () => (await notice.boundingBox())!.y).toBeLessThan(0);
+    expect((await menuButton.boundingBox())!.y).toBe(32);
+  },
+);
+
 test('With JavaScript the menu button opens the menu without touching the address', async () => {
   const page = await open('/');
   const trigger = page.getByRole('button', { name: 'Menu' });
@@ -236,8 +265,8 @@ test('With JavaScript switching language keeps the reader at the same place', as
 
   const scrollY = await page.evaluate(() => window.scrollY);
 
-  await page.locator('summary').click();
-  await page.getByRole('link', { name: 'Indonesia' }).click();
+  await clickInPlace(page.locator('summary'));
+  await clickInPlace(page.getByRole('link', { name: 'Indonesia' }));
   await page.waitForURL(`${site.url}/id/`);
 
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(scrollY);

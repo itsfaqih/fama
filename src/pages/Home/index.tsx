@@ -13,12 +13,14 @@ import {
   header as headerEn,
   about as aboutEn,
   skills as skillsEn,
+  notice as noticeEn,
 } from 'localization/en';
 import {
   sections as sectionsId,
   header as headerId,
   about as aboutId,
   skills as skillsId,
+  notice as noticeId,
 } from 'localization/id';
 import React, { useContext } from 'react';
 
@@ -33,6 +35,7 @@ export default function Home() {
       header: headerEn,
       about: aboutEn,
       skills: skillsEn,
+      notice: noticeEn,
     };
   } else {
     locale = {
@@ -40,11 +43,13 @@ export default function Home() {
       header: headerId,
       about: aboutId,
       skills: skillsId,
+      notice: noticeId,
     };
   }
 
   return (
     <Landing
+      notice={locale.notice}
       sections={locale.sections}
       data={{
         header: {
