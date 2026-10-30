@@ -18,7 +18,7 @@ export default function FullRoundButton({
   const [animationFinish, setAnimationFinish] = useState(false);
 
   const classes = cn(
-    'flex items-center justify-center w-12 h-12 rounded-full focus:outline-none focus:ring-2 ring-indigo-500 ring-offset-2',
+    'flex items-center justify-center w-12 h-12 rounded-full focus:outline-none focus:ring-2 ring-indigo-500 focus:ring-offset-2',
     className,
     {
       'shadow-lg': animationComplete,
