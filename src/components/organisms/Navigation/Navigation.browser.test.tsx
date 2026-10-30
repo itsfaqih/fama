@@ -28,22 +28,25 @@ test('Navigation: choosing Indonesia switches the locale to id', async () => {
   expect(change).toHaveBeenCalledExactlyOnceWith('id');
 });
 
-test('Navigation: the open menu hides the language select', async () => {
+test('Navigation: the language select stays visible while the menu is open and still switches the locale', async () => {
+  const change = vi.fn<(lang: 'en' | 'id') => void>();
   await render(
     <Navigation
       className="fixed z-10 top-8"
-      locale={{ value: 'en', change: () => {} }}
+      locale={{ value: 'en', change }}
       sections={sections}
     />,
   );
 
   await userEvent.click(page.getByRole('button', { name: 'Menu' }));
-
   await expect.element(page.getByRole('menuitem', { name: 'About me' })).toBeVisible();
-  await expect
-    .element(page.getByRole('combobox', { name: 'Language', includeHidden: true }))
-    .not.toBeVisible();
+  await expect.element(page.getByRole('combobox', { name: 'Language' })).toBeVisible();
   await capture('Navigation', 'menu-open');
+
+  await userEvent.click(page.getByRole('combobox', { name: 'Language' }));
+  await userEvent.click(page.getByRole('option', { name: 'Indonesia' }));
+
+  expect(change).toHaveBeenCalledExactlyOnceWith('id');
 });
 
 test('Navigation: closing the menu with the mouse leaves no focus ring on the trigger', async () => {
@@ -94,5 +97,4 @@ test('Navigation: the menu button stays above the overlay while it slides shut',
   expect(topmost?.closest('[aria-label="Menu"]')).toBe(trigger.element());
   await capture('Navigation', 'menu-closing');
   await expect.element(page.getByTestId('menu-backdrop')).not.toBeInTheDocument();
-  await expect.element(page.getByRole('combobox', { name: 'Language' })).toBeVisible();
 });

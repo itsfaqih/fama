@@ -46,7 +46,6 @@ export default function Navigation({ locale, sections, className }: Props) {
               <TextSelect
                 state={[selectedLanguage, setSelectedLanguage]}
                 options={languageOptions}
-                className={menuShown ? 'invisible' : undefined}
               />
             </div>
           </div>
