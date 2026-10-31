@@ -4,7 +4,6 @@ import { spring } from 'motion';
 // because Motion's rest thresholds (and so the settle time) depend on that distance.
 const springs = {
   letter: { keyframes: [100, 0], stiffness: 100, damping: 15 },
-  cover: { keyframes: [0, 100], stiffness: 500, damping: 25, restSpeed: 10 },
   lift: { keyframes: [0, 10], stiffness: 500, damping: 25, restSpeed: 10 },
   press: { keyframes: [1, 1.1], stiffness: 550, damping: 30, restSpeed: 10 },
 };

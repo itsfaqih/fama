@@ -16,3 +16,14 @@ test('Reveal: the cover leaves no sliver beside the text once the wipe ends', as
   expect(getComputedStyle(container.querySelector('.reveal-cover')!).visibility).toBe('hidden');
   await capture('Reveal', 'revealed');
 });
+
+test('Reveal: the cover slides out on an ease-out curve that never overshoots', async () => {
+  const { container } = await render(
+    <Animated.Reveal from="left">I have written most of my code in TypeScript.</Animated.Reveal>,
+  );
+
+  const cover = getComputedStyle(container.querySelector('.reveal-cover')!);
+
+  expect(cover.getPropertyValue('--ease')).toBe('cubic-bezier(0, 0, 0.58, 1)');
+  expect(cover.getPropertyValue('--duration')).toBe('0.45s');
+});

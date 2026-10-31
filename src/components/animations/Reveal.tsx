@@ -20,7 +20,7 @@ export default function Reveal({
   from,
   custom = 1,
   delay = 0.6,
-  duration,
+  duration = 0.45,
   className,
 }: Props) {
   const [x, y] = coverOffsets[from];
@@ -34,8 +34,8 @@ export default function Reveal({
           '--to-x': x,
           '--to-y': y,
           '--delay': `${custom * delay}s`,
-          '--duration': duration === undefined ? 'var(--spring-cover-duration)' : `${duration}s`,
-          '--ease': duration === undefined ? 'var(--spring-cover)' : 'var(--motion-ease-out)',
+          '--duration': `${duration}s`,
+          '--ease': 'var(--motion-ease-out)',
         }}
       />
     </div>
