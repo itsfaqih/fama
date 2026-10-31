@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import 'lenis/dist/lenis.css';
 
 @custom-variant menu-open (:root:is([data-menu-open], :not(.js):has(#menu:target)) &);
 
@@ -399,6 +400,47 @@ a:is(:hover, :focus-visible) .menu-item-highlight {
     opacity: 1;
     visibility: visible;
     transition: none;
+  }
+}
+
+:root[data-scroll-thumb] {
+  scrollbar-width: none;
+}
+
+.scroll-thumb {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 50;
+  width: 14px;
+  opacity: 0;
+  pointer-events: none;
+  touch-action: none;
+  transition: opacity 400ms var(--motion-keyframes-ease);
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0 4px;
+    border-radius: 9999px;
+    background: rgb(107 114 128 / 0.55);
+    transition: inset 150ms var(--motion-ease-out);
+  }
+
+  &[data-visible] {
+    opacity: 1;
+    pointer-events: auto;
+    transition-duration: 150ms;
+  }
+
+  &:hover::before,
+  &:active::before {
+    inset: 0 3px;
+    background: rgb(75 85 99 / 0.7);
+  }
+
+  @variant menu-open {
+    visibility: hidden;
   }
 }
 

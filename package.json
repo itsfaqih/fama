@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "cn": "^0.2.5",
+    "lenis": "1.3.27",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },

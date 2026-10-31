@@ -363,3 +363,138 @@ test('With site data blocked the sections still show and the menu still opens', 
   await page.getByRole('button', { name: 'Menu' }).click();
   await menuLink(page, 'About me').waitFor({ state: 'visible' });
 });
+
+const scrollY = (page: Page) => page.evaluate(() => window.scrollY);
+
+const scrollYOverFrames = (page: Page, frames: number) =>
+  page.evaluate(
+    (count) =>
+      new Promise<number[]>((resolve) => {
+        const samples: number[] = [];
+
+        const sample = () => {
+          samples.push(window.scrollY);
+
+          if (samples.length < count) {
+            requestAnimationFrame(sample);
+          } else {
+            resolve(samples);
+          }
+        };
+
+        requestAnimationFrame(sample);
+      }),
+    frames,
+  );
+
+const thumb = (page: Page) => page.getByTestId('scroll-thumb');
+
+const thumbEdges = (page: Page) =>
+  thumb(page).evaluate((element) => {
+    const { top, bottom } = element.getBoundingClientRect();
+
+    return { top: Math.round(top), bottom: Math.round(bottom) };
+  });
+
+const thumbOpacity = (page: Page) =>
+  thumb(page).evaluate((element) => Number(getComputedStyle(element).opacity));
+
+test('With JavaScript a wheel scroll glides on after the wheel stops', async () => {
+  const page = await open('/', { motion: true });
+
+  await page.mouse.move(640, 360);
+  await page.mouse.wheel(0, 600);
+
+  const midGlide = await page.evaluate(
+    () =>
+      new Promise<number>((resolve) =>
+        requestAnimationFrame(() => requestAnimationFrame(() => resolve(window.scrollY))),
+      ),
+  );
+
+  expect(midGlide).toBeGreaterThan(0);
+  expect(midGlide).toBeLessThan(600);
+  await expect.poll(() => scrollY(page), { timeout: 3000 }).toBe(600);
+});
+
+test('With reduced motion a wheel scroll lands without gliding', async () => {
+  const page = await open('/');
+
+  await page.mouse.move(640, 360);
+  await page.mouse.wheel(0, 600);
+
+  await expect.poll(() => scrollY(page)).toBe(600);
+});
+
+test('With JavaScript the open menu keeps the page from scrolling under it', async () => {
+  const page = await open('/', { motion: true });
+
+  await page.getByRole('button', { name: 'Menu' }).click();
+  await menuLink(page, 'About me').waitFor({ state: 'visible' });
+  const before = await scrollY(page);
+
+  await page.mouse.move(640, 360);
+  await page.mouse.wheel(0, 600);
+
+  expect(new Set(await scrollYOverFrames(page, 30))).toEqual(new Set([before]));
+});
+
+test('With JavaScript the page swaps the native scrollbar for its own thumb', async () => {
+  const page = await open('/');
+
+  expect(await page.evaluate(() => getComputedStyle(document.documentElement).scrollbarWidth)).toBe(
+    'none',
+  );
+  await expect.poll(() => thumbOpacity(page)).toBe(0);
+});
+
+test('Without JavaScript the page keeps the native scrollbar', async () => {
+  const page = await open('/', { javaScript: false });
+
+  expect(await page.evaluate(() => getComputedStyle(document.documentElement).scrollbarWidth)).toBe(
+    'auto',
+  );
+});
+
+test('With JavaScript the scroll thumb shows while scrolling and fades once scrolling stops', async () => {
+  const page = await open('/');
+
+  await page.mouse.move(640, 360);
+  await page.mouse.wheel(0, 600);
+
+  await expect.poll(() => thumbOpacity(page)).toBe(1);
+  await expect.poll(() => thumbOpacity(page), { timeout: 3000 }).toBe(0);
+});
+
+test('With JavaScript the scroll thumb shows while the cursor is near it', async () => {
+  const page = await open('/');
+
+  await page.mouse.move(1270, 360);
+  await expect.poll(() => thumbOpacity(page)).toBe(1);
+
+  await page.mouse.move(640, 360);
+  await expect.poll(() => thumbOpacity(page), { timeout: 3000 }).toBe(0);
+});
+
+test('With JavaScript the scroll thumb tracks the page and dragging it scrolls', async () => {
+  const page = await open('/');
+
+  const maxScroll = await page.evaluate(
+    () => document.documentElement.scrollHeight - window.innerHeight,
+  );
+
+  await page.evaluate((y) => window.scrollTo(0, y), maxScroll);
+  await expect.poll(async () => (await thumbEdges(page)).bottom).toBe(716);
+
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await expect.poll(async () => (await thumbEdges(page)).top).toBe(4);
+
+  const box = (await thumb(page).boundingBox())!;
+
+  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(box.x + box.width / 2, 720, { steps: 5 });
+  await page.mouse.up();
+
+  await expect.poll(() => scrollY(page)).toBe(maxScroll);
+});
