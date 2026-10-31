@@ -308,6 +308,7 @@
 
 .js [data-in] .reveal-cover {
   translate: var(--to-x, 0) var(--to-y, 0);
+  visibility: hidden;
   animation: cover var(--duration) var(--ease) var(--delay) backwards;
 }
 
@@ -352,6 +353,11 @@
 @keyframes cover {
   from {
     translate: none;
+    visibility: visible;
+  }
+
+  to {
+    visibility: visible;
   }
 }
 
