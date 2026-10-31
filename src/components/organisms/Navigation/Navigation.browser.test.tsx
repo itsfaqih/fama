@@ -26,19 +26,30 @@ function topmostAtCentreOf(element: Element) {
   return document.elementFromPoint(left + width / 2, top + height / 2);
 }
 
-test('Navigation: with the menu open the language switch stays on top and opens its list', async () => {
+test('Navigation: the open menu covers the language switch and leaves the menu button on top', async () => {
   await render(navigation);
-  document.documentElement.setAttribute('data-menu-open', '');
-  onTestFinished(() => document.documentElement.removeAttribute('data-menu-open'));
-  const languageSwitch = page.getByText('Language: English', { exact: true });
+  runMenuScript();
+  const trigger = page.getByRole('button', { name: 'Menu', exact: true });
+
+  await userEvent.click(trigger);
 
   await expect.element(sectionLink('About me')).toBeVisible();
-  expect(topmostAtCentreOf(languageSwitch.element())?.closest('summary')).toBe(
-    languageSwitch.element(),
-  );
+  const languageSwitch = page.getByText('Language: English', { exact: true }).element();
+  expect(topmostAtCentreOf(languageSwitch)?.closest('#menu')).toBe(document.getElementById('menu'));
+  expect(topmostAtCentreOf(trigger.element())?.closest('a')).toBe(trigger.element());
   await capture('Navigation', 'menu-open');
+});
 
-  await userEvent.click(languageSwitch);
+test('Navigation: closing the menu leaves the language switch clickable', async () => {
+  await render(navigation);
+  runMenuScript();
+  const trigger = page.getByRole('button', { name: 'Menu', exact: true });
+
+  await userEvent.click(trigger);
+  await expect.element(sectionLink('About me')).toBeVisible();
+  await userEvent.click(trigger);
+  await expect.element(sectionLink('About me', { includeHidden: true })).not.toBeVisible();
+  await userEvent.click(page.getByText('Language: English', { exact: true }));
 
   await expect.element(page.getByRole('link', { name: 'Indonesia' })).toBeVisible();
 });

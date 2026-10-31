@@ -6,7 +6,7 @@ import React, { useContext } from 'react';
 
 export function MenuTrigger() {
   return (
-    <div className="relative z-20 self-center ml-auto sm:ml-0">
+    <div className="relative">
       <a
         href="#menu"
         aria-label="Menu"
