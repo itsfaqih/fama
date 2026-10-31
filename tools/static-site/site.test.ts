@@ -232,12 +232,12 @@ test('With JavaScript the menu button opens the menu without touching the addres
   expect(await trigger.getAttribute('aria-expanded')).toBe('false');
 });
 
-test('With JavaScript the menu links slide in each time the menu opens', async () => {
-  const page = await open('/', { motion: true });
+/** The entrance animations running on the first menu link right after each of two opens. */
+async function menuEntranceOnTwoOpens(page: Page, firstLink: string) {
   const trigger = page.getByRole('button', { name: 'Menu' });
 
   const runningEntrance = () =>
-    menuLink(page, 'About me').evaluate((link) =>
+    menuLink(page, firstLink).evaluate((link) =>
       link
         .querySelector('.from')!
         .getAnimations()
@@ -249,13 +249,36 @@ test('With JavaScript the menu links slide in each time the menu opens', async (
 
   await allAnimationsFinished();
   await trigger.click();
-  expect(await runningEntrance()).toEqual(['from']);
+  const first = await runningEntrance();
 
   await allAnimationsFinished();
   await trigger.click();
-  await menuLink(page, 'About me').waitFor({ state: 'hidden' });
+  await menuLink(page, firstLink).waitFor({ state: 'hidden' });
   await trigger.click();
-  expect(await runningEntrance()).toEqual(['from']);
+
+  return [first, await runningEntrance()];
+}
+
+test('With JavaScript the menu links slide in each time the menu opens', async () => {
+  const page = await open('/', { motion: true });
+
+  expect(await menuEntranceOnTwoOpens(page, 'About me')).toEqual([['from'], ['from']]);
+});
+
+test('With JavaScript the Indonesian menu links slide in each time the menu opens', async () => {
+  const page = await open('/id/', { motion: true });
+
+  expect(await menuEntranceOnTwoOpens(page, 'Tentang saya')).toEqual([['from'], ['from']]);
+});
+
+test('With JavaScript the menu links still slide in after switching to Indonesian', async () => {
+  const page = await open('/', { motion: true });
+
+  await clickInPlace(page.locator('summary'));
+  await clickInPlace(page.getByRole('link', { name: 'Indonesia' }));
+  await page.waitForURL(`${site.url}/id/`);
+
+  expect(await menuEntranceOnTwoOpens(page, 'Tentang saya')).toEqual([['from'], ['from']]);
 });
 
 test('With JavaScript Enter opens the menu on its first link and Escape returns to the button', async () => {
