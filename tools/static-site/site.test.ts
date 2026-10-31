@@ -97,6 +97,52 @@ test.each(['/', '/id/'])('Every character on %s is in the subset font', async (p
   expect(missing).toEqual([]);
 });
 
+const icons = [
+  { rel: 'icon', file: '/favicon.ico', size: '32x32' },
+  { rel: 'icon', file: '/favicon.svg', size: 'any' },
+  { rel: 'apple-touch-icon', file: '/apple-touch-icon.png', size: '180x180' },
+  { rel: 'manifest', file: '/icon-192.png', size: '192x192' },
+  { rel: 'manifest', file: '/icon-512.png', size: '512x512' },
+  { rel: 'manifest', file: '/icon-maskable-512.png', size: '512x512' },
+];
+
+test.each(['/', '/id/'])('%s links a favicon, a touch icon and app icons', async (path) => {
+  const page = await open(path, { javaScript: false });
+
+  const linked = await page
+    .locator('link[rel~="icon"], link[rel="apple-touch-icon"]')
+    .evaluateAll((links: HTMLLinkElement[]) =>
+      links.map((link) => ({ rel: link.rel, file: link.getAttribute('href') })),
+    );
+
+  expect(linked).toEqual(
+    icons.flatMap(({ rel, file }) => (rel === 'manifest' ? [] : [{ rel, file }])),
+  );
+
+  const manifest: unknown = await (await page.request.get(`${site.url}/manifest.json`)).json();
+
+  expect(manifest).toMatchObject({
+    icons: icons.flatMap(({ rel, file, size }) =>
+      rel === 'manifest' ? [{ src: file, sizes: size, type: 'image/png' }] : [],
+    ),
+  });
+});
+
+test.each(icons)('$file decodes at $size', async ({ file, size }) => {
+  const page = await open('/', { javaScript: false });
+
+  const decoded = await page.evaluate(async (src) => {
+    const image = new Image();
+
+    image.src = src;
+    await image.decode();
+
+    return `${image.naturalWidth}x${image.naturalHeight}`;
+  }, file);
+
+  expect(decoded).toBe(size === 'any' ? '150x150' : size);
+});
+
 test.each([
   ['/', 'en', ['About me', 'Projects', 'Blogs', 'Skills', 'Get in touch']],
   ['/id/', 'id', ['Tentang saya', 'Proyek', 'Blog', 'Kemampuan', 'Hubungi saya']],
