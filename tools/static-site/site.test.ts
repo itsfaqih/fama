@@ -17,12 +17,12 @@ afterAll(async () => {
   await site.close();
 });
 
-async function open(path: string, { javaScript = true, storage = true } = {}) {
+async function open(path: string, { javaScript = true, storage = true, motion = false } = {}) {
   const context = await browser.newContext({
     viewport: { width: 1280, height: 720 },
     javaScriptEnabled: javaScript,
     ignoreHTTPSErrors: true,
-    reducedMotion: 'reduce',
+    reducedMotion: motion ? 'no-preference' : 'reduce',
   });
 
   context.setDefaultTimeout(5000);
@@ -230,6 +230,32 @@ test('With JavaScript the menu button opens the menu without touching the addres
   await trigger.click();
   await menuLink(page, 'About me').waitFor({ state: 'hidden' });
   expect(await trigger.getAttribute('aria-expanded')).toBe('false');
+});
+
+test('With JavaScript the menu links slide in each time the menu opens', async () => {
+  const page = await open('/', { motion: true });
+  const trigger = page.getByRole('button', { name: 'Menu' });
+
+  const runningEntrance = () =>
+    menuLink(page, 'About me').evaluate((link) =>
+      link
+        .querySelector('.from')!
+        .getAnimations()
+        .map((animation) => (animation instanceof CSSAnimation ? animation.animationName : '')),
+    );
+
+  const allAnimationsFinished = () =>
+    page.evaluate(() => Promise.all(document.getAnimations().map(({ finished }) => finished)));
+
+  await allAnimationsFinished();
+  await trigger.click();
+  expect(await runningEntrance()).toEqual(['from']);
+
+  await allAnimationsFinished();
+  await trigger.click();
+  await menuLink(page, 'About me').waitFor({ state: 'hidden' });
+  await trigger.click();
+  expect(await runningEntrance()).toEqual(['from']);
 });
 
 test('With JavaScript Enter opens the menu on its first link and Escape returns to the button', async () => {

@@ -257,6 +257,11 @@
   animation: from var(--duration) var(--motion-ease-out) var(--delay) backwards;
 }
 
+/* The menu sits inside the nav's [data-in]; holding its entrance until menu.ts sets #menu[data-in] replays it on every open. */
+.js .main-menu:not([data-in]) :is(.from, .from-clip) {
+  animation: none;
+}
+
 .js .fade {
   opacity: 0;
 }
